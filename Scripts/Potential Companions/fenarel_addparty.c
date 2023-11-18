@@ -46,7 +46,7 @@ void main()
        UT_HireFollower(oCreature);
     }
 
-   //Set Follower to the active party(Important)
+    //Set Follower to the active party(Important)
     WR_SetFollowerState(oCreature, FOLLOWER_STATE_ACTIVE);
 
     //Show Party Picker
