@@ -7,7 +7,7 @@
         runscript fenarel_addparty   
        
      Note: 
-        His start conversation flag will be changed to a proper flag
+        His start conversation flag is changed to a proper flag
 
      */
 //---------------------------------------------------------------------
@@ -32,18 +32,25 @@ void main()
        oCreature = CreateObject(OBJECT_TYPE_CREATURE, R"bed200cr_fenarel.utc", GetLocation(OBJECT_SELF));
     }
 
-    //Set Flag
+    //Set Conversation Flag
     WR_SetPlotFlag(PLT_BED000PT_MAIN,9,TRUE);
 
     //Allow the follower to gain xp
     SetLocalInt(oCreature, CREATURE_REWARD_FLAGS, 0);
+
+    //Cancel Auto level up
+    SetAutoLevelUp(oCreature,0);
 
     //Hire NPC
     if(GetFollowerState(oCreature) != FOLLOWER_STATE_ACTIVE){
        UT_HireFollower(oCreature);
     }
 
+   //Set Follower to the active party(Important)
+    WR_SetFollowerState(oCreature, FOLLOWER_STATE_ACTIVE);
+
     //Show Party Picker
     SetPartyPickerGUIStatus(2);
     ShowPartyPickerGUI();
+}
 

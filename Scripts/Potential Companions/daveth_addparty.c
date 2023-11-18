@@ -7,8 +7,9 @@
         runscript daveth_addparty 
         
      Note:
-        Daveth doesnt need to set conversation flag, 
-        his conversation started at good flag without any game-breaking or fixed-location option
+        
+        Changing his conversation flag before the end of joining story will cause trouble because 
+        his flag is key part for main story, hence I will not change his flag. 
 
      */
 //---------------------------------------------------------------------
@@ -34,10 +35,16 @@ void main()
     //Allow the follower to gain xp
     SetLocalInt(oCreature, CREATURE_REWARD_FLAGS, 0);
 
+   //Cancel Auto level up
+    SetAutoLevelUp(oCreature,0);
+
     //Hire NPC
     if(GetFollowerState(oCreature) != FOLLOWER_STATE_ACTIVE){
        UT_HireFollower(oCreature);
     }
+
+   //Set Follower to the active party(Important)
+   WR_SetFollowerState(oCreature, FOLLOWER_STATE_ACTIVE);
 
     //Show Party Picker
     SetPartyPickerGUIStatus(2);
