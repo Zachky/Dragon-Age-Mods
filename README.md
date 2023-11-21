@@ -6,7 +6,7 @@ Here you will find all possible resource I made for "Compatibility patch for all
 
 ### Scripts -- HireCompanion
 
-To hire NPC from core environment, you will have to create new script under "single player" module ![single player](https://github.com/Zachky/Dragon-Age-Mods/blob/main/Image%Library/Hire%Companion/Single%Player%Module.JPG)
+To hire NPC from core environment, you will have to create new script under "single player" module ![single player](https://github.com/Zachky/Dragon-Age-Mods/tree/main/Image%Library/Hire%Companion/Single%Player%Module.JPG)
 
 
 
