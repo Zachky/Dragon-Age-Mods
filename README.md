@@ -15,4 +15,4 @@ Here you will find all possible resource I made for "Compatibility patch for all
 
 ![Export](https://github.com/Zachky/Dragon-Age-Mods/blob/main/Image_Library/Hire_Companion/Export_without_dependent_resources.jpg?raw=true)
 
-![Script_Files](https://github.com/Zachky/Dragon-Age-Mods/blob/main/Image_Library/Hire_Companion/Script_Files.jpg?raw=true)
+![Script_Files](https://github.com/Zachky/Dragon-Age-Mods/blob/main/Image_Library/Hire_Companion/Script_Files.JPG?raw=true)
