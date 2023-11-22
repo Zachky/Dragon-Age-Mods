@@ -8,7 +8,7 @@ Here you will find all possible resource I made for "Compatibility patch for all
 
 #### * External GDA/UTC Files for Character Animation, SoundSets
 
-![Animation_Worksheet](https://github.com/Zachky/Dragon-Age-Mods/blob/main/Image_Library/Hire_Companion/Animation_Worksheet.JPG?raw=true)
+![Animation_Worksheet](https://github.com/Zachky/Dragon-Age-Mods/blob/main/Image_Library/Hire_Companion/Animation_Worksheet.jpg?raw=true)
 
 The worksheet ("PartyPicker_.xls") store the animation settings for each companion, when player select or unselected companion on the party finder, the corresponding animation will be triggered. Be ware that if you don't assign any animation to companion, they will inherit the setting from main character(Player's character itself).
 
