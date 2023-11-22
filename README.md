@@ -10,9 +10,17 @@ Here you will find all possible resource I made for "Compatibility patch for all
 
 ![Animation_Worksheet](https://github.com/Zachky/Dragon-Age-Mods/blob/main/Image_Library/Hire_Companion/Animation_Worksheet.jpg?raw=true)
 
-The worksheet ("PartyPicker_.xls") store the animation settings for each companion, when player select or unselected companion on the party finder, the corresponding animation will be triggered. Be ware that if you don't assign any animation to companion, they will inherit the setting from main character(Player's character itself).
+1. The worksheet ("PartyPicker_.xls") contain a list of the animation settings for each companion, when player select or unselected companion on the party finder, the corresponding animation will be triggered. Be ware that if you don't assign any animation to companion, they will inherit the setting from main character(Player's character itself).
 
+''' 
+PartyPicker_.xls screenshot / explaim the column 
+'''
 
+2. The worksheet ("Party_Picker_.xls") contain a list of companions, you must add the name of your companion on this sheet as well. 
+
+'''
+Party_Picker_.xls screenshot 
+'''
  
 #### * Main Story NPC
 1. Create new script under "single player" module 
