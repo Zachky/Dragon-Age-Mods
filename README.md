@@ -8,12 +8,13 @@ Here you will find all possible resource I made for "Compatibility patch for all
 
 ![Animation_Worksheet](https://github.com/Zachky/Dragon-Age-Mods/blob/main/Image_Library/Hire_Companion/Animation_Worksheet.jpg?raw=true)
 
-1. The worksheet ("PartyPicker_.xls") contain a list of the animation settings for each companion, when player select or unselected companion on the party finder, the corresponding animation will be triggered. Be ware that if you don't assign any animation to companion, they will inherit the setting from main character(Player's character itself).
+1. The worksheet ("PartyPicker_Normal.xls") contain a list of the animation settings for each companion, when player select or unselected companion on the party finder, the corresponding animation will be triggered. Be ware that if you don't assign any animation to companion, they will inherit the setting from main character(Player's character itself).
 
+![PartyPicker Worksheet](https://github.com/Zachky/Dragon-Age-Mods/blob/main/Image_Library/Hire_Companion/PartyPicker_Normal.jpg?raw=true "PartyPicker_Normal.xls")
 
-![PartyPicker Worksheet](https://github.com/Zachky/Dragon-Age-Mods/blob/main/Image_Library/Hire_Companion/PartyPicker_Normal.jpg?raw=true "Character Animation Match Table")
-
-
+    Column explaination:
+    * ID: Index, start from 0, you must set the index correctly
+    * Label: 
 
 ''' 
 PartyPicker_.xls screenshot / explaim the column 
