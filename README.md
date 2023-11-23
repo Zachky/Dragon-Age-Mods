@@ -2,9 +2,9 @@
 
 ### Introduction 
 
-To deploy this mod in your dev environment: 
+![Party_Picker_Stage](https://github.com/Zachky/Dragon-Age-Mods/blob/main/Image_Library/Hire_Companion/Party_Picker_Stage.jpg?raw=true "Party Picker Stage")
 
-    ![Party_Picker_Stage](https://github.com/Zachky/Dragon-Age-Mods/blob/main/Image_Library/Hire_Companion/Party_Picker_Stage.jpg?raw=true "Party Picker Stage")
+To deploy this mod in your dev environment: 
 
     Step 1: Download oth999d_background_layout.rar in Layout folder, unpack and move content to override folder
 
