@@ -66,7 +66,7 @@ Here are some examples of Visual Effect:
 | 6039 | fxm_energy_up_p | Lady of the Forest pillar of light |
 | 6040 | fxm_power_in_p | Branka - power in |
 
-===================================================================================================
+
 
 2. The worksheet ("Party_Picker_.xls") contain a list of companions, each time you add a new companion in the previous worksheet, you have to add a new row in this worksheet as well.
 
@@ -78,7 +78,7 @@ Here are some examples of Visual Effect:
     * Tag: Follwer's tag name.
     * Portrait: Must be "INVALID COLUMN"
 
-==================================================================================================
+
 
 3. After finishing both partypicker.xls and party_picker.xls, drag them to ExcelProcessor.exe to generate GDA file, then move it to overrite folder. You can download ExcelProcessor from this github(in "Support_Tool")
 
