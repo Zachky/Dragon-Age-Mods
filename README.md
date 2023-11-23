@@ -1,6 +1,6 @@
-## Dragon Age: Origin Mod --Compatibility patch for Party Picker 
+# Dragon Age: Origin Mod --Compatibility patch for Party Picker 
 
-### Introduction 
+## Introduction 
 
 ![Party_Picker_Stage](https://github.com/Zachky/Dragon-Age-Mods/blob/main/Image_Library/Hire_Companion/Party_Picker_Stage.jpg?raw=true "Party Picker Stage")
 
@@ -11,7 +11,7 @@ To deploy this mod in your dev environment:
     Step 2: Download Party_Picker_20231124.dadbdata in Builder-To-Builder_Source_File folder, unpack then import it into DragonAge Toolset.
 
 
-#### * External GDA Files for Character Animation
+## External GDA Files for Character Animation
 
 ![Animation_Worksheet](https://github.com/Zachky/Dragon-Age-Mods/blob/main/Image_Library/Hire_Companion/Animation_Worksheet.jpg?raw=true)
 
@@ -77,7 +77,7 @@ Here are some examples of Visual Effect:
 3. After finishing both partypicker.xls and party_picker.xls, drag them to ExcelProcessor.exe to generate GDA file, then move it to overrite folder. You can download ExcelProcessor from this github(in "Support_Tool")
 
 
-#### * SoundSet for companion 
+## SoundSet for companion 
 
 You can find this option in the character panel. However if you want to assign a soundset to follower in other mod which you dont have builder version to edit, you can add a new row in character's UTC file.
 
@@ -90,8 +90,7 @@ Step 2: Add a new row with name "SoundSet", type "RESREF" and value with the cod
 [SoundSet](https://github.com/Zachky/Dragon-Age-Mods/blob/main/Image_Library/Hire_Companion/SoundSet.jpg?raw=true "SoundSet")
 
 
- 
-#### * Script for Main Story NPC
+## Script for Main Story NPC
 1. Create new script under "single player" module 
 
 ![single_player](https://github.com/Zachky/Dragon-Age-Mods/blob/main/Image_Library/Hire_Companion/Single_Player_Module.jpg?raw=true)
