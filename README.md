@@ -13,6 +13,7 @@ Here you will find all possible resource I made for "Compatibility patch for all
 ![PartyPicker Worksheet](https://github.com/Zachky/Dragon-Age-Mods/blob/main/Image_Library/Hire_Companion/PartyPicker_Normal.jpg?raw=true "PartyPicker_Normal.xls")
 
     Column explaination:
+
     * ID: Index, start from 0, you must set the index correctly
     * Label: Follower's name as you wish it to appear on the party picker.
     * Tag: Follwer's tag name.
@@ -56,12 +57,15 @@ Here are some examples of Visual Effect:
 | 6039 | fxm_energy_up_p | Lady of the Forest pillar of light |
 | 6040 | fxm_power_in_p | Branka - power in |
 
+2. The worksheet ("Party_Picker_.xls") contain a list of companions, each time you add a new companion in the previous worksheet, you have to add a new row in this worksheet as well.
 
-''' 
-PartyPicker_.xls screenshot / explaim the column 
-'''
+![Party_Picker Worksheet](https://github.com/Zachky/Dragon-Age-Mods/blob/main/Image_Library/Hire_Companion/Party_Picker_Normal.jpg?raw=true "Party_Picker_Normal.xls")
 
-2. The worksheet ("Party_Picker_.xls") contain a list of companions, you must add the name of your companion on this sheet as well. 
+    Column explaination:
+
+    * ID: Index, start from 0, you must set the index correctly
+    * Tag: Follwer's tag name.
+    * Portrait: Must be "INVALID COLUMN"
 
 '''
 Party_Picker_.xls screenshot 
