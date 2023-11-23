@@ -30,31 +30,20 @@ Here you will find all possible resource I made for "Compatibility patch for all
 
 Here are some examples of Animation: 
 
-| ID | escription |
+| ID | Description | ID | Description |
 | --- | --- |
-| 255 | Flying in place |
-| 277 | Dance |
-| 247 | Cast area spell |
-| 500 | VFX cast |
-| 600 | surprised |
-| 603 | praying |
-| 3063 | Arm crossed |
-| 3064 | Arm Folded |
-| 905 | Crouch start |
-| 906 | Crouch end |
-| 848 | Hand Behind back start |
-| 849 | Hand Behind back end |
-| 803 | Priest Bless start |
-| 804 | Priest Bless end |
-| 650 | Crouch Pray start |
-| 651 | Crouch Pray end |
-| 637 | Customer Brow Sing start |
-| 638 | Customer Brow Sing end |
-| 3083 | Sit Elbow start|
-| 3084 | Sit Elbow end |
-| 919 | sit ground start |
-| 920 | sit ground end |
-| 610 | (dog) resting on floor |
+| 255 | Flying in place | 277 | Dance |
+| 247 | Cast area spell | 500 | VFX cast |
+| 600 | surprised | 603 | praying |
+| 3063 | Arm crossed | 3064 | Arm Folded |
+| 905 | Crouch start | 906 | Crouch end |
+| 848 | Hand Behind back start | 849 | Hand Behind back end |
+| 803 | Priest Bless start | 804 | Priest Bless end |
+| 650 | Crouch Pray start | 651 | Crouch Pray end |
+| 637 | Customer Brow Sing start | 638 | Customer Brow Sing end |
+| 3083 | Sit Elbow start| 3084 | Sit Elbow end |
+| 919 | sit ground start | 920 | sit ground end |
+| 610 | (dog) resting on floor | 
 
 Here are some examples of Visual Effect: 
 
