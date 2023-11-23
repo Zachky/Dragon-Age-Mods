@@ -67,6 +67,14 @@ Here you will find all possible resource I made for "Compatibility patch for all
     | 6039 | fxm_energy_up_p | Lady of the Forest pillar of light |
     | 6040 | fxm_power_in_p | Branka - power in |
 
+| ID | BlendTreeName | Effect |
+| --- | --- | --- |
+| 1076 | fxa_spi_aur_mht_c | Aura of Might crust |
+| 1549 | fxa_hly_imp_c | Holy Impact crust |
+| 3009 | fxc_succubus_c | Succubus crust |
+| 3054 | fxc_lotf_c | Lady of the Forest - swirling leaves |
+| 6039 | fxm_energy_up_p | Lady of the Forest pillar of light |
+| 6040 | fxm_power_in_p | Branka - power in |
 
 ''' 
 PartyPicker_.xls screenshot / explaim the column 
