@@ -31,7 +31,7 @@ Here you will find all possible resource I made for "Compatibility patch for all
 Here are some examples of Animation: 
 
 | ID | Description | ID | Description |
-| --- | --- |
+| --- | --- | --- | --- |
 | 255 | Flying in place | 277 | Dance |
 | 247 | Cast area spell | 500 | VFX cast |
 | 600 | surprised | 603 | praying |
@@ -43,7 +43,7 @@ Here are some examples of Animation:
 | 637 | Customer Brow Sing start | 638 | Customer Brow Sing end |
 | 3083 | Sit Elbow start| 3084 | Sit Elbow end |
 | 919 | sit ground start | 920 | sit ground end |
-| 610 | (dog) resting on floor | 
+| 610 | (dog) resting on floor | 607 | Head bow |
 
 Here are some examples of Visual Effect: 
 
