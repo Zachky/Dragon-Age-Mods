@@ -2,7 +2,14 @@
 
 ### Introduction 
 
-Here you will find all possible resource I made for "Compatibility patch for all playable companion mod"
+To deploy this mod in your dev environment: 
+
+    ![Party_Picker_Stage](https://github.com/Zachky/Dragon-Age-Mods/blob/main/Image_Library/Hire_Companion/Party_Picker_Stage.jpg?raw=true "Party Picker Stage")
+
+    Step 1: Download oth999d_background_layout.rar in Layout folder, unpack and move content to override folder
+
+    Step 2: Download Party_Picker_20231124.dadbdata in Builder-To-Builder_Source_File folder, unpack then import it into DragonAge Toolset.
+
 
 #### * External GDA/UTC Files for Character Animation, SoundSets
 
@@ -67,9 +74,10 @@ Here are some examples of Visual Effect:
     * Tag: Follwer's tag name.
     * Portrait: Must be "INVALID COLUMN"
 
-'''
-Party_Picker_.xls screenshot 
-'''
+3. After finishing both partypicker.xls and party_picker.xls, drag them to ExcelProcessor.exe to generate GDA file, then move it to overrite folder.
+
+
+
  
 #### * Script for Main Story NPC
 1. Create new script under "single player" module 
