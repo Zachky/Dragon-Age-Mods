@@ -11,7 +11,7 @@ To deploy this mod in your dev environment:
     Step 2: Download Party_Picker_20231124.dadbdata in Builder-To-Builder_Source_File folder, unpack then import it into DragonAge Toolset.
 
 
-#### * External GDA/UTC Files for Character Animation, SoundSets
+#### * External GDA Files for Character Animation
 
 ![Animation_Worksheet](https://github.com/Zachky/Dragon-Age-Mods/blob/main/Image_Library/Hire_Companion/Animation_Worksheet.jpg?raw=true)
 
@@ -74,8 +74,20 @@ Here are some examples of Visual Effect:
     * Tag: Follwer's tag name.
     * Portrait: Must be "INVALID COLUMN"
 
-3. After finishing both partypicker.xls and party_picker.xls, drag them to ExcelProcessor.exe to generate GDA file, then move it to overrite folder.
+3. After finishing both partypicker.xls and party_picker.xls, drag them to ExcelProcessor.exe to generate GDA file, then move it to overrite folder. You can download ExcelProcessor from this github(in "Support_Tool")
 
+
+#### * SoundSet for companion 
+
+You can find this option in the character panel. However if you want to assign a soundset to follower in other mod which you dont have builder version to edit, you can add a new row in character's UTC file.
+
+Use "Andrastalla" from "Party Recruiting_v1.0" as example: 
+
+Step 1: Find the soundset code from the character list in core module(Single Player)
+[Character_List](https://github.com/Zachky/Dragon-Age-Mods/blob/main/Image_Library/Hire_Companion/Character_List.jpg?raw=true "Character List")
+
+Step 2: Add a new row with name "SoundSet", type "RESREF" and value with the code you want to use.
+[SoundSet](https://github.com/Zachky/Dragon-Age-Mods/blob/main/Image_Library/Hire_Companion/SoundSet.jpg?raw=true "SoundSet")
 
 
  
