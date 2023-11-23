@@ -66,6 +66,8 @@ Here are some examples of Visual Effect:
 | 6039 | fxm_energy_up_p | Lady of the Forest pillar of light |
 | 6040 | fxm_power_in_p | Branka - power in |
 
+===================================================================================================
+
 2. The worksheet ("Party_Picker_.xls") contain a list of companions, each time you add a new companion in the previous worksheet, you have to add a new row in this worksheet as well.
 
 ![Party_Picker Worksheet](https://github.com/Zachky/Dragon-Age-Mods/blob/main/Image_Library/Hire_Companion/Party_Picker_Normal.jpg?raw=true "Party_Picker_Normal.xls")
@@ -75,6 +77,8 @@ Here are some examples of Visual Effect:
     * ID: Index, start from 0, you must set the index correctly
     * Tag: Follwer's tag name.
     * Portrait: Must be "INVALID COLUMN"
+
+==================================================================================================
 
 3. After finishing both partypicker.xls and party_picker.xls, drag them to ExcelProcessor.exe to generate GDA file, then move it to overrite folder. You can download ExcelProcessor from this github(in "Support_Tool")
 
