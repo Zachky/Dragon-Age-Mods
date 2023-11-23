@@ -4,13 +4,16 @@
 
 Here you will find all possible resource I made for "Compatibility patch for all playable companion mod"
 
-### Scripts -- HireCompanion
-
 #### * External GDA/UTC Files for Character Animation, SoundSets
 
 ![Animation_Worksheet](https://github.com/Zachky/Dragon-Age-Mods/blob/main/Image_Library/Hire_Companion/Animation_Worksheet.jpg?raw=true)
 
 1. The worksheet ("PartyPicker_.xls") contain a list of the animation settings for each companion, when player select or unselected companion on the party finder, the corresponding animation will be triggered. Be ware that if you don't assign any animation to companion, they will inherit the setting from main character(Player's character itself).
+
+
+![PartyPicker Worksheet](https://github.com/Zachky/Dragon-Age-Mods/blob/main/Image_Library/Hire_Companion/PartyPicker_Normal.jpg?raw=true "Character Animation Match Table")
+
+
 
 ''' 
 PartyPicker_.xls screenshot / explaim the column 
@@ -22,7 +25,7 @@ PartyPicker_.xls screenshot / explaim the column
 Party_Picker_.xls screenshot 
 '''
  
-#### * Main Story NPC
+#### * Script for Main Story NPC
 1. Create new script under "single player" module 
 
 ![single_player](https://github.com/Zachky/Dragon-Age-Mods/blob/main/Image_Library/Hire_Companion/Single_Player_Module.jpg?raw=true)
