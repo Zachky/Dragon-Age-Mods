@@ -15,7 +15,7 @@ To deploy this mod in your dev environment:
 
 ![Animation_Worksheet](https://github.com/Zachky/Dragon-Age-Mods/blob/main/Image_Library/Hire_Companion/Animation_Worksheet.jpg?raw=true)
 
-The files are store in "M2DA_worksheet"
+You can download the copy of Party Picker xls files in the folder "M2DA_Worksheet"
 
 1. The worksheet ("PartyPicker_Normal.xls") contain a list of the animation settings for each companion, when player select or unselected companion on the party finder, the corresponding animation will be triggered. Be ware that if you don't assign any animation to companion, they will inherit the setting from main character(Player's character itself).
 
