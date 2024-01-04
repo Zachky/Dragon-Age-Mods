@@ -92,9 +92,11 @@ You can find this option in the character panel. However if you want to assign a
 Use "Andrastalla" from "Party Recruiting_v1.0" as example: 
 
 Step 1: Find the soundset code from the character list in core module(Single Player)
+
 ![Character_List](https://github.com/Zachky/Dragon-Age-Mods/blob/main/Image_Library/Hire_Companion/Character_List.jpg?raw=true "Character List")
 
 Step 2: Add a new row with name "SoundSet", type "RESREF" and value with the code you want to use.
+
 ![SoundSet](https://github.com/Zachky/Dragon-Age-Mods/blob/main/Image_Library/Hire_Companion/SoundSet.jpg?raw=true "SoundSet")
 
 
