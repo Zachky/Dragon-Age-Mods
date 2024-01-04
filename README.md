@@ -2,9 +2,7 @@
 
 ## Introduction 
 
-
-
-![Party_Picker_Stage](https://github.com/Zachky/Dragon-Age-Mods/blob/main/Image_Library/Hire_Companion/Party_Picker_Stage.jpg?raw=true "Party Picker Stage")
+![Party_Picker_Stage](https://github.com/Zachky/Dragon-Age-Mods/blob/main/Image_Library/Banner/Banner.jpg?raw=true "Party Picker Stage")
 
 To deploy this mod in your dev environment: 
 
