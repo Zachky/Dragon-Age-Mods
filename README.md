@@ -1,8 +1,8 @@
 # Dragon Age: Origin Mod --Compatibility patch for Party Picker 
 
-## Introduction 
-
 ![Party_Picker_Stage](https://github.com/Zachky/Dragon-Age-Mods/blob/main/Image_Library/Banner/Banner.JPG?raw=true "Party Picker Stage")
+
+## Introduction 
 
 To deploy this mod in your dev environment: 
 
