@@ -18,11 +18,14 @@
                              
 //Import core module
 #include "utility_h"
+#include "sys_chargen_h"
 #include "plt_gen00pt_party"
 
 void main()
 {
     object oCreature= GetObjectByTag("pre100cr_daveth");
+    object oHero = GetHero();     
+    int nLevel = GetLevel(oHero);
 
     //Activate target creature
     WR_SetObjectActive(oCreature, TRUE);
@@ -31,6 +34,16 @@ void main()
     if(!IsObjectValid(oCreature)){
        oCreature = CreateObject(OBJECT_TYPE_CREATURE, R"pre100cr_daveth.utc", GetLocation(OBJECT_SELF));
     }
+
+   //Scale up the lvl of armor and weapon base on main character's level
+    ScaleEquippedItems(oCreature, nLevel); 
+    
+    //Enable approval bar
+    SetFollowerApprovalEnabled(oCreature, TRUE);      
+    SetFollowerApprovalDescription(oCreature, 371487);
+    
+    //Enable tactics present base on follower's class
+    Chargen_EnableTacticsPresets(oCreature);
 
     //Allow the follower to gain xp
     SetLocalInt(oCreature, CREATURE_REWARD_FLAGS, 0);

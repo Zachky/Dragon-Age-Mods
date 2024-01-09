@@ -19,10 +19,13 @@
 #include "plt_bed200pt_fenarel"
 #include "plt_bed000pt_main"
 #include "wrappers_h"
+#include "sys_chargen_h"
 
 void main()
 {
     object oCreature= GetObjectByTag("bed200cr_fenarel");
+    object oHero = GetHero();     
+    int nLevel = GetLevel(oHero);
 
     //Activate target creature
     WR_SetObjectActive(oCreature, TRUE);
@@ -31,6 +34,16 @@ void main()
     if(!IsObjectValid(oCreature)){
        oCreature = CreateObject(OBJECT_TYPE_CREATURE, R"bed200cr_fenarel.utc", GetLocation(OBJECT_SELF));
     }
+
+   //Scale up the lvl of armor and weapon base on main character's level
+    ScaleEquippedItems(oCreature, nLevel); 
+    
+    //Enable approval bar
+    SetFollowerApprovalEnabled(oCreature, TRUE);      
+    SetFollowerApprovalDescription(oCreature, 371487);
+    
+    //Enable tactics present base on follower's class
+    Chargen_EnableTacticsPresets(oCreature);
 
     //Set Conversation Flag
     WR_SetPlotFlag(PLT_BED000PT_MAIN,9,TRUE);
