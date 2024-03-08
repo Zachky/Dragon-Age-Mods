@@ -1,54 +1,55 @@
 //---------------------------------------------------------------------
 /*
-     Adds Daveth to the party by tag, without location restriction
+     Adds Jory to the party by tag, without location restriction
 
      usage:
 
-        runscript daveth_addparty 
-        
+        runscript jory_addparty
+
      Note:
-        
-        Changing his conversation flag before the end of joining story will cause trouble because 
-        his flag is key part for main story, hence I will not change his flag. 
+        His start conversation flag is changed to a proper flag
 
      */
 //---------------------------------------------------------------------
 // Zach Lin
 //---------------------------------------------------------------------
-                             
-//Import core module
+
 #include "utility_h"
+#include "plt_pre100pt_generic"
+#include "wrappers_h"
 #include "sys_chargen_h"
-#include "plt_gen00pt_party"
 
 void main()
 {
-    object oCreature= GetObjectByTag("pre100cr_daveth");
-    object oHero = GetHero();     
+    object oCreature= GetObjectByTag("pre100cr_jory");
+    object oHero = GetHero();
     int nLevel = GetLevel(oHero);
 
     //Activate target creature
     WR_SetObjectActive(oCreature, TRUE);
 
-    //Create object(creature) near warden's current location
+    //Create object in a specific location
     if(!IsObjectValid(oCreature)){
-       oCreature = CreateObject(OBJECT_TYPE_CREATURE, R"pre100cr_daveth.utc", GetLocation(OBJECT_SELF));
+       oCreature = CreateObject(OBJECT_TYPE_CREATURE, R"pre100cr_jory.utc", GetLocation(OBJECT_SELF));
     }
 
-   //Scale up the lvl of armor and weapon base on main character's level
-    ScaleEquippedItems(oCreature, nLevel); 
-    
+    //Scale up the lvl of armor and weapon base on main character's level
+    ScaleEquippedItems(oCreature, nLevel);
+
     //Enable approval bar
-    SetFollowerApprovalEnabled(oCreature, TRUE);      
+    SetFollowerApprovalEnabled(oCreature, TRUE);
     SetFollowerApprovalDescription(oCreature, 371487);
-    
+
     //Enable tactics present base on follower's class
     Chargen_EnableTacticsPresets(oCreature);
+
+    //Set Conversation Flag
+    WR_SetPlotFlag(PLT_PRE100PT_GENERIC,1,TRUE);
 
     //Allow the follower to gain xp
     SetLocalInt(oCreature, CREATURE_REWARD_FLAGS, 0);
 
-   //Cancel Auto level up
+    //Cancel Auto level up
     SetAutoLevelUp(oCreature,0);
 
     //Hire NPC
@@ -58,9 +59,8 @@ void main()
 
     //Set Follower to the active party(Important)
     WR_SetFollowerState(oCreature, FOLLOWER_STATE_ACTIVE);
-     
+
     //Show Party Picker
     SetPartyPickerGUIStatus(2);
     ShowPartyPickerGUI();
-
 }
