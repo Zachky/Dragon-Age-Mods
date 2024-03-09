@@ -50,74 +50,18 @@ void Camp_FollowerAmbient(object oFollower, int bStart)
 }
 
 void ActivateFollowers(){
-
-    //Activate companion who has been recruited by player
-
-  /*object oAlistair = Party_GetFollowerByTag(GEN_FL_Duncan);
-    object oMorrigan = Party_GetFollowerByTag(GEN_FL_Cailan);
-    object oDog = Party_GetFollowerByTag(GEN_FL_Andrastalla);
-    object oWynne = Party_GetFollowerByTag(GEN_FL_Anora);
-    object oShale = Party_GetFollowerByTag(GEN_FL_Flemeth);
-    object oSten = Party_GetFollowerByTag(GEN_FL_Arl_Eamon);
-    object oZevran = Party_GetFollowerByTag(GEN_FL_Troga);
-    object oOghren = Party_GetFollowerByTag(GEN_FL_Rikku_Templar);
-    object oLeliana = Party_GetFollowerByTag(GEN_FL_LadyOfTheForest);
-
-    if(WR_GetPlotFlag( PLT_GEN00PT_PARTY, GEN_ALISTAIR_RECRUITED))
-    {
-        WR_SetPlotFlag(PLT_GEN00PT_PARTY, GEN_ALISTAIR_IN_CAMP, TRUE, TRUE);
-        WR_SetObjectActive(oAlistair, TRUE);
-    }
-    if(WR_GetPlotFlag( PLT_GEN00PT_PARTY, GEN_DOG_RECRUITED))
-    {
-        WR_SetPlotFlag(PLT_GEN00PT_PARTY, GEN_DOG_IN_CAMP, TRUE, TRUE);
-        WR_SetObjectActive(oDog, TRUE);
-    }
-    if(WR_GetPlotFlag( PLT_GEN00PT_PARTY, GEN_WYNNE_RECRUITED))
-    {
-        WR_SetPlotFlag(PLT_GEN00PT_PARTY, GEN_WYNNE_IN_CAMP, TRUE, TRUE);
-        WR_SetObjectActive(oWynne, TRUE);
-    }
-    if(WR_GetPlotFlag( PLT_GEN00PT_PARTY, GEN_SHALE_RECRUITED))
-    {
-        WR_SetPlotFlag(PLT_GEN00PT_PARTY, GEN_SHALE_IN_CAMP, TRUE, TRUE);
-        WR_SetObjectActive(oShale, TRUE);
-    }
-    if(WR_GetPlotFlag( PLT_GEN00PT_PARTY, GEN_STEN_RECRUITED))
-    {
-        WR_SetPlotFlag(PLT_GEN00PT_PARTY, GEN_STEN_IN_CAMP, TRUE, TRUE);
-        WR_SetObjectActive(oSten, TRUE);
-    }
-    if(WR_GetPlotFlag( PLT_GEN00PT_PARTY, GEN_ZEVRAN_RECRUITED))
-    {
-        WR_SetPlotFlag(PLT_GEN00PT_PARTY, GEN_ZEVRAN_IN_CAMP, TRUE, TRUE);
-        WR_SetObjectActive(oZevran, TRUE);
-    }
-    if(WR_GetPlotFlag( PLT_GEN00PT_PARTY, GEN_OGHREN_RECRUITED))
-    {
-        WR_SetPlotFlag(PLT_GEN00PT_PARTY, GEN_OGHREN_IN_CAMP, TRUE, TRUE);
-        WR_SetObjectActive(oOghren, TRUE);
-    }
-    if(WR_GetPlotFlag( PLT_GEN00PT_PARTY, GEN_LELIANA_RECRUITED))
-    {
-        WR_SetPlotFlag(PLT_GEN00PT_PARTY, GEN_LELIANA_IN_CAMP, TRUE, TRUE);
-        WR_SetObjectActive(oLeliana, TRUE);
-    }
-    if(WR_GetPlotFlag( PLT_GEN00PT_PARTY, GEN_MORRIGAN_RECRUITED))
-    {
-        WR_SetPlotFlag(PLT_GEN00PT_PARTY, GEN_MORRIGAN_IN_CAMP, TRUE, TRUE);
-        WR_SetObjectActive(oMorrigan, TRUE);
-    }
-    if(WR_GetPlotFlag( PLT_GEN00PT_PARTY, GEN_LOGHAIN_RECRUITED))
-    {
-        WR_SetPlotFlag(PLT_GEN00PT_PARTY, GEN_LOGHAIN_IN_CAMP, TRUE, TRUE);
-        WR_SetObjectActive(oLoghain, TRUE);
-    } */
-
-    //Test Area
+   
+/*******************************************************************************
+* Mod "Party Recruiting"
+*******************************************************************************/
     
     object oAndrastalla = Party_GetFollowerByTag(GEN_FL_Andrastalla);  
-    object oCailan = Party_GetFollowerByTag(GEN_FL_Cailan); 
+    object oCailan = Party_GetFollowerByTag(GEN_FL_Cailan);
+    object oAnora = Party_GetFollowerByTag(GEN_FL_Anora); 
+    object oArlEamon = Party_GetFollowerByTag(GEN_FL_Arl_Eamon);  
+    object oDuncan = Party_GetFollowerByTag(GEN_FL_Duncan); 
+    object oLadyF = Party_GetFollowerByTag(GEN_FL_LadyOfTheForest);
+    
     
     if( WR_GetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_ANDRASTALLA_RECRUITED) == TRUE )
     {
@@ -131,6 +75,34 @@ void ActivateFollowers(){
         WR_SetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_CAILAN_IN_CAMP, TRUE, TRUE); 
         WR_SetObjectActive(oCailan, TRUE);
         SetFollowerState(oCailan,FOLLOWER_STATE_AVAILABLE);
+    } 
+    
+    if( WR_GetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_ANORA_RECRUITED) == TRUE )
+    {
+        WR_SetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_ANORA_IN_CAMP, TRUE, TRUE); 
+        WR_SetObjectActive(oAnora, TRUE);
+        SetFollowerState(oAnora,FOLLOWER_STATE_AVAILABLE);
+    }
+    
+    if( WR_GetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_ARL_EAMON_RECRUITED) == TRUE )
+    {
+        WR_SetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_ARL_EAMON_IN_CAMP, TRUE, TRUE); 
+        WR_SetObjectActive(oArlEamon, TRUE);
+        SetFollowerState(oArlEamon,FOLLOWER_STATE_AVAILABLE);
+    }
+    
+    if( WR_GetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_DUNCAN_RECRUITED) == TRUE )
+    {
+        WR_SetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_DUNCAN_IN_CAMP, TRUE, TRUE); 
+        WR_SetObjectActive(oDuncan, TRUE);
+        SetFollowerState(oDuncan,FOLLOWER_STATE_AVAILABLE);
+    }
+    
+    if( WR_GetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_LADYOFTHEFOREST_RECRUITED) == TRUE )
+    {
+        WR_SetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_LADYOFTHEFOREST_IN_CAMP, TRUE, TRUE); 
+        WR_SetObjectActive(oLadyF, TRUE);
+        SetFollowerState(oLadyF,FOLLOWER_STATE_AVAILABLE);
     }
 }
 
