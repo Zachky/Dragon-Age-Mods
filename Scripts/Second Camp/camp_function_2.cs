@@ -1,50 +1,15 @@
 #include "party_h"
 #include "utility_h"
 #include "wrappers_h"
-#include "plt_gen00pt_party"
 #include "sys_rewards_h"
 #include "sys_ambient_h"
 #include "camp_constants_h"   
-#include "global_objects_2"
+#include "global_objects_2" 
+
+#include "plt_gen00pt_party_recruit"
+
 
 const string WP_CAMP_FOLLOWER_PREFIX = "wp_camp_";
-{
-
-    object  [] arParty      =   GetPartyPoolList();
-    object  [] arShrieks    =   UT_GetAllObjectsInAreaByTag(CAMP_SHRIEK_ATTACKER_NORM, OBJECT_TYPE_CREATURE);
-
-    int     nPartySize      =   GetArraySize(arParty);
-    int     nIndex;
-
-    for(nIndex = 0; nIndex < nPartySize; nIndex++)
-    {
-
-        // Max 4 Normal Shrieks.
-        if( nIndex >= 3 )
-        {
-            return;
-        }
-
-        else
-        {
-            object oAttacker = arShrieks[nIndex];
-
-            if( !IsInvalidDeadOrDying(oAttacker) )
-            {
-
-                WR_SetObjectActive(oAttacker, TRUE);
-
-                SetTeamId(oAttacker, CAMP_TEAM_DARKSPAWN_CAMP_ATTACKERS);
-
-                Log_Trace(LOG_CHANNEL_PLOT, "Activating normal shriek #: ", IntToString(nIndex + 1));
-
-            }
-
-        }
-
-    }
-
-}
 
 void Camp_FollowerAmbient(object oFollower, int bStart)
 {
@@ -62,25 +27,26 @@ void Camp_FollowerAmbient(object oFollower, int bStart)
     // Assign ambient variables
     if(!bStart){
         Ambient_Stop(oFollower);
-        break;
-    }
+    }else{
 
-    //Party Recruiting Mod
-    if     (sTag == GEN_FL_Duncan)           nAnim   =   4;      // Relaxed.
-    else if(sTag == GEN_FL_Cailan)           nAnim   =   85;     // Listener Passive 3
-    else if(sTag == GEN_FL_Andrastalla)      nAnim   =   24;     // Guard Wander Left and Right
-    else if(sTag == GEN_FL_Anora)            nAnim   =   67;     // Bored Loitering 1
-    else if(sTag == GEN_FL_Flemeth)          nAnim   =   103;    // Bored Stationary
-    else if(sTag == GEN_FL_Arl_Eamon)        nAnim   =   71;     // Chat by fire.
-    else if(sTag == GEN_FL_Troga)            nAnim   =   70;     // Warm by fire.
-    else if(sTag == GEN_FL_Rikku_Templar)    nAnim   =   100;    // Squat by fire.
-    else if(sTag == GEN_FL_LadyOfTheForest)  nAnim   =   68;     // Bored Loitering 2
+        //Party Recruiting Mod
+        if     (sTag == GEN_FL_Duncan)           nAnim   =   4;      // Relaxed.
+        else if(sTag == GEN_FL_Cailan)           nAnim   =   85;     // Listener Passive 3
+        else if(sTag == GEN_FL_Andrastalla)      nAnim   =   24;     // Guard Wander Left and Right
+        else if(sTag == GEN_FL_Anora)            nAnim   =   67;     // Bored Loitering 1
+        else if(sTag == GEN_FL_Flemeth)          nAnim   =   103;    // Bored Stationary
+        else if(sTag == GEN_FL_Arl_Eamon)        nAnim   =   71;     // Chat by fire.
+        else if(sTag == GEN_FL_Troga)            nAnim   =   70;     // Warm by fire.
+        else if(sTag == GEN_FL_Rikku_Templar)    nAnim   =   100;    // Squat by fire.
+        else if(sTag == GEN_FL_LadyOfTheForest)  nAnim   =   68;     // Bored Loitering 2
 
-    //Other Mod Companions...
+        //Other Mod Companions...
 
-    Ambient_Start(oFollower, AMBIENT_SYSTEM_ENABLED, AMBIENT_MOVE_NONE, AMBIENT_MOVE_PREFIX_NONE, nAnim, AMBIENT_ANIM_FREQ_ORDERED);
+        Ambient_Start(oFollower, AMBIENT_SYSTEM_ENABLED, AMBIENT_MOVE_NONE, AMBIENT_MOVE_PREFIX_NONE, nAnim, AMBIENT_ANIM_FREQ_ORDERED);
+        
+        Log_Trace(LOG_CHANNEL_PLOT, "Starting Ambient Animations for: " + sTag, "Playing Animation: " + IntToString(nAnim)); 
     
-    Log_Trace(LOG_CHANNEL_PLOT, "Starting Ambient Animations for: " + sTag, "Playing Animation: " + IntToString(nAnim));
+    }
 }
 
 void ActivateFollowers(){
@@ -149,16 +115,29 @@ void ActivateFollowers(){
     } */
 
     //Test Area
-    object oCailan = Party_GetFollowerByTag(GEN_FL_Cailan); 
-    WR_SetObjectActive(oCailan, TRUE);
+    
     object oAndrastalla = Party_GetFollowerByTag(GEN_FL_Andrastalla);  
-    WR_SetObjectActive(oAndrastalla, TRUE);
+    object oCailan = Party_GetFollowerByTag(GEN_FL_Cailan); 
+    
+    if( WR_GetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_ANDRASTALLA_RECRUITED) == TRUE )
+    {
+        WR_SetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_ANDRASTALLA_IN_CAMP, TRUE, TRUE);
+        WR_SetObjectActive(oAndrastalla, TRUE);
+        SetFollowerState(oAndrastalla,FOLLOWER_STATE_AVAILABLE);
+    } 
+    
+    if( WR_GetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_CAILAN_RECRUITED) == TRUE )
+    {
+        WR_SetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_CAILAN_IN_CAMP, TRUE, TRUE); 
+        WR_SetObjectActive(oCailan, TRUE);
+        SetFollowerState(oCailan,FOLLOWER_STATE_AVAILABLE);
+    }
 }
 
 void Camp_PlaceFollowersInCamp()
 {
     //1. Activate Followers
-    ActivateFollowers()
+    ActivateFollowers();
     
     //2. Place all active party members in their spots
     object [] arParty = GetPartyPoolList();

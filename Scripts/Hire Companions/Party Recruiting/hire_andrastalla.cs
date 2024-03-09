@@ -1,17 +1,17 @@
 //---------------------------------------------------------------------
 /*
-     Adds Daveth to the party by tag, without location restriction
+     Adds Andrastalla to the party by tag, without location restriction
 
      usage:
 
-        runscript daveth_addparty 
+        runscript hire_andrastalla or talk to npc to hire her.  
         
      Note:
         
-        Changing his conversation flag before the end of joining story will cause trouble because 
-        his flag is key part for main story, hence I will not change his flag. 
+        1. This file overwrite the original file "hire_andrastalla.nss" to 
+        fix old problem.    
 
-     */
+*/
 //---------------------------------------------------------------------
 // Zach Lin
 //---------------------------------------------------------------------
@@ -20,22 +20,29 @@
 #include "utility_h"
 #include "sys_chargen_h"
 #include "p_utility"
-#include "plt_gen00pt_party"
+#include "global_objects_2"
+
+//Import plot module
+
+#include "plt_gen00pt_party_recruit"
 
 void main()
 {
-    object oCreature= GetObjectByTag("pre100cr_daveth");
+    object oCreature= GetObjectByTag(GEN_FL_Andrastalla);
     
     //Activate target creature
     WR_SetObjectActive(oCreature, TRUE); 
    
     //Create object(creature) near warden's current location
     if(!IsObjectValid(oCreature)){
-       oCreature = CreateObject(OBJECT_TYPE_CREATURE, R"pre100cr_daveth.utc", GetLocation(OBJECT_SELF));
+       oCreature = CreateObject(OBJECT_TYPE_CREATURE, R"party_andrastalla.utc", GetLocation(OBJECT_SELF));
     }
     
+    //Set plot flag "Recruited" to true for other feature
+    WR_SetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_ANDRASTALLA_RECRUITED, TRUE);
+    
     //Set companion attribute 
-    SetCompanionAttribute(oCreature); 
+    SetCompanionAttribute(oCreature, RACE_SPIRIT);   
     
     //argen_SelectCoreClass(oCreature, CLASS_WIZARD);
 

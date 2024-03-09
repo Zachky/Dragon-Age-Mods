@@ -10,14 +10,15 @@
 #include "wrappers_h"
 #include "events_h"
 #include "2da_constants_h"
-
 #include "camp_constants_h"
-#include "camp_function_2"
-#include "campaign_h"
-#include "cutscenes_h"
 
-#include "global_objects_h"
+#include "campaign_h"
+#include "cutscenes_h" 
 #include "sys_injury"
+
+#include "global_objects_h" 
+#include "camp_function_2"
+#include "p_utility"
 
 #include "party_h"
 
@@ -60,11 +61,11 @@ void main()
             //Log
             Log_Trace(LOG_CHANNEL_SYSTEMS, "cam000ar_all_camps_2.main", "CAMP AREA FINISHED LOADING");
 
-            // Not really needed. Added as an extra line of defense.
+            //Not really needed. Added as an extra line of defense.
             InitHeartbeat(oPC, CONFIG_CONSTANT_HEARTBEAT_RATE); 
-
+            
             //Place followers
-            Camp_PlaceFollowersInCamp();
+            Camp_PlaceFollowersInCamp();   
 
             //Place player at camp entrance
             UT_LocalJump(oPC,"cam100wp_entrance");
@@ -80,18 +81,63 @@ void main()
             break;
         }
 
-        //----------------------------------------------------------------------
+        //--------------------------------------------------------------------------
         // Sent by: The engine
         // When: fires at the same time that the load screen is going away,
         // and can be used for things that you want to make sure the player sees.
-        //----------------------------------------------------------------------
+        //------------------------------------------------------------------
         case EVENT_TYPE_AREALOAD_POSTLOADEXIT:
         {
             Injury_RemoveAllInjuriesFromParty();
 
             break;
         }
-
+        
+        //--------------------------------------------------------------------------
+        // Sent by: The engine
+        // When: Fires when player add companion to the party.
+        //------------------------------------------------------------------
+        case EVENT_TYPE_PARTYMEMBER_ADDED:
+        {
+            object oFollower = GetEventObject(ev, 0);
+            string strTag = GetTag(oFollower);
+            
+            //Disable Immortal effect
+            SetImmortal(oFollower,0);  
+            
+            //Enable Exp Gain
+            SetLocalInt(oFollower, CREATURE_REWARD_FLAGS, 0);
+            
+            //Set state to active(Recruited and in the party)
+            SetFollowerState(oFollower, FOLLOWER_STATE_ACTIVE);  
+            
+            //Enable Follower
+            SetObjectActive(oFollower,1);  
+            
+            //Teleport follower to warden's location
+            AddCommand(oFollower, CommandJumpToLocation(GetLocation(GetHero()))); 
+            
+        }
+        
+        case EVENT_TYPE_PARTYMEMBER_DROPPED:
+        {
+            object oFollower = GetEventObject(ev, 0); 
+            string strTag = GetTag(oFollower);
+            
+            //Enable Immortal effect
+            SetImmortal(oFollower,1); 
+            
+            //Set state to Avalible(Recruited but not in the party)
+            SetFollowerState(oFollower, FOLLOWER_STATE_AVAILABLE); 
+            
+        }   
+        
+        /*case EVENT_TYPE_PARTYPICKER_CLOSED:
+        {
+            Camp_PlaceFollowersInCamp();   
+        }*/
+        
+        
         //----------------------------------------------------------------------
         // Sent by: The engine
         // When: A creature enters the area

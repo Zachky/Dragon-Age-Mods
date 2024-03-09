@@ -1,8 +1,8 @@
 /*******************************************************************************
-* FOLLOWERS
+* FOLLOWERS -- Mod "Party Recruiting"
 *******************************************************************************/
 
-const string GEN_FL_Andrastalla = "party_andrastalla";  
+const string GEN_FL_Andrastalla = "party_andrastalla";
 const string GEN_FL_Troga = "party_troga";
 const string GEN_FL_Rikku_Templar = "party_rikku_templar";
 const string GEN_FL_Duncan = "party_duncan";

@@ -1,17 +1,17 @@
 //---------------------------------------------------------------------
 /*
-     Adds Daveth to the party by tag, without location restriction
+     Adds Cailan to the party by tag, without location restriction
 
      usage:
 
-        runscript daveth_addparty 
+        runscript hire_cailan or talk to npc to hire him.  
         
      Note:
         
-        Changing his conversation flag before the end of joining story will cause trouble because 
-        his flag is key part for main story, hence I will not change his flag. 
+        1. This file overwrite the original file "hire_cailan.nss" to 
+        fix old problem.    
 
-     */
+*/
 //---------------------------------------------------------------------
 // Zach Lin
 //---------------------------------------------------------------------
@@ -20,22 +20,28 @@
 #include "utility_h"
 #include "sys_chargen_h"
 #include "p_utility"
-#include "plt_gen00pt_party"
+#include "global_objects_2"
+
+//Import plot module
+#include "plt_gen00pt_party_recruit"
 
 void main()
 {
-    object oCreature= GetObjectByTag("pre100cr_daveth");
+    object oCreature= GetObjectByTag(GEN_FL_Cailan);
     
     //Activate target creature
     WR_SetObjectActive(oCreature, TRUE); 
    
     //Create object(creature) near warden's current location
     if(!IsObjectValid(oCreature)){
-       oCreature = CreateObject(OBJECT_TYPE_CREATURE, R"pre100cr_daveth.utc", GetLocation(OBJECT_SELF));
+       oCreature = CreateObject(OBJECT_TYPE_CREATURE, R"king_cailan.utc", GetLocation(OBJECT_SELF));
     }
     
+    //Set plot flag "Recruited" to true for other feature
+    WR_SetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_CAILAN_RECRUITED, TRUE);
+    
     //Set companion attribute 
-    SetCompanionAttribute(oCreature); 
+    SetCompanionAttribute(oCreature, RACE_HUMAN);   
     
     //argen_SelectCoreClass(oCreature, CLASS_WIZARD);
 
@@ -44,7 +50,7 @@ void main()
        UT_HireFollower(oCreature);
     }
 
-    //Set Follower to the active party(Important)
+    //Set Follower's stats to "Active"
     WR_SetFollowerState(oCreature, FOLLOWER_STATE_ACTIVE);
 
     //Show Party Picker
