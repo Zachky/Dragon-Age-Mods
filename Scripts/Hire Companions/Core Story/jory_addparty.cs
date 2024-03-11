@@ -7,60 +7,57 @@
         runscript jory_addparty
 
      Note:
-        His start conversation flag is changed to a proper flag
 
-     */
+*/
 //---------------------------------------------------------------------
 // Zach Lin
 //---------------------------------------------------------------------
 
+//Import core module
 #include "utility_h"
-#include "plt_pre100pt_generic"
-#include "wrappers_h"
 #include "sys_chargen_h"
+#include "p_utility"
+#include "global_objects_2"
+
+//Import plot module
+#include "plt_gen00pt_main_story"
 
 void main()
 {
-    object oCreature= GetObjectByTag("pre100cr_jory");
-    object oHero = GetHero();
-    int nLevel = GetLevel(oHero);
+    object oCreature= GetObjectByTag(GEN_FL_Jory);
+    int FollowerState = 0;
 
     //Activate target creature
     WR_SetObjectActive(oCreature, TRUE);
 
-    //Create object in a specific location
+    //Create object(creature) near warden's current location
     if(!IsObjectValid(oCreature)){
        oCreature = CreateObject(OBJECT_TYPE_CREATURE, R"pre100cr_jory.utc", GetLocation(OBJECT_SELF));
     }
 
-    //Scale up the lvl of armor and weapon base on main character's level
-    ScaleEquippedItems(oCreature, nLevel);
+    //Set 2nd camp mod plot flag "Recruited" to true for other feature
+    WR_SetPlotFlag(PLT_GEN00PT_MAIN_STORY, GEN_JORY_RECRUITED, TRUE);
 
-    //Enable approval bar
-    SetFollowerApprovalEnabled(oCreature, TRUE);
-    SetFollowerApprovalDescription(oCreature, 371487);
+    //Only setup follower and hire it when player does not recruit it yet
+    //(Active -> follower is in the party pool and in warden's 4 man party)
+    //(Avalible - > follower is in the party pool)
+    FollowerState = GetFollowerState(oCreature);
+    if(FollowerState != FOLLOWER_STATE_ACTIVE &&
+       FollowerState != FOLLOWER_STATE_AVAILABLE){
 
-    //Enable tactics present base on follower's class
-    Chargen_EnableTacticsPresets(oCreature);
+       //Set companion attribute
+       SetCompanionAttribute(oCreature, RACE_HUMAN, CLASS_WIZARD);
 
-    //Set Conversation Flag
-    WR_SetPlotFlag(PLT_PRE100PT_GENERIC,1,TRUE);
-
-    //Allow the follower to gain xp
-    SetLocalInt(oCreature, CREATURE_REWARD_FLAGS, 0);
-
-    //Cancel Auto level up
-    SetAutoLevelUp(oCreature,0);
-
-    //Hire NPC
-    if(GetFollowerState(oCreature) != FOLLOWER_STATE_ACTIVE){
+       //Hire NPC
        UT_HireFollower(oCreature);
     }
 
-    //Set Follower to the active party(Important)
+    //Set Follower to "Active" so it will be picked in the party picker.
     WR_SetFollowerState(oCreature, FOLLOWER_STATE_ACTIVE);
 
     //Show Party Picker
     SetPartyPickerGUIStatus(2);
     ShowPartyPickerGUI();
+
 }
+

@@ -1,9 +1,9 @@
 /*
-     Remove Daveth from party
+     Remove Ilyana from party
 
      usage:
 
-        runscript daveth_fire
+        runscript ilyana_fire
 
      Note:
 
@@ -18,16 +18,16 @@
 #include "global_objects_2"
 
 //Import plot module
-#include "plt_gen00pt_main_story"
+#include "plt_gen00pt_adopted_dalish"
 void main()
 {
-   object oFollower = GetObjectByTag(GEN_FL_Daveth);
+   object oFollower = GetObjectByTag(GEN_FL_Ilyana);
 
    //Fire Companion
    UT_FireFollower(oFollower, TRUE, TRUE);
 
    //Set plot flag "Recruited" to true for other feature
-   WR_SetPlotFlag(PLT_GEN00PT_MAIN_STORY, GEN_DAVETH_RECRUITED, FALSE);
+   WR_SetPlotFlag(PLT_GEN00PT_ADOPTED_DALISH, GEN_ILYANA_RECRUITED, FALSE);
 
    DestroyObject(oFollower);
 

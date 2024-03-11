@@ -1,11 +1,23 @@
+/*******************************************************************************    
+* Note: 
+* 1. About CheckFollowerFlag() method, there is an issue that "Recruited" flag might be false
+*    but companion still exist in warden's party pool,
+*    (Whether this follower is in warden's 4 man party or in the party picker)
+*    so the first part will check if flag is false but follower is in the party, if yes the flag
+*    will be set to TRUE.
+*******************************************************************************/
+
+
 #include "party_h"
 #include "utility_h"
 #include "wrappers_h"
 #include "sys_rewards_h"
 #include "sys_ambient_h"
-#include "camp_constants_h"   
-#include "global_objects_2" 
+#include "camp_constants_h"
+#include "global_objects_2"
 
+#include "plt_gen00pt_main_story"
+#include "plt_gen00pt_adopted_dalish" 
 #include "plt_gen00pt_party_recruit"
 
 
@@ -29,88 +41,127 @@ void Camp_FollowerAmbient(object oFollower, int bStart)
         Ambient_Stop(oFollower);
     }else{
 
+        //Main Story
+        if     (sTag == GEN_FL_Daveth)           nAnim   =   24;      
+        else if(sTag == GEN_FL_Jory)             nAnim   =   37;     
+        else if(sTag == GEN_FL_Fenarel)          nAnim   =   4;      
+        else if(sTag == GEN_FL_Merrill)          nAnim   =   85;     
+        else if(sTag == GEN_FL_Moira)            nAnim   =   9;
+        
+        //Adopted Dalish
+        else if(sTag == GEN_FL_Ilyana)           nAnim   =   37;      
+        else if(sTag == GEN_FL_Senros)           nAnim   =   100;     
+        else if(sTag == GEN_FL_Anaise)           nAnim   =   4;      
+        else if(sTag == GEN_FL_Dominique)        nAnim   =   85;     
+        else if(sTag == GEN_FL_Merrilyla)        nAnim   =   37;
+        
         //Party Recruiting Mod
-        if     (sTag == GEN_FL_Duncan)           nAnim   =   4;      // Relaxed.
-        else if(sTag == GEN_FL_Cailan)           nAnim   =   85;     // Listener Passive 3
-        else if(sTag == GEN_FL_Andrastalla)      nAnim   =   24;     // Guard Wander Left and Right
-        else if(sTag == GEN_FL_Anora)            nAnim   =   67;     // Bored Loitering 1
-        else if(sTag == GEN_FL_Flemeth)          nAnim   =   103;    // Bored Stationary
-        else if(sTag == GEN_FL_Arl_Eamon)        nAnim   =   71;     // Chat by fire.
-        else if(sTag == GEN_FL_Troga)            nAnim   =   70;     // Warm by fire.
-        else if(sTag == GEN_FL_Rikku_Templar)    nAnim   =   100;    // Squat by fire.
-        else if(sTag == GEN_FL_LadyOfTheForest)  nAnim   =   68;     // Bored Loitering 2
+        else if(sTag == GEN_FL_Duncan)           nAnim   =   4;      
+        else if(sTag == GEN_FL_Cailan)           nAnim   =   85;     
+        else if(sTag == GEN_FL_Andrastalla)      nAnim   =   37;     
+        else if(sTag == GEN_FL_Anora)            nAnim   =   37;     
+        else if(sTag == GEN_FL_Flemeth)          nAnim   =   4;     
+        else if(sTag == GEN_FL_Arl_Eamon)        nAnim   =   71;     
+        else if(sTag == GEN_FL_Troga)            nAnim   =   70;     
+        else if(sTag == GEN_FL_Rikku_Templar)    nAnim   =   100;    
+        else if(sTag == GEN_FL_LadyOfTheForest)  nAnim   =   37;     
 
         //Other Mod Companions...
 
+
         Ambient_Start(oFollower, AMBIENT_SYSTEM_ENABLED, AMBIENT_MOVE_NONE, AMBIENT_MOVE_PREFIX_NONE, nAnim, AMBIENT_ANIM_FREQ_ORDERED);
-        
-        Log_Trace(LOG_CHANNEL_PLOT, "Starting Ambient Animations for: " + sTag, "Playing Animation: " + IntToString(nAnim)); 
-    
+
+        Log_Trace(LOG_CHANNEL_PLOT, "Starting Ambient Animations for: " + sTag, "Playing Animation: " + IntToString(nAnim));
+
     }
 }
 
-void ActivateFollowers(){
+void CheckFollowerFlag(object oFollower, string strPlot, int FlagRecruited, int FlagCamp){
+    
+//-------------------------Check recruited state first--------------------------
+
+   if( WR_GetPlotFlag(strPlot, FlagRecruited) == FALSE && 
+        (GetFollowerState(oFollower) == FOLLOWER_STATE_ACTIVE || 
+         GetFollowerState(oFollower) == FOLLOWER_STATE_AVAILABLE )    
+      ){WR_SetPlotFlag(strPlot, FlagRecruited, TRUE);} 
    
+//---------------------------Set Follower state---------------------------------
+
+   if( WR_GetPlotFlag(strPlot, FlagRecruited) == TRUE )
+    {
+        WR_SetPlotFlag(strPlot, FlagCamp, TRUE, TRUE);
+        WR_SetObjectActive(oFollower, TRUE);
+        SetFollowerState(oFollower,FOLLOWER_STATE_AVAILABLE);
+    }
+    
+}
+
+void ActivateFollowers(){
+
+    
+/*******************************************************************************
+* "Main Stoty"
+*******************************************************************************/
+
+    object oDaveth  = Party_GetFollowerByTag(GEN_FL_Daveth);
+    object oJory    = Party_GetFollowerByTag(GEN_FL_Jory);
+    object oFenarel = Party_GetFollowerByTag(GEN_FL_Fenarel);  
+    object oMerrill = Party_GetFollowerByTag(GEN_FL_Merrill);
+    object oMoira = Party_GetFollowerByTag(GEN_FL_Moira);
+    
+    CheckFollowerFlag(oDaveth, PLT_GEN00PT_MAIN_STORY, GEN_DAVETH_RECRUITED, GEN_DAVETH_IN_CAMP);
+    CheckFollowerFlag(oJory, PLT_GEN00PT_MAIN_STORY, GEN_JORY_RECRUITED, GEN_JORY_IN_CAMP);
+    CheckFollowerFlag(oFenarel, PLT_GEN00PT_MAIN_STORY, GEN_FENAREL_RECRUITED, GEN_FENAREL_IN_CAMP);
+    CheckFollowerFlag(oMerrill, PLT_GEN00PT_MAIN_STORY, GEN_MERRILL_RECRUITED, GEN_MERRILL_IN_CAMP);
+    CheckFollowerFlag(oMoira, PLT_GEN00PT_MAIN_STORY, GEN_MOIRA_RECRUITED, GEN_MOIRA_IN_CAMP);
+
+/*******************************************************************************
+* "Mod Adopted Dalish"
+*******************************************************************************/
+
+    object oSenros    = Party_GetFollowerByTag(GEN_FL_Senros);
+    object oIlyana    = Party_GetFollowerByTag(GEN_FL_Ilyana);
+    object oAnaise    = Party_GetFollowerByTag(GEN_FL_Anaise);  
+    object oDominique = Party_GetFollowerByTag(GEN_FL_Dominique);
+    object oMerrilyla = Party_GetFollowerByTag(GEN_FL_Merrilyla);
+    
+    CheckFollowerFlag(oSenros   , PLT_GEN00PT_ADOPTED_DALISH, GEN_SENROS_RECRUITED, GEN_SENROS_IN_CAMP);
+    CheckFollowerFlag(oIlyana   , PLT_GEN00PT_ADOPTED_DALISH, GEN_ILYANA_RECRUITED, GEN_ILYANA_IN_CAMP);
+    CheckFollowerFlag(oAnaise   , PLT_GEN00PT_ADOPTED_DALISH, GEN_ANAISE_RECRUITED, GEN_ANAISE_IN_CAMP);
+    CheckFollowerFlag(oDominique, PLT_GEN00PT_ADOPTED_DALISH, GEN_DOMINIQUE_RECRUITED, GEN_DOMINIQUE_IN_CAMP);
+    CheckFollowerFlag(oMerrilyla, PLT_GEN00PT_ADOPTED_DALISH, GEN_MERRILYLA_RECRUITED, GEN_MERRILYLA_IN_CAMP);    
+    
 /*******************************************************************************
 * Mod "Party Recruiting"
 *******************************************************************************/
-    
-    object oAndrastalla = Party_GetFollowerByTag(GEN_FL_Andrastalla);  
+
+    object oAndrastalla = Party_GetFollowerByTag(GEN_FL_Andrastalla);
     object oCailan = Party_GetFollowerByTag(GEN_FL_Cailan);
-    object oAnora = Party_GetFollowerByTag(GEN_FL_Anora); 
-    object oArlEamon = Party_GetFollowerByTag(GEN_FL_Arl_Eamon);  
-    object oDuncan = Party_GetFollowerByTag(GEN_FL_Duncan); 
-    object oLadyF = Party_GetFollowerByTag(GEN_FL_LadyOfTheForest);
+    object oAnora = Party_GetFollowerByTag(GEN_FL_Anora);  
+    object oArlEamon = Party_GetFollowerByTag(GEN_FL_Arl_Eamon);
+    object oDuncan = Party_GetFollowerByTag(GEN_FL_Duncan);
+    object oLadyF = Party_GetFollowerByTag(GEN_FL_LadyOfTheForest);  
+    object oFlemeth = Party_GetFollowerByTag(GEN_FL_Flemeth);
+    object oRikku = Party_GetFollowerByTag(GEN_FL_Rikku_Templar);
+    object oTroga = Party_GetFollowerByTag(GEN_FL_Troga);
+
+    CheckFollowerFlag(oAndrastalla, PLT_GEN00PT_PARTY_RECRUIT, GEN_ANDRASTALLA_RECRUITED, GEN_ANDRASTALLA_IN_CAMP);
+    CheckFollowerFlag(oCailan, PLT_GEN00PT_PARTY_RECRUIT, GEN_CAILAN_RECRUITED, GEN_CAILAN_IN_CAMP);
+    CheckFollowerFlag(oAnora, PLT_GEN00PT_PARTY_RECRUIT, GEN_ANORA_RECRUITED, GEN_ANORA_IN_CAMP);  
+    CheckFollowerFlag(oArlEamon, PLT_GEN00PT_PARTY_RECRUIT, GEN_ARL_EAMON_RECRUITED, GEN_ARL_EAMON_IN_CAMP);
+    CheckFollowerFlag(oDuncan, PLT_GEN00PT_PARTY_RECRUIT, GEN_DUNCAN_RECRUITED, GEN_DUNCAN_IN_CAMP);
+    CheckFollowerFlag(oLadyF, PLT_GEN00PT_PARTY_RECRUIT, GEN_LADYOFTHEFOREST_RECRUITED, GEN_LADYOFTHEFOREST_IN_CAMP);    
+    CheckFollowerFlag(oFlemeth, PLT_GEN00PT_PARTY_RECRUIT, GEN_FLEMETH_RECRUITED, GEN_FLEMETH_IN_CAMP);
+    CheckFollowerFlag(oRikku, PLT_GEN00PT_PARTY_RECRUIT, GEN_RIKKU_RECRUITED, GEN_RIKKU_IN_CAMP);
+    CheckFollowerFlag(oTroga, PLT_GEN00PT_PARTY_RECRUIT, GEN_TROGA_RECRUITED, GEN_TROGA_IN_CAMP);
     
-    
-    if( WR_GetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_ANDRASTALLA_RECRUITED) == TRUE )
-    {
-        WR_SetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_ANDRASTALLA_IN_CAMP, TRUE, TRUE);
-        WR_SetObjectActive(oAndrastalla, TRUE);
-        SetFollowerState(oAndrastalla,FOLLOWER_STATE_AVAILABLE);
-    } 
-    
-    if( WR_GetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_CAILAN_RECRUITED) == TRUE )
-    {
-        WR_SetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_CAILAN_IN_CAMP, TRUE, TRUE); 
-        WR_SetObjectActive(oCailan, TRUE);
-        SetFollowerState(oCailan,FOLLOWER_STATE_AVAILABLE);
-    } 
-    
-    if( WR_GetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_ANORA_RECRUITED) == TRUE )
-    {
-        WR_SetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_ANORA_IN_CAMP, TRUE, TRUE); 
-        WR_SetObjectActive(oAnora, TRUE);
-        SetFollowerState(oAnora,FOLLOWER_STATE_AVAILABLE);
-    }
-    
-    if( WR_GetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_ARL_EAMON_RECRUITED) == TRUE )
-    {
-        WR_SetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_ARL_EAMON_IN_CAMP, TRUE, TRUE); 
-        WR_SetObjectActive(oArlEamon, TRUE);
-        SetFollowerState(oArlEamon,FOLLOWER_STATE_AVAILABLE);
-    }
-    
-    if( WR_GetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_DUNCAN_RECRUITED) == TRUE )
-    {
-        WR_SetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_DUNCAN_IN_CAMP, TRUE, TRUE); 
-        WR_SetObjectActive(oDuncan, TRUE);
-        SetFollowerState(oDuncan,FOLLOWER_STATE_AVAILABLE);
-    }
-    
-    if( WR_GetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_LADYOFTHEFOREST_RECRUITED) == TRUE )
-    {
-        WR_SetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_LADYOFTHEFOREST_IN_CAMP, TRUE, TRUE); 
-        WR_SetObjectActive(oLadyF, TRUE);
-        SetFollowerState(oLadyF,FOLLOWER_STATE_AVAILABLE);
-    }
 }
 
 void Camp_PlaceFollowersInCamp()
 {
     //1. Activate Followers
     ActivateFollowers();
-    
+
     //2. Place all active party members in their spots
     object [] arParty = GetPartyPoolList();
     int nSize = GetArraySize(arParty);

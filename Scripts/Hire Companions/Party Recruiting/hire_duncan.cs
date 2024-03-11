@@ -28,6 +28,7 @@
 void main()
 {
     object oCreature= GetObjectByTag(GEN_FL_Duncan);
+    int FollowerState = 0;
 
     //Activate target creature
     WR_SetObjectActive(oCreature, TRUE);
@@ -40,17 +41,21 @@ void main()
     //Set plot flag "Recruited" to true for other feature
     WR_SetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_DUNCAN_RECRUITED, TRUE);
 
-    //Set companion attribute
-    SetCompanionAttribute(oCreature, RACE_HUMAN);
+    //Only setup follower and hire it when player does not recruit it yet
+    //(Active -> follower is in the party pool and in warden's 4 man party)
+    //(Avalible - > follower is in the party pool)
+    FollowerState = GetFollowerState(oCreature);
+    if(FollowerState != FOLLOWER_STATE_ACTIVE &&
+       FollowerState != FOLLOWER_STATE_AVAILABLE){
 
-    //argen_SelectCoreClass(oCreature, CLASS_WIZARD);
+       //Set companion attribute
+       SetCompanionAttribute(oCreature, RACE_HUMAN, CLASS_WARRIOR);
 
-    //Hire NPC
-    if(GetFollowerState(oCreature) != FOLLOWER_STATE_ACTIVE){
+       //Hire NPC
        UT_HireFollower(oCreature);
     }
 
-    //Set Follower's stats to "Active"
+    //Set Follower to "Active" so it will be picked in the party picker.
     WR_SetFollowerState(oCreature, FOLLOWER_STATE_ACTIVE);
 
     //Show Party Picker

@@ -1,10 +1,10 @@
 //---------------------------------------------------------------------
 /*
-     Adds Merrilyla to the party by tag, without location restriction
+     Adds Moira to the party by tag, without location restriction
 
      usage:
 
-        runscript merrilyla_addparty
+        runscript moira_addparty
 
      Note:
 
@@ -20,11 +20,11 @@
 #include "global_objects_2"
 
 //Import plot module
-#include "plt_gen00pt_adopted_dalish"
+#include "plt_gen00pt_main_story"
 
 void main()
 {
-    object oCreature= GetObjectByTag(GEN_FL_Merrilyla);
+    object oCreature= GetObjectByTag(GEN_FL_Moira);
     int FollowerState = 0;
 
     //Activate target creature
@@ -32,11 +32,11 @@ void main()
 
     //Create object(creature) near warden's current location
     if(!IsObjectValid(oCreature)){
-       oCreature = CreateObject(OBJECT_TYPE_CREATURE, R"ado00fl_merrilyla.utc", GetLocation(OBJECT_SELF));
+       oCreature = CreateObject(OBJECT_TYPE_CREATURE, R"camp_bloodmage.utc", GetLocation(OBJECT_SELF));
     }
 
     //Set plot flag "Recruited" to true for other feature
-    WR_SetPlotFlag(PLT_GEN00PT_ADOPTED_DALISH, GEN_MERRILYLA_RECRUITED, TRUE);
+    WR_SetPlotFlag(PLT_GEN00PT_MAIN_STORY, GEN_MOIRA_RECRUITED, TRUE);
 
     //Only setup follower and hire it when player does not recruit it yet
     //(Active -> follower is in the party pool and in warden's 4 man party)
@@ -46,7 +46,7 @@ void main()
        FollowerState != FOLLOWER_STATE_AVAILABLE){
 
        //Set companion attribute
-       SetCompanionAttribute(oCreature, RACE_ELF, CLASS_WIZARD);
+       SetCompanionAttribute(oCreature, RACE_HUMAN, CLASS_WIZARD);
 
        //Hire NPC
        UT_HireFollower(oCreature);

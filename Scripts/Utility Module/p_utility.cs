@@ -30,7 +30,7 @@ float CalculateSPoint(int Warden_Level){
    return intPoint;
 }
 
-void SetCompanionAttribute(object oCompanion,int Race){
+void SetCompanionAttribute(object oCompanion,int Race, int intClass=999){
 
    object oHero = GetHero();
    int nLevel = GetLevel(oHero);
@@ -38,6 +38,11 @@ void SetCompanionAttribute(object oCompanion,int Race){
 
    //Select race, otherwise skills tree wont show
    Chargen_SelectRace(oCompanion, Race);
+
+   //Select class if specified:
+   if(intClass != 999){
+      Chargen_SelectCoreClass(oCompanion,intClass);
+   }
 
    //Recalculate the number of tactics slots a creature should have based on level and skills
    Chargen_SetNumTactics(oCompanion);
@@ -63,34 +68,3 @@ void SetCompanionAttribute(object oCompanion,int Race){
    SetAutoLevelUp(oCompanion,0);
 
 }
-
-/* void SetPartyPlotFlagStats(string strTag, string keyword, int stats = FALSE){
-
-    string strPlot = "";
-    int intFlag = 0;
-
-    //1. Find Plot Name
-
-    if (strTag == GEN_FL_Andrastalla ||
-        strTag == GEN_FL_Troga ||
-        strTag == GEN_FL_Rikku_Templar ||
-        strTag == GEN_FL_Duncan ||
-        strTag == GEN_FL_Cailan ||
-        strTag == GEN_FL_Anora ||
-        strTag == GEN_FL_Flemeth ||
-        strTag == GEN_FL_Arl_Eamon ||
-        strTag == GEN_FL_LadyOfTheForest){
-
-        strPlot = "PLT_GEN00PT_PARTY_RECRUIT";
-    }
-    //else if..for other mod
-
-
-   //2. Find Flag Number
-   if (keyword == "Party"){
-        if(strTag == GEN_FL_Andrastalla){ intFlag = GEN_ANDRASTALLA_IN_PARTY; }
-   }
-
-   //3. Set Plot Flag
-   WR_SetPlotFlag(strPlot,intFlag,stats);
-} */
