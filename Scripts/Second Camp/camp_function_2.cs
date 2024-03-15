@@ -24,7 +24,8 @@
 #include "plt_gen00pt_party_lanna"
 #include "plt_gen00pt_party_marric"
 #include "plt_gen00pt_party_martin"
-#include "plt_gen00pt_party_willam"
+#include "plt_gen00pt_party_willam" 
+#include "plt_gen00pt_party_lealion"
 
 
 
@@ -51,19 +52,19 @@ void Camp_FollowerAmbient(object oFollower, int bStart)
         //Main Story
         if     (sTag == GEN_FL_Daveth)           nAnim   =   24;
         else if(sTag == GEN_FL_Jory)             nAnim   =   37;
-        else if(sTag == GEN_FL_Fenarel)          nAnim   =   4;
+        else if(sTag == GEN_FL_Fenarel)          nAnim   =   9;
         else if(sTag == GEN_FL_Merrill)          nAnim   =   85;
         else if(sTag == GEN_FL_Moira)            nAnim   =   9;
 
         //Adopted Dalish
         else if(sTag == GEN_FL_Ilyana)           nAnim   =   37;
         else if(sTag == GEN_FL_Senros)           nAnim   =   100;
-        else if(sTag == GEN_FL_Anaise)           nAnim   =   4;
+        else if(sTag == GEN_FL_Anaise)           nAnim   =   100;
         else if(sTag == GEN_FL_Dominique)        nAnim   =   85;
         else if(sTag == GEN_FL_Merrilyla)        nAnim   =   37;
 
         //Party Recruiting Mod
-        else if(sTag == GEN_FL_Duncan)           nAnim   =   4;
+        else if(sTag == GEN_FL_Duncan)           nAnim   =   100;
         else if(sTag == GEN_FL_Cailan)           nAnim   =   85;
         else if(sTag == GEN_FL_Andrastalla)      nAnim   =   37;
         else if(sTag == GEN_FL_Anora)            nAnim   =   37;
@@ -80,9 +81,13 @@ void Camp_FollowerAmbient(object oFollower, int bStart)
 
         //Tevinter Warden
         else if(sTag == GEN_FL_Lanna)            nAnim   =   100;
-        else if(sTag == GEN_FL_Marric)           nAnim   =   49;
-        else if(sTag == GEN_FL_Martin)           nAnim   =   52;
-        else if(sTag == GEN_FL_Willam)           nAnim   =   48;
+        else if(sTag == GEN_FL_Marric)           nAnim   =   71;
+        else if(sTag == GEN_FL_Martin)           nAnim   =   70;
+        else if(sTag == GEN_FL_Willam)           nAnim   =   48; 
+        
+        //Lealion
+        else if(sTag == GEN_FL_Lealion)          nAnim   =   37;
+        else if(sTag == GEN_FL_Legion)           nAnim   =   4;
 
         //Other Mod Companions...
 
@@ -195,17 +200,29 @@ void ActivateFollowers(){
     object oMartin   = Party_GetFollowerByTag(GEN_FL_Martin);
     object oWillam   = Party_GetFollowerByTag(GEN_FL_Willam);
 
-    CheckFollowerFlag(oLanna, PLT_GEN00PT_PARTY_LANNA, GEN_LANNA_HIRED, GEN_LANNA_IN_CAMP); 
+    CheckFollowerFlag(oLanna, PLT_GEN00PT_PARTY_LANNA, GEN_LANNA_HIRED, GEN_LANNA_IN_CAMP);
     CheckFollowerFlag(oMarric, PLT_GEN00PT_PARTY_MARRIC, GEN_MARRIC_HIRED, GEN_MARRIC_IN_CAMP);
     CheckFollowerFlag(oMartin, PLT_GEN00PT_PARTY_MARTIN, GEN_MARTIN_HIRED, GEN_MARTIN_IN_CAMP);
     CheckFollowerFlag(oWillam, PLT_GEN00PT_PARTY_WILLAM, GEN_WILLAM_HIRED, GEN_WILLAM_IN_CAMP);
 
-    WR_SetPlotFlag(PLT_GEN00PT_PARTY_LANNA, GEN_LANNA_FIRED, FALSE);  
+    WR_SetPlotFlag(PLT_GEN00PT_PARTY_LANNA, GEN_LANNA_FIRED, FALSE);
     WR_SetPlotFlag(PLT_GEN00PT_PARTY_MARRIC, GEN_MARRIC_FIRED, FALSE);
     WR_SetPlotFlag(PLT_GEN00PT_PARTY_MARTIN, GEN_MARTIN_FIRED, FALSE);
-    WR_SetPlotFlag(PLT_GEN00PT_PARTY_WILLAM, GEN_WILLAM_FIRED, FALSE);
+    WR_SetPlotFlag(PLT_GEN00PT_PARTY_WILLAM, GEN_WILLAM_FIRED, FALSE);  
+    
+/*******************************************************************************
+* "Lealion and Legion"
+*******************************************************************************/
 
-
+    object oLealion  = Party_GetFollowerByTag(GEN_FL_Lealion);
+    object oLegion   = Party_GetFollowerByTag(GEN_FL_Legion);
+    
+    CheckFollowerFlag(oLealion, PLT_GEN00PT_PARTY_LEALION, GEN_LEALION_HIRED, GEN_LEALION_IN_CAMP);
+    CheckFollowerFlag(oLegion , PLT_GEN00PT_PARTY_LEALION, GEN_LEGION_HIRED, GEN_LEGION_IN_CAMP);
+    
+    WR_SetPlotFlag(PLT_GEN00PT_PARTY_LEALION, GEN_LEALION_FIRED, FALSE);
+    WR_SetPlotFlag(PLT_GEN00PT_PARTY_LEALION, GEN_LEGION_FIRED, FALSE);
+   
 }
 
 void Camp_PlaceFollowersInCamp()

@@ -44,3 +44,9 @@ const string GEN_FL_Lanna    = "gen00fl_lanna";
 const string GEN_FL_Marric   = "gen00fl_marric";
 const string GEN_FL_Martin   = "gen00fl_martin";
 const string GEN_FL_Willam   = "gen00fl_willam";
+
+/*******************************************************************************
+* FOLLOWERS -- Mod "Lealion and Legend"
+*******************************************************************************/
+const string GEN_FL_Lealion  = "gen00fl_lealion";
+const string GEN_FL_Legion   = "gen00fl_legion";
