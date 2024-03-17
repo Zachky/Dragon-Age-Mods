@@ -3,8 +3,8 @@
 * 1. About CheckFollowerFlag() method, there is an issue that "Recruited" flag might be false
 *    but companion still exist in warden's party pool,
 *    (Whether this follower is in warden's 4 man party or in the party picker)
-*    so the first part will check if flag is false but follower is in the party, if yes the flag
-*    will be set to TRUE.
+*    In this function the first part will check if flag is false but follower
+*    will be set to TRUE. is in the party, if yes the flag
 *******************************************************************************/
 
 
@@ -24,10 +24,11 @@
 #include "plt_gen00pt_party_lanna"
 #include "plt_gen00pt_party_marric"
 #include "plt_gen00pt_party_martin"
-#include "plt_gen00pt_party_willam" 
+#include "plt_gen00pt_party_willam"
 #include "plt_gen00pt_party_lealion"
+#include "plt_enigma_plot1"
 
-
+void Camp2_RemoveFollowerFromCamp();
 
 const string WP_CAMP2_FOLLOWER_PREFIX = "wp_pcamp2_";
 
@@ -83,11 +84,16 @@ void Camp_FollowerAmbient(object oFollower, int bStart)
         else if(sTag == GEN_FL_Lanna)            nAnim   =   100;
         else if(sTag == GEN_FL_Marric)           nAnim   =   71;
         else if(sTag == GEN_FL_Martin)           nAnim   =   70;
-        else if(sTag == GEN_FL_Willam)           nAnim   =   48; 
-        
+        else if(sTag == GEN_FL_Willam)           nAnim   =   48;
+
         //Lealion
         else if(sTag == GEN_FL_Lealion)          nAnim   =   37;
         else if(sTag == GEN_FL_Legion)           nAnim   =   4;
+
+        //Enigma
+        else if(sTag == GEN_FL_Vekuul)           nAnim   =   100;
+        else if(sTag == GEN_FL_Vishala)          nAnim   =   70;
+        else if(sTag == GEN_FL_helperlady)       nAnim   =   37;
 
         //Other Mod Companions...
 
@@ -208,24 +214,36 @@ void ActivateFollowers(){
     WR_SetPlotFlag(PLT_GEN00PT_PARTY_LANNA, GEN_LANNA_FIRED, FALSE);
     WR_SetPlotFlag(PLT_GEN00PT_PARTY_MARRIC, GEN_MARRIC_FIRED, FALSE);
     WR_SetPlotFlag(PLT_GEN00PT_PARTY_MARTIN, GEN_MARTIN_FIRED, FALSE);
-    WR_SetPlotFlag(PLT_GEN00PT_PARTY_WILLAM, GEN_WILLAM_FIRED, FALSE);  
-    
+    WR_SetPlotFlag(PLT_GEN00PT_PARTY_WILLAM, GEN_WILLAM_FIRED, FALSE);
+
 /*******************************************************************************
 * "Lealion and Legion"
 *******************************************************************************/
 
     object oLealion  = Party_GetFollowerByTag(GEN_FL_Lealion);
     object oLegion   = Party_GetFollowerByTag(GEN_FL_Legion);
-    
+
     CheckFollowerFlag(oLealion, PLT_GEN00PT_PARTY_LEALION, GEN_LEALION_HIRED, GEN_LEALION_IN_CAMP);
     CheckFollowerFlag(oLegion , PLT_GEN00PT_PARTY_LEALION, GEN_LEGION_HIRED, GEN_LEGION_IN_CAMP);
-    
+
     WR_SetPlotFlag(PLT_GEN00PT_PARTY_LEALION, GEN_LEALION_FIRED, FALSE);
     WR_SetPlotFlag(PLT_GEN00PT_PARTY_LEALION, GEN_LEGION_FIRED, FALSE);
-   
+
+/*******************************************************************************
+* "Lealion and Legion"
+*******************************************************************************/
+
+    object oVekuul   = Party_GetFollowerByTag(GEN_FL_Vekuul);
+    object oVishala  = Party_GetFollowerByTag(GEN_FL_Vishala);
+    object oHelperLady  = Party_GetFollowerByTag(GEN_FL_helperlady);
+
+    CheckFollowerFlag(oVekuul  , PLT_ENIGMA_PLOT1, GEN_VEKUUL_RECRUITED , GEN_VEKUUL_IN_CAMP);
+    CheckFollowerFlag(oVishala , PLT_ENIGMA_PLOT1, GEN_VISHALA_RECRUITED, GEN_VISHALA_IN_CAMP);
+    CheckFollowerFlag(oHelperLady , PLT_ENIGMA_PLOT1, GEN_HELPERLADY_RECRUITED, GEN_HELPERLADY_IN_CAMP);
+
 }
 
-void Camp_PlaceFollowersInCamp()
+void Camp2_PlaceFollowersInCamp()
 {
     //1. Activate Followers
     ActivateFollowers();
@@ -269,4 +287,20 @@ void Camp_PlaceFollowersInCamp()
         }
     }
 
+}
+
+void Camp2_RemoveFollowerFromCamp(){
+
+    object [] arParty = GetPartyPoolList();
+    object oCurrent;
+    int nSize = GetArraySize(arParty);
+    int i;
+
+    for(i = 0; i < nSize; i++){
+       oCurrent = arParty[i];
+       if(GetObjectActive(oCurrent) && !IsHero(oCurrent))
+       {
+           WR_SetObjectActive(oCurrent,FALSE);
+       }
+    }
 }

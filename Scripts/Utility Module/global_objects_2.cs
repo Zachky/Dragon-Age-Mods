@@ -50,3 +50,12 @@ const string GEN_FL_Willam   = "gen00fl_willam";
 *******************************************************************************/
 const string GEN_FL_Lealion  = "gen00fl_lealion";
 const string GEN_FL_Legion   = "gen00fl_legion";
+
+/*******************************************************************************
+* FOLLOWERS -- Mod "Enigma"
+*******************************************************************************/
+const string GEN_FL_Vekuul     = "enigma_hero3";
+const string GEN_FL_Vishala    = "enigma_hero1";
+const string GEN_FL_helperlady = "enigma_helperlady";
+const string GEN_FL_EnMerchant = "enigma_merchant";
+const string GEN_FL_RspMerchant = "wrk_respec_vendor_npc";
