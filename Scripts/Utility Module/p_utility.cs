@@ -14,8 +14,25 @@
 #include "sys_chargen_h"
 #include "global_objects_2"
 
-//#include "plt_gen00pt_party_recruit"
+//---------Plot for each mod----------
+#include "plt_gen00pt_main_story"
+#include "plt_gen00pt_adopted_dalish"
+#include "plt_gen00pt_party_recruit"
+#include "plt_dt_act1"
+#include "plt_gen00pt_party_lanna"
+#include "plt_gen00pt_party_marric"
+#include "plt_gen00pt_party_martin"
+#include "plt_gen00pt_party_willam"
+#include "plt_gen00pt_party_lealion"
+#include "plt_enigma_plot1"
+#include "plt_gen00pt_ndq_mithra"
+#include "plt_sdt_terra"
+#include "plt_gen00pt_return_to_kw"
+#include "plt_pt_douglas"
 
+/*******************************************************************************
+* Calculate specialization point
+*******************************************************************************/
 float CalculateSPoint(int Warden_Level){
    float intPoint=0.0;
 
@@ -30,6 +47,9 @@ float CalculateSPoint(int Warden_Level){
    return intPoint;
 }
 
+/*******************************************************************************
+* Package function for event ("Addparty")
+*******************************************************************************/
 void Event_PartyMemberAddProcess(object oFollower){
 
      //Disable Immortal effect
@@ -52,6 +72,9 @@ void Event_PartyMemberAddProcess(object oFollower){
 
 }
 
+/*******************************************************************************
+* Package function for event ("partydrop")
+*******************************************************************************/
 void Event_PartyMemberDropProcess(object oFollower){
 
      //Enable Immortal effect
@@ -62,6 +85,9 @@ void Event_PartyMemberDropProcess(object oFollower){
 
 }
 
+/*******************************************************************************
+* Package function for feature (Companion Addparty)
+*******************************************************************************/
 void SetCompanionAttribute(object oCompanion,int Race, int intClass=999){
 
    object oHero = GetHero();
@@ -103,3 +129,22 @@ void SetCompanionAttribute(object oCompanion,int Race, int intClass=999){
    SetAutoLevelUp(oCompanion,0);
 
 }
+
+/*******************************************************************************
+* Package function for adjust plot flag value
+*******************************************************************************/
+void AdjustPlotFlag(string strFollowerTag, string strFlagType, int nValue, int nCallScript = FALSE){
+
+   if(strFlagType == PlotType_Party){
+
+      //Raina
+      if(strFollowerTag == GEN_FL_Terra) WR_SetPlotFlag(PLT_SDT_TERRA, SDT_TERRA_IN_PARTY, nValue, nCallScript);
+      
+      //Return to Korcari Wilds
+      else if(strFollowerTag == GEN_FL_Ariane)  WR_SetPlotFlag(PLT_GEN00PT_RETURN_TO_KW, GEN_ARIANE_IN_PARTY, nValue, nCallScript);  
+      else if(strFollowerTag == GEN_FL_Douglas) WR_SetPlotFlag(PLT_PT_DOUGLAS, PARTY_DOUGLAS_IN_PARTY, nValue, nCallScript); 
+      else if(strFollowerTag == GEN_FL_Kenneth) WR_SetPlotFlag(PLT_GEN00PT_RETURN_TO_KW, GEN_KENNETH_IN_PARTY, nValue, nCallScript); 
+      
+   }
+}
+

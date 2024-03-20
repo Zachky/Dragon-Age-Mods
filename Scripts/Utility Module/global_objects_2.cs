@@ -1,4 +1,10 @@
 /*******************************************************************************
+* Plot Variable
+*******************************************************************************/
+const string PlotType_Party = "Party";
+const string PlotType_Camp  = "Camp";
+
+/*******************************************************************************
 * FOLLOWERS -- "Core Story"
 *******************************************************************************/
 const string GEN_FL_Daveth = "pre100cr_daveth";
@@ -54,8 +60,26 @@ const string GEN_FL_Legion   = "gen00fl_legion";
 /*******************************************************************************
 * FOLLOWERS -- Mod "Enigma"
 *******************************************************************************/
-const string GEN_FL_Vekuul     = "enigma_hero3";
-const string GEN_FL_Vishala    = "enigma_hero1";
-const string GEN_FL_helperlady = "enigma_helperlady";
-const string GEN_FL_EnMerchant = "enigma_merchant";
+const string GEN_FL_Vekuul      = "enigma_hero3";
+const string GEN_FL_Vishala     = "enigma_hero1";
+const string GEN_FL_helperlady  = "enigma_helperlady";
+const string GEN_FL_EnMerchant  = "enigma_merchant";
 const string GEN_FL_RspMerchant = "wrk_respec_vendor_npc";
+
+/*******************************************************************************
+* FOLLOWERS -- Mod "Warden's Women"
+*******************************************************************************/
+const string GEN_FL_Mithra      = "ndq_mithra";
+
+/*******************************************************************************
+* FOLLOWERS -- Mod "In search of Raina"
+*******************************************************************************/
+const string GEN_FL_Terra      = "terra";
+
+/*******************************************************************************
+* FOLLOWERS -- Mod "Return to Korcari Wild"
+*******************************************************************************/
+const string GEN_FL_Ariane     = "party_zaf"; 
+const string GEN_FL_Douglas    = "party_douglas";
+const string GEN_FL_Kenneth    = "party_serken";
+

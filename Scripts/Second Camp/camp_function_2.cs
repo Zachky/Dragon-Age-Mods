@@ -27,6 +27,8 @@
 #include "plt_gen00pt_party_willam"
 #include "plt_gen00pt_party_lealion"
 #include "plt_enigma_plot1"
+#include "plt_gen00pt_ndq_mithra" 
+#include "plt_sdt_terra"
 
 void Camp2_RemoveFollowerFromCamp();
 
@@ -94,6 +96,12 @@ void Camp_FollowerAmbient(object oFollower, int bStart)
         else if(sTag == GEN_FL_Vekuul)           nAnim   =   100;
         else if(sTag == GEN_FL_Vishala)          nAnim   =   70;
         else if(sTag == GEN_FL_helperlady)       nAnim   =   37;
+
+        //Warden's women
+        else if(sTag == GEN_FL_Mithra)           nAnim   =   48; 
+        
+        //In search of Raina
+        else if(sTag == GEN_FL_Terra)            nAnim   =   24;
 
         //Other Mod Companions...
 
@@ -240,6 +248,24 @@ void ActivateFollowers(){
     CheckFollowerFlag(oVekuul  , PLT_ENIGMA_PLOT1, GEN_VEKUUL_RECRUITED , GEN_VEKUUL_IN_CAMP);
     CheckFollowerFlag(oVishala , PLT_ENIGMA_PLOT1, GEN_VISHALA_RECRUITED, GEN_VISHALA_IN_CAMP);
     CheckFollowerFlag(oHelperLady , PLT_ENIGMA_PLOT1, GEN_HELPERLADY_RECRUITED, GEN_HELPERLADY_IN_CAMP);
+
+/*******************************************************************************
+* "Warden's women"
+*******************************************************************************/
+
+    object oMithra   = Party_GetFollowerByTag(GEN_FL_Mithra);
+
+    CheckFollowerFlag(oMithra  , PLT_GEN00PT_NDQ_MITHRA, GEN_MITHRA_RECRUITED , GEN_MITHRA_IN_CAMP);   
+    
+/*******************************************************************************
+* "In search of Raina"
+*******************************************************************************/
+
+    object oTerra   = Party_GetFollowerByTag(GEN_FL_Terra);
+
+    CheckFollowerFlag(oTerra  , PLT_SDT_TERRA, SDT_TERRA_HIRED , SDT_TERRA_IN_CAMP); 
+    
+    WR_SetPlotFlag(PLT_SDT_TERRA, SDT_TERRA_FIRED, FALSE);
 
 }
 
