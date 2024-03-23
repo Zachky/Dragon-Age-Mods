@@ -22,20 +22,26 @@
 
 void main()
 {
+   object oWarden   = GetHero();
    object oFollower = GetObjectByTag(GEN_FL_Legion);
+   
+   if(oFollower != OBJECT_INVALID){
+       //Fire Companion
+       UT_FireFollower(oFollower, TRUE, TRUE);
 
-   //Fire Companion
-   UT_FireFollower(oFollower, TRUE, TRUE);
+       /*-------------------------------------------------------------------------
+          Set plot flag "Recruited" to true for other feature.
+          Original Plot file has created, hired and fired flag. To ensure other
+          feature goes as it should be, set these flags with appropriate value.
+        ---------------------------------------------------------------------------*/
+        WR_SetPlotFlag(PLT_GEN00PT_PARTY_LEALION, GEN_LEGION_CREATED, FALSE);
+        WR_SetPlotFlag(PLT_GEN00PT_PARTY_LEALION, GEN_LEGION_HIRED, FALSE);
+        WR_SetPlotFlag(PLT_GEN00PT_PARTY_LEALION, GEN_LEGION_FIRED, TRUE);
 
-   /*-------------------------------------------------------------------------
-      Set plot flag "Recruited" to true for other feature.
-      Original Plot file has created, hired and fired flag. To ensure other
-      feature goes as it should be, set these flags with appropriate value.
-    ---------------------------------------------------------------------------*/
-    WR_SetPlotFlag(PLT_GEN00PT_PARTY_LEALION, GEN_LEGION_CREATED, FALSE);
-    WR_SetPlotFlag(PLT_GEN00PT_PARTY_LEALION, GEN_LEGION_HIRED, FALSE);
-    WR_SetPlotFlag(PLT_GEN00PT_PARTY_LEALION, GEN_LEGION_FIRED, TRUE);
-
-   DestroyObject(oFollower);
+       DestroyObject(oFollower); 
+             
+   }else{
+       DisplayFloatyMessage(oWarden, Msg_Lealion, FLOATY_MESSAGE, 0xff0000, 2.0);
+   } 
 
 }

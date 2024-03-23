@@ -1,9 +1,9 @@
 /*
-     Remove Vekuul from party
+     Remove Kenneth from party
 
      usage:
 
-        runscript vekuul_fire
+        runscript kenneth_fire
 
      Note:
 
@@ -16,24 +16,23 @@
 #include "global_objects_2"
 
 //Import plot module
-#include "plt_enigma_plot1"
-
+#include "plt_gen00pt_return_to_kw"
 void main()
 {
    object oWarden   = GetHero();
-   object oFollower = GetObjectByTag(GEN_FL_Vekuul);
-
+   object oFollower = GetObjectByTag(GEN_FL_Kenneth);
+   
    if(oFollower != OBJECT_INVALID){
        //Fire Companion
        UT_FireFollower(oFollower, TRUE, TRUE);
 
-       //Set recruited flag to false so companion can respawn at specific location
-       WR_SetPlotFlag(PLT_ENIGMA_PLOT1, GEN_VEKUUL_RECRUITED, FALSE);
+       //Set plot flag "Recruited" to false.
+       WR_SetPlotFlag(PLT_GEN00PT_RETURN_TO_KW, GEN_KENNETH_RECRUITED, FALSE, TRUE);
 
-       DestroyObject(oFollower); 
-       
+       DestroyObject(oFollower);
+                 
    }else{
-       DisplayFloatyMessage(oWarden, Msg_Enigma, FLOATY_MESSAGE, 0xff0000, 2.0);
+       DisplayFloatyMessage(oWarden, Msg_RTKW, FLOATY_MESSAGE, 0xff0000, 2.0);
    } 
 
 }

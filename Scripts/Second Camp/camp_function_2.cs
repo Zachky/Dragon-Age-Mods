@@ -27,8 +27,10 @@
 #include "plt_gen00pt_party_willam"
 #include "plt_gen00pt_party_lealion"
 #include "plt_enigma_plot1"
-#include "plt_gen00pt_ndq_mithra" 
+#include "plt_gen00pt_ndq_mithra"
 #include "plt_sdt_terra"
+#include "plt_gen00pt_return_to_kw"
+#include "plt_pt_douglas"
 
 void Camp2_RemoveFollowerFromCamp();
 
@@ -98,10 +100,15 @@ void Camp_FollowerAmbient(object oFollower, int bStart)
         else if(sTag == GEN_FL_helperlady)       nAnim   =   37;
 
         //Warden's women
-        else if(sTag == GEN_FL_Mithra)           nAnim   =   48; 
-        
+        else if(sTag == GEN_FL_Mithra)           nAnim   =   48;
+
         //In search of Raina
         else if(sTag == GEN_FL_Terra)            nAnim   =   24;
+
+        //Return to Korcari Wild
+        else if(sTag == GEN_FL_Ariane)           nAnim   =   37;
+        else if(sTag == GEN_FL_Douglas)          nAnim   =   85;
+        else if(sTag == GEN_FL_Kenneth)          nAnim   =   71;
 
         //Other Mod Companions...
 
@@ -255,17 +262,29 @@ void ActivateFollowers(){
 
     object oMithra   = Party_GetFollowerByTag(GEN_FL_Mithra);
 
-    CheckFollowerFlag(oMithra  , PLT_GEN00PT_NDQ_MITHRA, GEN_MITHRA_RECRUITED , GEN_MITHRA_IN_CAMP);   
-    
+    CheckFollowerFlag(oMithra  , PLT_GEN00PT_NDQ_MITHRA, GEN_MITHRA_RECRUITED , GEN_MITHRA_IN_CAMP);
+
 /*******************************************************************************
 * "In search of Raina"
 *******************************************************************************/
 
     object oTerra   = Party_GetFollowerByTag(GEN_FL_Terra);
 
-    CheckFollowerFlag(oTerra  , PLT_SDT_TERRA, SDT_TERRA_HIRED , SDT_TERRA_IN_CAMP); 
-    
+    CheckFollowerFlag(oTerra  , PLT_SDT_TERRA, SDT_TERRA_HIRED , SDT_TERRA_IN_CAMP);
+
     WR_SetPlotFlag(PLT_SDT_TERRA, SDT_TERRA_FIRED, FALSE);
+
+/*******************************************************************************
+* "Return to Korcari Wild"
+*******************************************************************************/
+
+    object oAriane   = Party_GetFollowerByTag(GEN_FL_Ariane);
+    object oDouglas  = Party_GetFollowerByTag(GEN_FL_Douglas);
+    object oKenneth  = Party_GetFollowerByTag(GEN_FL_Kenneth);
+
+    CheckFollowerFlag(oAriane   , PLT_GEN00PT_RETURN_TO_KW, GEN_ARIANE_RECRUITED  , GEN_ARIANE_IN_CAMP);
+    CheckFollowerFlag(oDouglas  , PLT_PT_DOUGLAS, PARTY_DOUGLAS_JOINED , PARTY_DOUGLAS_IN_CAMP);
+    CheckFollowerFlag(oKenneth  , PLT_GEN00PT_RETURN_TO_KW, GEN_KENNETH_RECRUITED , GEN_KENNETH_IN_CAMP);
 
 }
 

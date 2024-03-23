@@ -1,15 +1,12 @@
 //---------------------------------------------------------------------
 /*
-     Adds Martin to the party by tag, without location restriction
+     Adds Douglas to the party by tag, without location restriction
 
      usage:
 
-        runscript ldp_martin_hire or talk to npc to hire her.
+        runscript hire_douglas
 
      Note:
-
-        1. This file overwrite the original file "ldp_martin_hire.nss" to
-        fix old problem.
 
 */
 //---------------------------------------------------------------------
@@ -23,12 +20,12 @@
 #include "global_objects_2"
 
 //Import plot module
-#include "plt_gen00pt_party_martin"
+#include "plt_pt_douglas"
 
 void main()
 {
     object oMainControlFollower = GetMainControlled();
-    object oCreature= GetObjectByTag(GEN_FL_Martin);
+    object oCreature= GetObjectByTag(GEN_FL_Douglas);
     int FollowerState = 0;
 
     if(oCreature != OBJECT_INVALID){
@@ -37,17 +34,11 @@ void main()
 
         //Create object(creature) near warden's current location
         if(!IsObjectValid(oCreature)){
-           oCreature = CreateObject(OBJECT_TYPE_CREATURE, R"gen00fl_martin.utc", GetLocation(OBJECT_SELF));
+           oCreature = CreateObject(OBJECT_TYPE_CREATURE, R"party_douglas.utc", GetLocation(OBJECT_SELF));
         }
 
-        /*-------------------------------------------------------------------------
-          Set plot flag "Recruited" to true for other feature.
-          Original Plot file has created, hired and fired flag. To ensure other
-          feature goes as it should be, set these flags with appropriate value.
-        ---------------------------------------------------------------------------*/
-        WR_SetPlotFlag(PLT_GEN00PT_PARTY_MARTIN, GEN_MARTIN_CREATED, TRUE);
-        WR_SetPlotFlag(PLT_GEN00PT_PARTY_MARTIN, GEN_MARTIN_HIRED, TRUE);
-        WR_SetPlotFlag(PLT_GEN00PT_PARTY_MARTIN, GEN_MARTIN_FIRED, FALSE);
+        //Set plot flag "Recruited" to true for other feature
+        WR_SetPlotFlag(PLT_PT_DOUGLAS, PARTY_DOUGLAS_JOINED, TRUE);
 
         //Only setup follower and hire it when player does not recruit it yet
         //(Active -> follower is in the party pool and in warden's 4 man party)
@@ -57,7 +48,7 @@ void main()
            FollowerState != FOLLOWER_STATE_AVAILABLE){
 
            //Set companion attribute
-           SetCompanionAttribute(oCreature, RACE_HUMAN, CLASS_ARCANE_WARRIOR);
+           SetCompanionAttribute(oCreature, RACE_HUMAN, CLASS_WARRIOR);
 
            //Hire NPC
            UT_HireFollower(oCreature);
@@ -71,7 +62,7 @@ void main()
         ShowPartyPickerGUI();
 
     }else{
-        DisplayFloatyMessage(oMainControlFollower, Msg_TWarden, FLOATY_MESSAGE, 0xff0000, 2.0);
+        DisplayFloatyMessage(oMainControlFollower, Msg_RTKW, FLOATY_MESSAGE, 0xff0000, 2.0);
     }
 
 }

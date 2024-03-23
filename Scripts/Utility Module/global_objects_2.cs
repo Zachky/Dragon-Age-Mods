@@ -1,4 +1,26 @@
 /*******************************************************************************
+* Map Tag name
+*******************************************************************************/
+const string CORE_RecruitCenter = "mod_recruit_center";
+const string RTKW_Korcari = "korcariwilds";
+
+/*******************************************************************************
+* Error Message
+*******************************************************************************/
+const string Msg_SR       = "Follower not found, please install the mod 'Small Restoration' on NexusMod.";
+const string Msg_Ado      = "Follower not found, please install the mod 'Adopted Dalish' on NexusMod.";
+const string Msg_DarkTime = "Follower not found, please install the mod 'Dark Time Act 1' on NexusMod.";
+const string Msg_Enigma   = "Follower not found, please install the mod 'Enigma' on NexusMod.";
+const string Msg_Lealion  = "Follower not found, please install the mod 'Lealion & Legion' on NexusMod.";
+const string Msg_PRecruit = "Follower not found, please install the mod 'Party Recruiting' on NexusMod.";
+const string Msg_Raina    = "Follower not found, please install the mod 'Sappho's Daughter' on NexusMod.";
+const string Msg_RTKW     = "Follower not found, please install the mod 'Return to Korcari wild' on NexusMod.";
+const string Msg_TWarden  = "Follower not found, please install the mod 'Tevinter Warden' on NexusMod.";
+const string Msg_WWoman   = "Follower not found, please install the mod 'Warden's Women' on NexusMod.";
+
+
+
+/*******************************************************************************
 * Plot Variable
 *******************************************************************************/
 const string PlotType_Party = "Party";
@@ -79,7 +101,9 @@ const string GEN_FL_Terra      = "terra";
 /*******************************************************************************
 * FOLLOWERS -- Mod "Return to Korcari Wild"
 *******************************************************************************/
-const string GEN_FL_Ariane     = "party_zaf"; 
+const string GEN_FL_Ariane     = "party_zaf";
 const string GEN_FL_Douglas    = "party_douglas";
 const string GEN_FL_Kenneth    = "party_serken";
+
+
 
