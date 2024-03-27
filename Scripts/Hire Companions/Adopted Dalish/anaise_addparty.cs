@@ -28,13 +28,8 @@ int SpawnFollower(){
     int FollowerState = 0;
     int result = TRUE;
 
-    //Check if player install the mod by creating a creature that only exist in the target mod.
-    object oTestCreature = CreateObject(OBJECT_TYPE_CREATURE, R"ado080_demon_with_key.utc", GetLocation(OBJECT_SELF));
-    if(!IsObjectValid(oTestCreature)){
-       DestroyObject(oTestCreature);
-       return FALSE;
-    }
-    DestroyObject(oTestCreature);
+    //Check if player install the mod
+    if(!IsModInstall(Adopted_Dalish)){return FALSE;}
 
     //Create follower next to Warden if follower does not exist
     if(!IsObjectValid(oCreature)){
@@ -55,7 +50,7 @@ int SpawnFollower(){
        FollowerState != FOLLOWER_STATE_AVAILABLE){
 
        //Set companion attribute
-       SetCompanionAttribute(oCreature, RACE_ELF, CLASS_ROGUE);
+       SetCompanionAttribute(oCreature, RACE_ELF, Custom_Class);
 
        //Hire NPC
        UT_HireFollower(oCreature);

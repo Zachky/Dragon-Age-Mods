@@ -1,8 +1,28 @@
 /*******************************************************************************
+* Mod Name
+*******************************************************************************/
+const int Adopted_Dalish = 0;
+const int Small_Restoration = 1;
+const int Dark_Time = 2;
+const int Enigma = 3;
+const int Lealion = 4;
+const int Party_Recruiting = 5;
+const int Raina = 6;
+const int Return_to_KW = 7;
+const int Tevinter_Warden = 8;
+const int Warden_Women = 9;
+
+/*******************************************************************************
 * Map Tag name
 *******************************************************************************/
 const string CORE_RecruitCenter = "mod_recruit_center";
 const string RTKW_Korcari = "korcariwilds";
+
+/*******************************************************************************
+* Agent Tag name
+*******************************************************************************/
+const string Agent_Anaise = "agent_anaise";
+const string Agent_Moira  = "agent_moira";
 
 /*******************************************************************************
 * Error Message
@@ -18,11 +38,11 @@ const string Msg_RTKW     = "Follower not found, please install the mod 'Return 
 const string Msg_TWarden  = "Follower not found, please install the mod 'Tevinter Warden' on NexusMod.";
 const string Msg_WWoman   = "Follower not found, please install the mod 'Warden's Women' on NexusMod.";
 
-
-
 /*******************************************************************************
-* Plot Variable
+* Global
 *******************************************************************************/
+
+const int Custom_Class = 997;
 const string PlotType_Party = "Party";
 const string PlotType_Camp  = "Camp";
 
@@ -33,6 +53,10 @@ const string GEN_FL_Daveth = "pre100cr_daveth";
 const string GEN_FL_Jory = "pre100cr_jory";
 const string GEN_FL_Fenarel = "bed200cr_fenarel";
 const string GEN_FL_Merrill = "bed200cr_merrill";
+
+/*******************************************************************************
+* FOLLOWERS -- "Small Restoration"
+*******************************************************************************/
 const string GEN_FL_Moira = "camp_bloodmage";
 
 /*******************************************************************************

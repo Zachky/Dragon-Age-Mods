@@ -1,9 +1,7 @@
 //---------------------------------------------------------------------
 /*
-     Note:
-
-        1. Race list in the file "2da_constants_h.nss"
-        2. The max value of Spec point is 2
+    p_utility: Core module which provide necessary function to check 
+    or setup data.
 
 */
 //---------------------------------------------------------------------
@@ -13,6 +11,9 @@
 #include "utility_h"
 #include "sys_chargen_h"
 #include "global_objects_2"
+
+//---------Plot for class-------------
+#include "plt_gen00pt_list_class"
 
 //---------Plot for each mod----------
 #include "plt_gen00pt_main_story"
@@ -29,6 +30,147 @@
 #include "plt_sdt_terra"
 #include "plt_gen00pt_return_to_kw"
 #include "plt_pt_douglas"
+
+/*******************************************************************************
+* Check if a follower with giving tag name is exist in the party pool or not.
+*******************************************************************************/
+int IsFollowerInPartyPool(string strFTag){
+
+   int Result = TRUE;
+   int FollowerState = 0;
+   object oFollower= GetObjectByTag(strFTag);
+
+   if(!IsObjectValid(oFollower)){
+      Result = FALSE;
+   }
+
+   if(IsObjectValid(oFollower)){
+       FollowerState = GetFollowerState(oFollower);
+       if(FollowerState != FOLLOWER_STATE_ACTIVE &&
+          FollowerState != FOLLOWER_STATE_AVAILABLE){
+          Result = FALSE;
+       }
+   }
+
+   return Result;
+}
+
+
+/*******************************************************************************
+* Check if a giving mod is installed or not
+* by creating a creature that only exist in each mod.
+*******************************************************************************/
+int IsModInstall(int ModName){
+
+    object oTestCreature;
+    string MapTag    = GetTag(GetAreaFromLocation(GetLocation(GetHero())));
+    object oMap = GetObjectByTag(MapTag);
+    vector vTent = Vector(0.0f,0.0f,0.0f);
+
+    switch( ModName ){
+
+       case Adopted_Dalish:
+       {
+          oTestCreature = CreateObject(OBJECT_TYPE_CREATURE, R"ado211_wolf_ghost.utc",Location(oMap, vTent, 0.0f));
+          break;
+       }
+
+       case Small_Restoration:
+       {
+          oTestCreature = CreateObject(OBJECT_TYPE_CREATURE, R"den_herbalist.utc", Location(oMap, vTent, 0.0f));
+          break;
+       }
+
+       case Dark_Time:
+       {
+          oTestCreature = CreateObject(OBJECT_TYPE_CREATURE, R"dt_fol_dragon_v.utc", Location(oMap, vTent, 0.0f));
+          break;
+       }
+
+       case Enigma:
+       {
+          oTestCreature = CreateObject(OBJECT_TYPE_CREATURE, R"enigma_highdragon.utc", Location(oMap, vTent, 0.0f));
+          break;
+       }
+
+       case Lealion:
+       {
+          oTestCreature = CreateObject(OBJECT_TYPE_CREATURE, R"gen00fl_legion.utc", Location(oMap, vTent, 0.0f));
+          break;
+       }
+
+       case Party_Recruiting:
+       {
+          oTestCreature = CreateObject(OBJECT_TYPE_CREATURE, R"party_arl_eamon.utc", Location(oMap, vTent, 0.0f));
+          break;
+       }
+
+       case Raina:
+       {
+          oTestCreature = CreateObject(OBJECT_TYPE_CREATURE, R"amazon_01.utc", Location(oMap, vTent, 0.0f));
+          break;
+       }
+
+       case Return_to_KW:
+       {
+          oTestCreature = CreateObject(OBJECT_TYPE_CREATURE, R"balin.utc", Location(oMap, vTent, 0.0f));
+          break;
+       }
+
+       case Tevinter_Warden:
+       {
+          oTestCreature = CreateObject(OBJECT_TYPE_CREATURE, R"default_hm_noble_wd.utc", Location(oMap, vTent, 0.0f));
+          break;
+       }
+
+       case Warden_Women:
+       {
+          oTestCreature = CreateObject(OBJECT_TYPE_CREATURE, R"dalish_elora.utc", Location(oMap, vTent, 0.0f));
+          break;
+       }
+
+    }
+
+    if(!IsObjectValid(oTestCreature)){
+       DestroyObject(oTestCreature);
+       return FALSE;
+    }
+    DestroyObject(oTestCreature);
+    return TRUE;
+}
+
+/*******************************************************************************
+* Identify and assign class base on player's choice.
+*******************************************************************************/
+void SetJob(object oFollower){
+
+   int nClass;
+
+   string strTag = GetTag(oFollower);
+
+   if(strTag == GEN_FL_Anaise){
+       nClass = CLASS_ROGUE;
+       if      (WR_GetPlotFlag(PLT_GEN00PT_LIST_CLASS,IS_MAGE))          nClass = CLASS_WIZARD;
+       else if (WR_GetPlotFlag(PLT_GEN00PT_LIST_CLASS,IS_ROGUE))         nClass = CLASS_ROGUE;
+       else if (WR_GetPlotFlag(PLT_GEN00PT_LIST_CLASS,IS_WARRIOR))       nClass = CLASS_WARRIOR;
+
+   }else if(strTag == GEN_FL_Moira){
+       nClass = CLASS_ROGUE;
+       if      (WR_GetPlotFlag(PLT_GEN00PT_LIST_CLASS,IS_MAGE))          nClass = CLASS_WIZARD;
+       else if (WR_GetPlotFlag(PLT_GEN00PT_LIST_CLASS,IS_ROGUE))         nClass = CLASS_ROGUE;
+       else if (WR_GetPlotFlag(PLT_GEN00PT_LIST_CLASS,IS_WARRIOR))       nClass = CLASS_WARRIOR;
+
+   }
+
+   Chargen_SelectCoreClass(oFollower,nClass);
+
+   //Reset plot for next usage.
+   WR_SetPlotFlag(PLT_GEN00PT_LIST_CLASS,IS_MAGE,FALSE);
+   WR_SetPlotFlag(PLT_GEN00PT_LIST_CLASS,IS_ROGUE,FALSE);
+   WR_SetPlotFlag(PLT_GEN00PT_LIST_CLASS,IS_WARRIOR,FALSE);
+   WR_SetPlotFlag(PLT_GEN00PT_LIST_CLASS,IS_ROGUE_WARRIOR,FALSE);
+
+}
 
 /*******************************************************************************
 * Calculate specialization point
@@ -86,7 +228,9 @@ void Event_PartyMemberDropProcess(object oFollower){
 }
 
 /*******************************************************************************
-* Package function for feature (Companion Addparty)
+* Package function for feature (Companion Addparty). The character's class will be
+  the default setting if intClass is not 999, otherwise it will call SetJob() to assign
+  new class, depend on player's choice.
 *******************************************************************************/
 void SetCompanionAttribute(object oCompanion,int Race, int intClass=999){
 
@@ -97,9 +241,14 @@ void SetCompanionAttribute(object oCompanion,int Race, int intClass=999){
    //Select race, otherwise skills tree wont show
    Chargen_SelectRace(oCompanion, Race);
 
-   //Select class if specified:
+   /*Set Class--
+     If 999 -> Follower will use default class created by author.
+     If 997(Custom_Class) -> Follower will use class which is selected by player.
+     If not 999 nor 997 -> Follower will use class which is picked by developer.
+   */
    if(intClass != 999){
-      Chargen_SelectCoreClass(oCompanion,intClass);
+      if(intClass == 997) SetJob(oCompanion);
+      else Chargen_SelectCoreClass(oCompanion,intClass);
    }
 
    //Recalculate the number of tactics slots a creature should have based on level and skills
