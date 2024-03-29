@@ -17,6 +17,21 @@
 #include "global_objects_2"
 #include "companion_position"
 
+//---------Plot for each mod----------
+#include "plt_gen00pt_main_story"
+#include "plt_gen00pt_adopted_dalish"
+#include "plt_gen00pt_party_recruit"
+#include "plt_dt_act1"
+#include "plt_gen00pt_party_lanna"
+#include "plt_gen00pt_party_marric"
+#include "plt_gen00pt_party_martin"
+#include "plt_gen00pt_party_willam"
+#include "plt_gen00pt_party_lealion"
+#include "plt_enigma_plot1"
+#include "plt_gen00pt_ndq_mithra"
+#include "plt_sdt_terra"
+#include "plt_gen00pt_return_to_kw"
+#include "plt_pt_douglas"
 
 void main()
 {
@@ -27,8 +42,8 @@ void main()
     // Standard Stuff
     object  oPC             = GetHero();
     object  oParty          = GetParty( oPC );
-    /*object  oThis           = OBJECT_SELF;
-    int     bEventHandled   = FALSE;
+    object  oThis           = GetMainControlled();
+    /*int     bEventHandled   = FALSE;
 
     object oTarg, oFollower;*/
 
@@ -46,17 +61,34 @@ void main()
         //------------------------------------------------------------------
         case EVENT_TYPE_AREALOAD_PRELOADEXIT:
         {
+            //Adopted Dalish
+            SpawnCompanion(Adopted_Dalish, CORE_RecruitCenter, GEN_FL_Anaise, Agent_Anaise,
+                           PLT_GEN00PT_ADOPTED_DALISH, GEN_ANAISE_RECRUITED, R_Anaise);
 
-            SpawnCompanion(CORE_RecruitCenter, GEN_FL_Ilyana);
-            SpawnCompanion(CORE_RecruitCenter, GEN_FL_Senros);
-            SpawnCompanion(CORE_RecruitCenter, GEN_FL_Dominique);
-            SpawnCompanion(CORE_RecruitCenter, GEN_FL_Merrilyla);
+            SpawnCompanion(Adopted_Dalish, CORE_RecruitCenter, GEN_FL_Dominique, Agent_Dominique,
+                           PLT_GEN00PT_ADOPTED_DALISH, GEN_DOMINIQUE_RECRUITED, R_Dominique);
+
+            SpawnCompanion(Adopted_Dalish, CORE_RecruitCenter, GEN_FL_Ilyana, Agent_Ilyana,
+                           PLT_GEN00PT_ADOPTED_DALISH, GEN_ILYANA_RECRUITED, R_Ilyana);
+
+            SpawnCompanion(Adopted_Dalish, CORE_RecruitCenter, GEN_FL_Senros, Agent_Senros,
+                           PLT_GEN00PT_ADOPTED_DALISH, GEN_SENROS_RECRUITED, R_Senros);
+
+            SpawnCompanion(Adopted_Dalish, CORE_RecruitCenter, GEN_FL_Merrilyla, Agent_Merrilyla,
+                           PLT_GEN00PT_ADOPTED_DALISH, GEN_MERRILYLA_RECRUITED, R_Merrilyla);
+
+
+            //Small Restoration
+            SpawnCompanion(Small_Restoration, CORE_RecruitCenter, GEN_FL_Moira, Agent_Moira,
+                           PLT_GEN00PT_MAIN_STORY, GEN_MOIRA_RECRUITED, R_Moira);
+
+            /*
 
             SpawnCompanion(CORE_RecruitCenter, GEN_FL_Daveth);
-            SpawnCompanion(CORE_RecruitCenter, GEN_FL_Jory);
+            SpawnCompanion(CORE_RecruitCenter, GEN_FL_Jory); */
 
             //Place player at camp entrance
-            UT_LocalJump(oPC,"cir350wp_fade_weiss_entrance");
+            UT_LocalJump(oThis,"cir350wp_fade_weiss_entrance");
 
             break;
 
@@ -69,13 +101,31 @@ void main()
         ////////////////////////////////////////////////////////////////////////
         case EVENT_TYPE_AREALOADSAVE_POSTLOADEXIT:
         {
-            SpawnCompanion(CORE_RecruitCenter, GEN_FL_Ilyana);
-            SpawnCompanion(CORE_RecruitCenter, GEN_FL_Senros);
-            SpawnCompanion(CORE_RecruitCenter, GEN_FL_Dominique);
-            SpawnCompanion(CORE_RecruitCenter, GEN_FL_Merrilyla);
+            //Adopted Dalish
+            SpawnCompanion(Adopted_Dalish, CORE_RecruitCenter, GEN_FL_Anaise, Agent_Anaise,
+                           PLT_GEN00PT_ADOPTED_DALISH, GEN_ANAISE_RECRUITED, R_Anaise);
+
+            SpawnCompanion(Adopted_Dalish, CORE_RecruitCenter, GEN_FL_Dominique, Agent_Dominique,
+                           PLT_GEN00PT_ADOPTED_DALISH, GEN_DOMINIQUE_RECRUITED, R_Dominique);
+
+            SpawnCompanion(Adopted_Dalish, CORE_RecruitCenter, GEN_FL_Ilyana, Agent_Ilyana,
+                           PLT_GEN00PT_ADOPTED_DALISH, GEN_ILYANA_RECRUITED, R_Ilyana);
+
+            SpawnCompanion(Adopted_Dalish, CORE_RecruitCenter, GEN_FL_Senros, Agent_Senros,
+                           PLT_GEN00PT_ADOPTED_DALISH, GEN_SENROS_RECRUITED, R_Senros);
+
+            SpawnCompanion(Adopted_Dalish, CORE_RecruitCenter, GEN_FL_Merrilyla, Agent_Merrilyla,
+                           PLT_GEN00PT_ADOPTED_DALISH, GEN_MERRILYLA_RECRUITED, R_Merrilyla);
+
+            //Small Restoration
+            SpawnCompanion(Small_Restoration, CORE_RecruitCenter, GEN_FL_Moira, Agent_Moira,
+                           PLT_GEN00PT_MAIN_STORY, GEN_MOIRA_RECRUITED, R_Moira);
+
+            /*
+            SpawnCompanion(CORE_RecruitCenter, GEN_FL_Moira);
 
             SpawnCompanion(CORE_RecruitCenter, GEN_FL_Daveth);
-            SpawnCompanion(CORE_RecruitCenter, GEN_FL_Jory);
+            SpawnCompanion(CORE_RecruitCenter, GEN_FL_Jory); */
 
             break;
         }

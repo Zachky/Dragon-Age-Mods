@@ -33,7 +33,7 @@ int SpawnFollower(){
 
     //Create follower next to Warden if follower does not exist
     if(!IsObjectValid(oCreature)){
-       oCreature = CreateObject(OBJECT_TYPE_CREATURE, R"camp_bloodmage.utc", GetLocation(OBJECT_SELF));
+       oCreature = CreateObject(OBJECT_TYPE_CREATURE, R_Moira, GetLocation(OBJECT_SELF));
     }
 
     //Enable the target creature(Enabled object will be visible to player)

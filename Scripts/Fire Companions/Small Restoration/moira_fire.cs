@@ -35,7 +35,7 @@ void main()
 
    //Respawn the npc if warden sit on the map where npc show up in the first place.
     if(MapTag == CORE_RecruitCenter){
-       SpawnCompanion_location(MapTag, GEN_FL_Moira);
+       SpawnCompanion_location(Small_Restoration, MapTag, GEN_FL_Moira, R_Moira);
     }
 
 }

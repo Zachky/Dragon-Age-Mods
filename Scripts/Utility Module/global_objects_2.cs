@@ -1,3 +1,5 @@
+
+
 /*******************************************************************************
 * Mod Name
 *******************************************************************************/
@@ -17,12 +19,6 @@ const int Warden_Women = 9;
 *******************************************************************************/
 const string CORE_RecruitCenter = "mod_recruit_center";
 const string RTKW_Korcari = "korcariwilds";
-
-/*******************************************************************************
-* Agent Tag name
-*******************************************************************************/
-const string Agent_Anaise = "agent_anaise";
-const string Agent_Moira  = "agent_moira";
 
 /*******************************************************************************
 * Error Message
@@ -59,6 +55,10 @@ const string GEN_FL_Merrill = "bed200cr_merrill";
 *******************************************************************************/
 const string GEN_FL_Moira = "camp_bloodmage";
 
+const resource R_Moira    = R"camp_bloodmage.utc";
+
+const string Agent_Moira  = "agent_moira";
+
 /*******************************************************************************
 * FOLLOWERS -- Mod "Adopted Dalish"
 *******************************************************************************/
@@ -67,6 +67,20 @@ const string GEN_FL_Senros    = "ado_companion_senros";
 const string GEN_FL_Anaise    = "ado00fl_anaise";
 const string GEN_FL_Dominique = "ado00fl_dominique";
 const string GEN_FL_Merrilyla = "ado00fl_merrilyla";
+
+const resource R_Anaise    = R"ado00fl_anaise.utc";
+const resource R_Dominique = R"ado00fl_dominique.utc";
+const resource R_Ilyana    = R"ado_companion_ilyana.utc";
+const resource R_Merrilyla = R"ado00fl_merrilyla.utc";
+const resource R_Senros    = R"ado_companion_senros.utc";
+
+const string Agent_Anaise    = "agent_anaise";
+const string Agent_Dominique = "agent_dominique";
+const string Agent_Ilyana    = "agent_ilyana";
+const string Agent_Merrilyla = "agent_merrilyla";
+const string Agent_Senros    = "agent_senros";
+
+
 
 /*******************************************************************************
 * FOLLOWERS -- Mod "Party Recruiting"

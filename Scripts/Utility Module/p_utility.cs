@@ -1,6 +1,6 @@
 //---------------------------------------------------------------------
 /*
-    p_utility: Core module which provide necessary function to check 
+    p_utility: Core module which provide necessary function to check
     or setup data.
 
 */
@@ -144,23 +144,11 @@ int IsModInstall(int ModName){
 *******************************************************************************/
 void SetJob(object oFollower){
 
-   int nClass;
+   int nClass = CLASS_WARRIOR;
 
-   string strTag = GetTag(oFollower);
-
-   if(strTag == GEN_FL_Anaise){
-       nClass = CLASS_ROGUE;
-       if      (WR_GetPlotFlag(PLT_GEN00PT_LIST_CLASS,IS_MAGE))          nClass = CLASS_WIZARD;
-       else if (WR_GetPlotFlag(PLT_GEN00PT_LIST_CLASS,IS_ROGUE))         nClass = CLASS_ROGUE;
-       else if (WR_GetPlotFlag(PLT_GEN00PT_LIST_CLASS,IS_WARRIOR))       nClass = CLASS_WARRIOR;
-
-   }else if(strTag == GEN_FL_Moira){
-       nClass = CLASS_ROGUE;
-       if      (WR_GetPlotFlag(PLT_GEN00PT_LIST_CLASS,IS_MAGE))          nClass = CLASS_WIZARD;
-       else if (WR_GetPlotFlag(PLT_GEN00PT_LIST_CLASS,IS_ROGUE))         nClass = CLASS_ROGUE;
-       else if (WR_GetPlotFlag(PLT_GEN00PT_LIST_CLASS,IS_WARRIOR))       nClass = CLASS_WARRIOR;
-
-   }
+   if      (WR_GetPlotFlag(PLT_GEN00PT_LIST_CLASS,IS_MAGE))    nClass = CLASS_WIZARD;
+   else if (WR_GetPlotFlag(PLT_GEN00PT_LIST_CLASS,IS_ROGUE))   nClass = CLASS_ROGUE;
+   else if (WR_GetPlotFlag(PLT_GEN00PT_LIST_CLASS,IS_WARRIOR)) nClass = CLASS_WARRIOR;
 
    Chargen_SelectCoreClass(oFollower,nClass);
 
