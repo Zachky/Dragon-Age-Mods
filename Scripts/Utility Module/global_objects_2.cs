@@ -13,6 +13,7 @@ const int Raina = 6;
 const int Return_to_KW = 7;
 const int Tevinter_Warden = 8;
 const int Warden_Women = 9;
+const int Main_Story = 10;
 
 /*******************************************************************************
 * Map Tag name
@@ -49,6 +50,16 @@ const string GEN_FL_Daveth = "pre100cr_daveth";
 const string GEN_FL_Jory = "pre100cr_jory";
 const string GEN_FL_Fenarel = "bed200cr_fenarel";
 const string GEN_FL_Merrill = "bed200cr_merrill";
+
+const resource R_Daveth  = R"pre100cr_daveth.utc";
+const resource R_Jory    = R"pre100cr_jory.utc";
+const resource R_Fenarel = R"bed200cr_fenarel.utc";
+const resource R_Merrill = R"bed200cr_merrill.utc";
+
+const string Agent_Daveth  = "agent_daveth";
+const string Agent_Jory    = "agent_jory";
+const string Agent_Fenarel = "agent_fenarel";
+const string Agent_Merrill = "agent_merrill";
 
 /*******************************************************************************
 * FOLLOWERS -- "Small Restoration"
@@ -99,9 +110,16 @@ const string GEN_FL_LadyOfTheForest = "party_ladyoftheforest";
 /*******************************************************************************
 * FOLLOWERS -- Mod "Dark Time Act 1"
 *******************************************************************************/
-const string GEN_FL_Isaac    = "dt_cre_isaac";
-const string GEN_FL_Miriam   = "dt_cre_miriam";
-const string GEN_FL_Marukhan = "dt_fol_marukhan";
+const string GEN_FL_Isaac    = "dt_custom_isaac";
+const string GEN_FL_Miriam   = "dt_custom_miriam";
+const string GEN_FL_Marukhan = "dt_test_marukhan";
+
+const resource R_Marukhan    = R"dt_test_marukhan.utc";
+const resource R_Isaac       = R"dt_custom_isaac.utc";
+const resource R_Miriam      = R"dt_custom_miriam.utc";
+
+const string Agent_Isaac     = "agent_isaac";
+const string Agent_Miriam    = "agent_miriam";
 
 /*******************************************************************************
 * FOLLOWERS -- Mod "Tevinter Warden"

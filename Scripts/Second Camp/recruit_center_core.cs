@@ -33,6 +33,8 @@
 #include "plt_gen00pt_return_to_kw"
 #include "plt_pt_douglas"
 
+
+
 void main()
 {
     event   evEvent         = GetCurrentEvent();            // Event
@@ -82,10 +84,26 @@ void main()
             SpawnCompanion(Small_Restoration, CORE_RecruitCenter, GEN_FL_Moira, Agent_Moira,
                            PLT_GEN00PT_MAIN_STORY, GEN_MOIRA_RECRUITED, R_Moira);
 
-            /*
 
-            SpawnCompanion(CORE_RecruitCenter, GEN_FL_Daveth);
-            SpawnCompanion(CORE_RecruitCenter, GEN_FL_Jory); */
+            //Main Story
+            SpawnCompanion(Main_Story, CORE_RecruitCenter, GEN_FL_Daveth, Agent_Daveth,
+                           PLT_GEN00PT_MAIN_STORY, GEN_DAVETH_RECRUITED, R_Daveth);
+
+            SpawnCompanion(Main_Story, CORE_RecruitCenter, GEN_FL_Jory, Agent_Jory,
+                           PLT_GEN00PT_MAIN_STORY, GEN_JORY_RECRUITED, R_Jory);
+
+            SpawnCompanion(Main_Story, CORE_RecruitCenter, GEN_FL_Fenarel, Agent_Fenarel,
+                           PLT_GEN00PT_MAIN_STORY, GEN_FENAREL_RECRUITED, R_Fenarel);
+
+            SpawnCompanion(Main_Story, CORE_RecruitCenter, GEN_FL_Merrill, Agent_Merrill,
+                           PLT_GEN00PT_MAIN_STORY, GEN_MERRILL_RECRUITED, R_Merrill);
+
+            //Dark Time Act 1
+            SpawnCompanion(Dark_Time, CORE_RecruitCenter, GEN_FL_Isaac, Agent_Isaac,
+                           PLT_DT_ACT1, GEN_ISAAC_RECRUITED, R_Isaac);
+
+            SpawnCompanion(Dark_Time, CORE_RecruitCenter, GEN_FL_Miriam, Agent_Miriam,
+                           PLT_DT_ACT1, GEN_MIRIAM_RECRUITED, R_Miriam);
 
             //Place player at camp entrance
             UT_LocalJump(oThis,"cir350wp_fade_weiss_entrance");
@@ -121,11 +139,25 @@ void main()
             SpawnCompanion(Small_Restoration, CORE_RecruitCenter, GEN_FL_Moira, Agent_Moira,
                            PLT_GEN00PT_MAIN_STORY, GEN_MOIRA_RECRUITED, R_Moira);
 
-            /*
-            SpawnCompanion(CORE_RecruitCenter, GEN_FL_Moira);
+            //Main Story
+            SpawnCompanion(Main_Story, CORE_RecruitCenter, GEN_FL_Daveth, Agent_Daveth,
+                           PLT_GEN00PT_MAIN_STORY, GEN_DAVETH_RECRUITED, R_Daveth);
 
-            SpawnCompanion(CORE_RecruitCenter, GEN_FL_Daveth);
-            SpawnCompanion(CORE_RecruitCenter, GEN_FL_Jory); */
+            SpawnCompanion(Main_Story, CORE_RecruitCenter, GEN_FL_Jory, Agent_Jory,
+                           PLT_GEN00PT_MAIN_STORY, GEN_JORY_RECRUITED, R_Jory);
+
+            SpawnCompanion(Main_Story, CORE_RecruitCenter, GEN_FL_Fenarel, Agent_Fenarel,
+                           PLT_GEN00PT_MAIN_STORY, GEN_FENAREL_RECRUITED, R_Fenarel);
+
+            SpawnCompanion(Main_Story, CORE_RecruitCenter, GEN_FL_Merrill, Agent_Merrill,
+                           PLT_GEN00PT_MAIN_STORY, GEN_MERRILL_RECRUITED, R_Merrill);
+
+            //Dark Time Act 1
+            SpawnCompanion(Dark_Time, CORE_RecruitCenter, GEN_FL_Isaac, Agent_Isaac,
+                           PLT_DT_ACT1, GEN_ISAAC_RECRUITED, R_Isaac);
+
+            SpawnCompanion(Dark_Time, CORE_RecruitCenter, GEN_FL_Miriam, Agent_Miriam,
+                           PLT_DT_ACT1, GEN_MIRIAM_RECRUITED, R_Miriam);
 
             break;
         }

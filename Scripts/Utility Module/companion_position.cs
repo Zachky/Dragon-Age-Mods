@@ -11,7 +11,12 @@
 #include "global_objects_2"
 #include "p_utility"
 
-
+//--------Plot for main story character----
+#include "plt_pre100pt_darkspn_blood"
+#include "plt_pre100pt_ritual"
+#include "plt_bed000pt_main"
+#include "plt_bed200pt_fenarel"
+#include "plt_bed200pt_merrill"
 
 const string RC_FOLLOWER_PREFIX = "rc_";
 
@@ -44,8 +49,10 @@ struct FCoordinate GetFollowerPosition(string strTag){
     else if(strTag == GEN_FL_Moira)     FollowerPosition = Position(55.7662,50.631 ,0.0960027,45.0);
 
     //Core Story
-    else if(strTag == GEN_FL_Daveth)    FollowerPosition = Position(55.6314,50.5925,0.0878551,45.0);
-    else if(strTag == GEN_FL_Jory)      FollowerPosition = Position(55.6874,44.4423,0.173324 ,139.9);
+    else if(strTag == GEN_FL_Daveth)    FollowerPosition = Position(58.181 ,50.6084,0.198706 ,45.0);
+    else if(strTag == GEN_FL_Jory)      FollowerPosition = Position(58.2371,44.4582,0.348582 ,139.9);
+    else if(strTag == GEN_FL_Fenarel)   FollowerPosition = Position(60.557 ,50.6131,0.187916 ,45.0);
+    else if(strTag == GEN_FL_Merrill)   FollowerPosition = Position(60.5977,44.4964,0.40784  ,139.9);
 
     //Adopted Dalish
     else if(strTag == GEN_FL_Anaise)    FollowerPosition = Position(55.7778,44.4541,0.181982,139.9);
@@ -54,6 +61,9 @@ struct FCoordinate GetFollowerPosition(string strTag){
     else if(strTag == GEN_FL_Dominique) FollowerPosition = Position(53.154 ,50.5959,0.0,45.0);
     else if(strTag == GEN_FL_Merrilyla) FollowerPosition = Position(53.2299,44.4601,0.0220574,139.9);
 
+    //Dark Time Act 1
+    else if(strTag == GEN_FL_Isaac)     FollowerPosition = Position(62.8907,50.6258,0.163582,45.0);
+    else if(strTag == GEN_FL_Miriam)    FollowerPosition = Position(62.9314,44.509 ,0.365555,139.9);
 
     return FollowerPosition;
 }
@@ -100,6 +110,21 @@ void SpawnCompanion(int ModName, string strMap, string strTag,
 
            strWP = RC_FOLLOWER_PREFIX + strTag;
            UT_LocalJump(oFollower, strWP);
+
+           //Change flag value for specific companion
+           if(strTag == GEN_FL_Jory) {
+              WR_SetPlotFlag(PLT_PRE100PT_RITUAL, PRE_RITUAL_START, FALSE);
+              WR_SetPlotFlag(PLT_PRE100PT_DARKSPN_BLOOD, PRE_BLOOD_PLOT_ACCEPTED, TRUE);
+           }
+           else if(strTag == GEN_FL_Fenarel){
+              WR_SetPlotFlag(PLT_BED000PT_MAIN, BED_MAIN_KEEPER_AT_ARAVEL, FALSE);
+              WR_SetPlotFlag(PLT_BED200PT_FENAREL, BED_FENAREL_IN_PARTY, TRUE);
+           }
+           else if(strTag == GEN_FL_Merrill){
+              WR_SetPlotFlag(PLT_BED000PT_MAIN, BED_MAIN_KEEPER_AT_ARAVEL, FALSE);
+              WR_SetPlotFlag(PLT_BED200PT_MERRILL, BED_MERRILL_IN_PARTY, TRUE);
+           }
+
        }
 
     }else{
@@ -119,6 +144,20 @@ void SpawnCompanion_location(int ModName, string strMap, string strTag, resource
 
     if(IsModInstall(ModName)){
        CreateObject(OBJECT_TYPE_CREATURE, FResource ,Location(oMap, vTent, pos.angle) );
+
+       //Change flag value for specific companion
+       if(strTag == GEN_FL_Jory) {
+          WR_SetPlotFlag(PLT_PRE100PT_RITUAL, PRE_RITUAL_START, FALSE);
+          WR_SetPlotFlag(PLT_PRE100PT_DARKSPN_BLOOD, PRE_BLOOD_PLOT_ACCEPTED, TRUE);
+       }
+       else if(strTag == GEN_FL_Fenarel){
+          WR_SetPlotFlag(PLT_BED000PT_MAIN, BED_MAIN_KEEPER_AT_ARAVEL, FALSE);
+          WR_SetPlotFlag(PLT_BED200PT_FENAREL, BED_FENAREL_IN_PARTY, TRUE);
+       }
+       else if(strTag == GEN_FL_Merrill){
+          WR_SetPlotFlag(PLT_BED000PT_MAIN, BED_MAIN_KEEPER_AT_ARAVEL, FALSE);
+          WR_SetPlotFlag(PLT_BED200PT_MERRILL, BED_MERRILL_IN_PARTY, TRUE);
+       }
     }
 }
 

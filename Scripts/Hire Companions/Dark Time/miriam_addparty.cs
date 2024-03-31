@@ -28,17 +28,12 @@ int SpawnFollower(){
     int FollowerState = 0;
     int result = TRUE;
 
-    //Check if player install the mod by creating a creature that only exist in the target mod.
-    object oTestCreature = CreateObject(OBJECT_TYPE_CREATURE, R"dt_fol_dragon_v.utc", GetLocation(OBJECT_SELF));
-    if(!IsObjectValid(oTestCreature)){
-       DestroyObject(oTestCreature);
-       return FALSE;
-    }
-    DestroyObject(oTestCreature);
+    //Check if player install the mod
+    if(!IsModInstall(Dark_Time)){return FALSE;}
 
     //Create follower next to Warden if follower does not exist
     if(!IsObjectValid(oCreature)){
-       oCreature = CreateObject(OBJECT_TYPE_CREATURE, R"dt_cre_miriam.utc", GetLocation(OBJECT_SELF));
+       oCreature = CreateObject(OBJECT_TYPE_CREATURE, R_Miriam, GetLocation(OBJECT_SELF));
     }
 
     //Enable the target creature(Enabled object will be visible to player)
@@ -55,7 +50,7 @@ int SpawnFollower(){
        FollowerState != FOLLOWER_STATE_AVAILABLE){
 
        //Set companion attribute
-       SetCompanionAttribute(oCreature, RACE_BEAST, CLASS_WIZARD);
+       SetCompanionAttribute(oCreature, RACE_BEAST, Custom_Class);
 
        //Hire NPC
        UT_HireFollower(oCreature);

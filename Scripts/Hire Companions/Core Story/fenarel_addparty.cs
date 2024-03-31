@@ -22,22 +22,28 @@
 //Import plot module
 #include "plt_gen00pt_main_story"
 #include "plt_bed000pt_main"
+#include "plt_bed200pt_fenarel"
 
-void main()
-{
+int SpawnFollower(){
+
     object oCreature= GetObjectByTag(GEN_FL_Fenarel);
     int FollowerState = 0;
+    int result = TRUE;
 
-    //Activate target creature
-    WR_SetObjectActive(oCreature, TRUE);
+    //Check if player install the mod
+    //if(!IsModInstall(Adopted_Dalish)){return FALSE;}
 
-    //Create object(creature) near warden's current location
+    //Create follower next to Warden if follower does not exist
     if(!IsObjectValid(oCreature)){
-       oCreature = CreateObject(OBJECT_TYPE_CREATURE, R"bed200cr_fenarel.utc", GetLocation(OBJECT_SELF));
+       oCreature = CreateObject(OBJECT_TYPE_CREATURE, R_Fenarel, GetLocation(OBJECT_SELF));
     }
 
+    //Enable the target creature(Enabled object will be visible to player)
+    WR_SetObjectActive(oCreature, TRUE);
+
     //Set Conversation Flag
-    WR_SetPlotFlag(PLT_BED000PT_MAIN,9,TRUE);
+    WR_SetPlotFlag(PLT_BED000PT_MAIN, BED_MAIN_KEEPER_AT_ARAVEL, FALSE);
+    WR_SetPlotFlag(PLT_BED200PT_FENAREL, BED_FENAREL_IN_PARTY, TRUE);
 
     //Set plot flag "Recruited" to true for other feature
     WR_SetPlotFlag(PLT_GEN00PT_MAIN_STORY, GEN_FENAREL_RECRUITED, TRUE);
@@ -50,7 +56,7 @@ void main()
        FollowerState != FOLLOWER_STATE_AVAILABLE){
 
        //Set companion attribute
-       SetCompanionAttribute(oCreature, RACE_ELF, CLASS_ROGUE);
+       SetCompanionAttribute(oCreature, RACE_ELF, Custom_Class);
 
        //Hire NPC
        UT_HireFollower(oCreature);
@@ -59,10 +65,15 @@ void main()
     //Set Follower to "Active" so it will be picked in the party picker.
     WR_SetFollowerState(oCreature, FOLLOWER_STATE_ACTIVE);
 
-    //Show Party Picker
-    SetPartyPickerGUIStatus(2);
-    ShowPartyPickerGUI();
+    return result;
 
 }
 
+void main()
+{
+    int Result = SpawnFollower();
 
+    //Show Party Picker
+    SetPartyPickerGUIStatus(2);
+    ShowPartyPickerGUI();
+}

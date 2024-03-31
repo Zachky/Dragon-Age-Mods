@@ -66,6 +66,7 @@ int IsModInstall(int ModName){
     string MapTag    = GetTag(GetAreaFromLocation(GetLocation(GetHero())));
     object oMap = GetObjectByTag(MapTag);
     vector vTent = Vector(0.0f,0.0f,0.0f);
+    int Result = TRUE;
 
     switch( ModName ){
 
@@ -129,14 +130,22 @@ int IsModInstall(int ModName){
           break;
        }
 
+       case Main_Story:
+       {
+          Result = TRUE;
+          break;
+       }
+
     }
 
-    if(!IsObjectValid(oTestCreature)){
+    if(ModName != Main_Story){
+       if(!IsObjectValid(oTestCreature)) Result = FALSE;
+
+       //Destroy Test Creature
        DestroyObject(oTestCreature);
-       return FALSE;
     }
-    DestroyObject(oTestCreature);
-    return TRUE;
+
+    return Result;
 }
 
 /*******************************************************************************
