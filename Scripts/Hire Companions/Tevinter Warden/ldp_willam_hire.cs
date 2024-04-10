@@ -30,18 +30,14 @@ int SpawnFollower(){
     object oCreature= GetObjectByTag(GEN_FL_Willam);
     int FollowerState = 0;
     int result = TRUE;
+    string MapTag    = GetTag(GetAreaFromLocation(GetLocation(GetHero())));
 
-    //Check if player install the mod by creating a creature that only exist in the target mod.
-    object oTestCreature = CreateObject(OBJECT_TYPE_CREATURE, R"default_hm_noble_wd.utc", GetLocation(OBJECT_SELF));
-    if(!IsObjectValid(oTestCreature)){
-       DestroyObject(oTestCreature);
-       return FALSE;
-    }
-    DestroyObject(oTestCreature);
+    //Check if player install the mod
+    if(!IsModInstall(Tevinter_Warden)){return FALSE;}
 
     //Create follower next to Warden if follower does not exist
     if(!IsObjectValid(oCreature)){
-       oCreature = CreateObject(OBJECT_TYPE_CREATURE, R"gen00fl_willam.utc", GetLocation(OBJECT_SELF));
+       oCreature = CreateObject(OBJECT_TYPE_CREATURE, R_Willam, GetLocation(OBJECT_SELF));
     }
 
     //Enable the target creature(Enabled object will be visible to player)
@@ -52,6 +48,12 @@ int SpawnFollower(){
     WR_SetPlotFlag(PLT_GEN00PT_PARTY_WILLAM, GEN_WILLAM_HIRED, TRUE);
     WR_SetPlotFlag(PLT_GEN00PT_PARTY_WILLAM, GEN_WILLAM_FIRED, FALSE);
 
+    //Set flag "Is_not_virgin" to true if player conscript Willam at mod's map.
+    //When player fire Willam, he will respawn at Recruit Center instead.
+    if(MapTag == TW_riverton){
+       WR_SetPlotFlag(PLT_GEN00PT_PARTY_WILLAM, GEN_WILLAM_IS_NOT_VIRGIN, TRUE);
+    }
+
     //Only setup follower and hire it when player does not recruit it yet
     //(Active -> follower is in the party pool and in warden's 4 man party)
     //(Avalible - > follower is in the party pool)
@@ -60,7 +62,7 @@ int SpawnFollower(){
        FollowerState != FOLLOWER_STATE_AVAILABLE){
 
        //Set companion attribute
-       SetCompanionAttribute(oCreature, RACE_HUMAN, CLASS_WIZARD);
+       SetCompanionAttribute(oCreature, RACE_HUMAN, Custom_Class);
 
        //Hire NPC
        UT_HireFollower(oCreature);
