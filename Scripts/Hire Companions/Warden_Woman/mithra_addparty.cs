@@ -27,18 +27,14 @@ int SpawnFollower(){
     object oCreature= GetObjectByTag(GEN_FL_Mithra);
     int FollowerState = 0;
     int result = TRUE;
+    string MapTag    = GetTag(GetAreaFromLocation(GetLocation(GetHero())));
 
-    //Check if player install the mod by creating a creature that only exist in the target mod.
-    object oTestCreature = CreateObject(OBJECT_TYPE_CREATURE, R"dalish_elora.utc", GetLocation(OBJECT_SELF));
-    if(!IsObjectValid(oTestCreature)){
-       DestroyObject(oTestCreature);
-       return FALSE;
-    }
-    DestroyObject(oTestCreature);
+    //Check if player install the mod
+    if(!IsModInstall(Warden_Women)){return FALSE;}
 
     //Create follower next to Warden if follower does not exist
     if(!IsObjectValid(oCreature)){
-       oCreature = CreateObject(OBJECT_TYPE_CREATURE, R"ndq_mithra.utc", GetLocation(OBJECT_SELF));
+       oCreature = CreateObject(OBJECT_TYPE_CREATURE, R_Mithra, GetLocation(OBJECT_SELF));
     }
 
     //Enable the target creature(Enabled object will be visible to player)
@@ -55,7 +51,7 @@ int SpawnFollower(){
        FollowerState != FOLLOWER_STATE_AVAILABLE){
 
        //Set companion attribute
-       SetCompanionAttribute(oCreature, RACE_ELF, CLASS_ROGUE);
+       SetCompanionAttribute(oCreature, RACE_ELF, Custom_Class);
 
        //Hire NPC
        UT_HireFollower(oCreature);

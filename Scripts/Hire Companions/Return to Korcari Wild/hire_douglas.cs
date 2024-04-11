@@ -27,25 +27,27 @@ int SpawnFollower(){
     object oCreature= GetObjectByTag(GEN_FL_Douglas);
     int FollowerState = 0;
     int result = TRUE;
+    string MapTag    = GetTag(GetAreaFromLocation(GetLocation(GetHero())));
 
-    //Check if player install the mod by creating a creature that only exist in the target mod.
-    object oTestCreature = CreateObject(OBJECT_TYPE_CREATURE, R"balin.utc", GetLocation(OBJECT_SELF));
-    if(!IsObjectValid(oTestCreature)){
-       DestroyObject(oTestCreature);
-       return FALSE;
-    }
-    DestroyObject(oTestCreature);
+    //Check if player install the mod
+    if(!IsModInstall(Return_to_KW)){return FALSE;}
 
     //Create follower next to Warden if follower does not exist
     if(!IsObjectValid(oCreature)){
-       oCreature = CreateObject(OBJECT_TYPE_CREATURE, R"party_douglas.utc", GetLocation(OBJECT_SELF));
+       oCreature = CreateObject(OBJECT_TYPE_CREATURE, R_Douglas, GetLocation(OBJECT_SELF));
     }
 
     //Enable the target creature(Enabled object will be visible to player)
     WR_SetObjectActive(oCreature, TRUE);
 
     //Set plot flag "Recruited" to true for other feature
-     WR_SetPlotFlag(PLT_GEN00PT_RETURN_TO_KW, PARTY_DOUGLAS_JOINED, TRUE);
+    WR_SetPlotFlag(PLT_PT_DOUGLAS, PARTY_DOUGLAS_JOINED, TRUE);
+
+    //Set this flag true if player conscript Douglas at mod's map.
+    //When player fire Douglas, he will respawn at Recruit Center instead.
+    if(MapTag == RTKW_Korcari){
+        WR_SetPlotFlag(PLT_PT_DOUGLAS, PARTY_DOUGLAS_IS_NOT_VIRGIN, TRUE);
+    }
 
     //Only setup follower and hire it when player does not recruit it yet
     //(Active -> follower is in the party pool and in warden's 4 man party)
@@ -55,7 +57,7 @@ int SpawnFollower(){
        FollowerState != FOLLOWER_STATE_AVAILABLE){
 
        //Set companion attribute
-       SetCompanionAttribute(oCreature, RACE_HUMAN, CLASS_WARRIOR);
+       SetCompanionAttribute(oCreature, RACE_HUMAN, Custom_Class);
 
        //Hire NPC
        UT_HireFollower(oCreature);
