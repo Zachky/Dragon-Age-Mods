@@ -1,5 +1,3 @@
-
-
 /*******************************************************************************
 * Mod Name
 *******************************************************************************/
@@ -18,8 +16,12 @@ const int Main_Story = 10;
 /*******************************************************************************
 * Map Tag name
 *******************************************************************************/
+const string Party_Camp_1 = "cam100ar_camp_plains";
 const string CORE_RecruitCenter = "mod_recruit_center";
 const string RTKW_Korcari = "korcariwilds";
+const string TW_Lothering = "lot110ar_chantry";
+const string TW_riverton  = "sec200ar_riverton";
+const string Enigma_area  = "enigma_area1";
 
 /*******************************************************************************
 * Error Message
@@ -129,6 +131,17 @@ const string GEN_FL_Marric   = "gen00fl_marric";
 const string GEN_FL_Martin   = "gen00fl_martin";
 const string GEN_FL_Willam   = "gen00fl_willam";
 
+const resource R_Lanna   = R"gen00fl_lanna.utc";
+const resource R_Marric  = R"gen00fl_marric.utc";
+const resource R_Martin  = R"gen00fl_martin.utc";
+const resource R_Willam  = R"gen00fl_willam.utc";
+
+const string Agent_Lanna      = "agent_lanna";
+const string Agent_Marric     = "agent_marric";
+const string Agent_Martin     = "agent_martin";
+const string Agent_Willam     = "agent_willam";
+
+
 /*******************************************************************************
 * FOLLOWERS -- Mod "Lealion and Legend"
 *******************************************************************************/
@@ -142,12 +155,29 @@ const string GEN_FL_Vekuul      = "enigma_hero3";
 const string GEN_FL_Vishala     = "enigma_hero1";
 const string GEN_FL_helperlady  = "enigma_helperlady";
 const string GEN_FL_EnMerchant  = "enigma_merchant";
-const string GEN_FL_RspMerchant = "wrk_respec_vendor_npc";
+const string GEN_FL_RspMerchant = "wrk_respec_vendor_npc"; 
+const string GEN_FL_HighDragon  = "enigma_highdragon";
+
+const resource R_Vekuul         = R"enigma_hero3.utc";
+const resource R_Vishala        = R"enigma_hero1.utc";
+const resource R_helperlady     = R"enigma_helperlady.utc"; 
+const resource R_HighDragon     = R"enigma_highdragon.utc";
+
+const string Agent_Vekuul       = "agent_vekuul";
+const string Agent_Vishala      = "agent_vishala";
+const string Agent_helperlady   = "agent_helperlady";
 
 /*******************************************************************************
 * FOLLOWERS -- Mod "Warden's Women"
 *******************************************************************************/
-const string GEN_FL_Mithra      = "ndq_mithra";
+const string GEN_FL_Mithra      = "ndq_mithra"; 
+const string GEN_FL_Elora       = "ndq_elora";
+
+const resource R_Mithra         = R"ndq_mithra.utc";
+const resource R_elora          = R"ndq_elora.utc";
+
+const string Agent_Mithra       = "agent_mithra";
+const string Agent_Elora        = "agent_elora";
 
 /*******************************************************************************
 * FOLLOWERS -- Mod "In search of Raina"
@@ -160,6 +190,14 @@ const string GEN_FL_Terra      = "terra";
 const string GEN_FL_Ariane     = "party_zaf";
 const string GEN_FL_Douglas    = "party_douglas";
 const string GEN_FL_Kenneth    = "party_serken";
+const string GEN_PL_Books      = "genip_book_pile_4";
 
+const resource R_Douglas_books = R"genip_book_pile_4.utp";
+const resource R_Ariane        = R"party_zaf.utc";
+const resource R_Douglas       = R"party_douglas.utc";
+const resource R_Serkenneth    = R"party_serken.utc";
 
+const string Agent_Douglas     = "agent_douglas";
+const string Agent_Kenneth     = "agent_kenneth";
+const string Agent_Ariane      = "agent_ariane";
 
