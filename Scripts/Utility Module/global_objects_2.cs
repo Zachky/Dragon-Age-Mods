@@ -1,4 +1,11 @@
 /*******************************************************************************
+* Party Member Temporarilly store variable
+*******************************************************************************/
+const string Party_Member1 = "";   
+const string Party_Member2 = "";
+const string Party_Member3 = "";
+
+/*******************************************************************************
 * Mod Name
 *******************************************************************************/
 const int Adopted_Dalish = 0;
@@ -11,7 +18,8 @@ const int Raina = 6;
 const int Return_to_KW = 7;
 const int Tevinter_Warden = 8;
 const int Warden_Women = 9;
-const int Main_Story = 10;
+const int Main_Story = 10;  
+const int Sapphos_Daughter = 11;
 
 /*******************************************************************************
 * Map Tag name
@@ -93,7 +101,13 @@ const string Agent_Ilyana    = "agent_ilyana";
 const string Agent_Merrilyla = "agent_merrilyla";
 const string Agent_Senros    = "agent_senros";
 
+/*******************************************************************************
+* FOLLOWERS -- Mod "Sapphos Daughter"
+*******************************************************************************/
+                                     
+const string GEN_FL_Gina  = "gin_hf_gina";
 
+const resource R_Gina = R"gin_hf_gina.utc";
 
 /*******************************************************************************
 * FOLLOWERS -- Mod "Party Recruiting"
@@ -155,12 +169,12 @@ const string GEN_FL_Vekuul      = "enigma_hero3";
 const string GEN_FL_Vishala     = "enigma_hero1";
 const string GEN_FL_helperlady  = "enigma_helperlady";
 const string GEN_FL_EnMerchant  = "enigma_merchant";
-const string GEN_FL_RspMerchant = "wrk_respec_vendor_npc"; 
+const string GEN_FL_RspMerchant = "wrk_respec_vendor_npc";
 const string GEN_FL_HighDragon  = "enigma_highdragon";
 
 const resource R_Vekuul         = R"enigma_hero3.utc";
 const resource R_Vishala        = R"enigma_hero1.utc";
-const resource R_helperlady     = R"enigma_helperlady.utc"; 
+const resource R_helperlady     = R"enigma_helperlady.utc";
 const resource R_HighDragon     = R"enigma_highdragon.utc";
 
 const string Agent_Vekuul       = "agent_vekuul";
@@ -170,7 +184,7 @@ const string Agent_helperlady   = "agent_helperlady";
 /*******************************************************************************
 * FOLLOWERS -- Mod "Warden's Women"
 *******************************************************************************/
-const string GEN_FL_Mithra      = "ndq_mithra"; 
+const string GEN_FL_Mithra      = "ndq_mithra";
 const string GEN_FL_Elora       = "ndq_elora";
 
 const resource R_Mithra         = R"ndq_mithra.utc";
@@ -200,4 +214,3 @@ const resource R_Serkenneth    = R"party_serken.utc";
 const string Agent_Douglas     = "agent_douglas";
 const string Agent_Kenneth     = "agent_kenneth";
 const string Agent_Ariane      = "agent_ariane";
-

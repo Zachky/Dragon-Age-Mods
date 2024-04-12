@@ -1,13 +1,23 @@
 //---------------------------------------------------------------------
 /*
-    p_utility: Core module which provide necessary function to check
+    p_utility:
+
+    Core module which provide necessary function to check
     or setup data.
+
+* Note:
+* 1. About CheckFollowerFlag() method, there is an issue which "Recruited" flag might be false
+*    but companion still exist in warden's party pool.
+
+*    In this function the first part will check this scenario and modify
+     Recruited flag if necessary.
 
 */
 //---------------------------------------------------------------------
 // Zach Lin
 //---------------------------------------------------------------------
 
+#include "sys_ambient_h"
 #include "utility_h"
 #include "sys_chargen_h"
 #include "global_objects_2"
@@ -30,6 +40,13 @@
 #include "plt_sdt_terra"
 #include "plt_gen00pt_return_to_kw"
 #include "plt_pt_douglas"
+
+//--------Plot for main story character----
+#include "plt_pre100pt_darkspn_blood"
+#include "plt_pre100pt_ritual"
+#include "plt_bed000pt_main"
+#include "plt_bed200pt_fenarel"
+#include "plt_bed200pt_merrill"
 
 /*******************************************************************************
 * Check if a follower with giving tag name is exist in the party pool or not.
@@ -130,6 +147,12 @@ int IsModInstall(int ModName){
           break;
        }
 
+       case Sapphos_Daughter:
+       {
+          oTestCreature = CreateObject(OBJECT_TYPE_CREATURE, R"", Location(oMap, vTent, 0.0f));
+          break;
+       }
+
        case Main_Story:
        {
           Result = TRUE;
@@ -149,15 +172,86 @@ int IsModInstall(int ModName){
 }
 
 /*******************************************************************************
+* Get Mod name by companion
+*******************************************************************************/
+int GetModNameByCompanion(string strTag){
+
+    int ModName = 10; //Default 10 -> Main story.
+
+    //Small Restoration
+         if(strTag == GEN_FL_Moira) ModName = Small_Restoration;
+
+    //In search of Raina
+    else if(strTag == GEN_FL_Terra) ModName = Raina;
+
+    //Sapphos Daughter
+    else if(strTag == GEN_FL_Gina ) ModName = Sapphos_Daughter;
+
+    //Adopted Dalish
+    else if(strTag == GEN_FL_Ilyana || strTag == GEN_FL_Senros ||
+            strTag == GEN_FL_Anaise || strTag == GEN_FL_Dominique ||
+            strTag == GEN_FL_Merrilyla){
+         ModName = Adopted_Dalish;}
+
+    //Party Recruiting
+    else if(strTag == GEN_FL_Andrastalla   || strTag == GEN_FL_Troga  ||
+            strTag == GEN_FL_Rikku_Templar || strTag == GEN_FL_Duncan ||
+            strTag == GEN_FL_Cailan        || strTag == GEN_FL_Anora  ||
+            strTag == GEN_FL_Flemeth       || strTag == GEN_FL_Arl_Eamon ||
+            strTag == GEN_FL_LadyOfTheForest){
+         ModName = Party_Recruiting;}
+
+    //Dark Time
+    else if(strTag == GEN_FL_Isaac || strTag == GEN_FL_Miriam){
+         ModName = Dark_Time;}
+
+    //Tevinter Warden
+    else if(strTag == GEN_FL_Lanna  || strTag == GEN_FL_Marric ||
+            strTag == GEN_FL_Martin || strTag == GEN_FL_Willam){
+         ModName = Tevinter_Warden;}
+
+    //Lealion
+    else if(strTag == GEN_FL_Lealion || strTag == GEN_FL_Legion){
+         ModName = Lealion;}
+
+    //Enigma
+    else if(strTag == GEN_FL_Vekuul || strTag == GEN_FL_Vishala ||
+            strTag == GEN_FL_helperlady){
+         ModName = Enigma;}
+
+    //The Warden's Women
+    else if(strTag == GEN_FL_Mithra || strTag == GEN_FL_Elora){
+         ModName = Warden_Women;}
+
+    //Return to Korcari Wilds
+    else if(strTag == GEN_FL_Ariane || strTag == GEN_FL_Douglas ||
+            strTag == GEN_FL_Kenneth){
+         ModName = Return_to_KW;}
+
+}
+
+/*******************************************************************************
 * Identify and assign class base on player's choice.
 *******************************************************************************/
 void SetJob(object oFollower){
 
-   int nClass = CLASS_WARRIOR;
+   int    nClass = CLASS_WARRIOR;
+   string strTag = GetTag(oFollower);
 
    if      (WR_GetPlotFlag(PLT_GEN00PT_LIST_CLASS,IS_MAGE))    nClass = CLASS_WIZARD;
    else if (WR_GetPlotFlag(PLT_GEN00PT_LIST_CLASS,IS_ROGUE))   nClass = CLASS_ROGUE;
    else if (WR_GetPlotFlag(PLT_GEN00PT_LIST_CLASS,IS_WARRIOR)) nClass = CLASS_WARRIOR;
+
+   //Add default class to different companion.
+   //(For those companion who is difficult to modify dialog file)
+
+   //Return to Korcari Wilds
+   else if (strTag == GEN_FL_Douglas) nClass = CLASS_ROGUE;
+   else if (strTag == GEN_FL_Kenneth) nClass = CLASS_WARRIOR;
+   else if (strTag == GEN_FL_Ariane)  nClass = CLASS_WIZARD;
+
+   //In search of Raina
+   else if (strTag == GEN_FL_Terra)   nClass = CLASS_ROGUE;
 
    Chargen_SelectCoreClass(oFollower,nClass);
 
@@ -276,6 +370,7 @@ void SetCompanionAttribute(object oCompanion,int Race, int intClass=999){
 
 }
 
+
 /*******************************************************************************
 * Package function for adjust plot flag value
 *******************************************************************************/
@@ -294,3 +389,156 @@ void AdjustPlotFlag(string strFollowerTag, string strFlagType, int nValue, int n
    }
 }
 
+/*******************************************************************************
+* Check "Recruited" flag and modify it if necessary. Also activate the follower
+if Recruited == True.
+*******************************************************************************/
+void CheckFollowerFlag(object oFollower, string strPlot, int FlagRecruited, int FlagCamp){
+
+//-------------------------Check recruited state first--------------------------
+
+   if( WR_GetPlotFlag(strPlot, FlagRecruited) == FALSE &&
+        (GetFollowerState(oFollower) == FOLLOWER_STATE_ACTIVE ||
+         GetFollowerState(oFollower) == FOLLOWER_STATE_AVAILABLE )
+      ){WR_SetPlotFlag(strPlot, FlagRecruited, TRUE);}
+
+//---------------------------Set Follower state---------------------------------
+
+   if( WR_GetPlotFlag(strPlot, FlagRecruited) == TRUE )
+    {
+        WR_SetPlotFlag(strPlot, FlagCamp, TRUE, TRUE);
+        WR_SetObjectActive(oFollower, TRUE);
+        SetFollowerState(oFollower,FOLLOWER_STATE_AVAILABLE);
+    }
+
+//---------------Change flag value for specific companion-----------------------
+
+   string strTag = GetTag(oFollower);
+
+   if(strTag == GEN_FL_Jory) {
+       WR_SetPlotFlag(PLT_PRE100PT_RITUAL, PRE_RITUAL_START, FALSE);
+       WR_SetPlotFlag(PLT_PRE100PT_DARKSPN_BLOOD, PRE_BLOOD_PLOT_ACCEPTED, TRUE);
+   }
+   else if(strTag == GEN_FL_Fenarel){
+       WR_SetPlotFlag(PLT_BED000PT_MAIN, BED_MAIN_KEEPER_AT_ARAVEL, FALSE);
+       WR_SetPlotFlag(PLT_BED200PT_FENAREL, BED_FENAREL_IN_PARTY, TRUE);
+   }
+   else if(strTag == GEN_FL_Merrill){
+       WR_SetPlotFlag(PLT_BED000PT_MAIN, BED_MAIN_KEEPER_AT_ARAVEL, FALSE);
+       WR_SetPlotFlag(PLT_BED200PT_MERRILL, BED_MERRILL_IN_PARTY, TRUE);
+   }
+
+}
+
+/*******************************************************************************
+* Start the animation for each follower.
+*******************************************************************************/
+void Camp_FollowerAmbient(object oFollower, int bStart)
+{
+
+    string  sTag    =   GetTag(oFollower);
+    string  sArea   =   GetTag(GetArea(oFollower));
+    int nAnim = 4;
+
+    // Log Record
+    Log_Trace(LOG_CHANNEL_PLOT, "Follower: " + sTag, "Found in Area: " + sArea);
+
+    // Set Follower in no-movement phase, just animation.
+    SetLocalInt(oFollower, AMBIENT_ANIM_STATE, AMBIENT_ANIM_RESET);
+
+    // Assign ambient variables
+    if(!bStart){
+        Ambient_Stop(oFollower);
+    }else{
+
+        //Main Story
+        if     (sTag == GEN_FL_Daveth)           nAnim   =   24;
+        else if(sTag == GEN_FL_Jory)             nAnim   =   37;
+        else if(sTag == GEN_FL_Fenarel)          nAnim   =   9;
+        else if(sTag == GEN_FL_Merrill)          nAnim   =   85;
+        else if(sTag == GEN_FL_Moira)            nAnim   =   9;
+
+        //Adopted Dalish
+        else if(sTag == GEN_FL_Ilyana)           nAnim   =   37;
+        else if(sTag == GEN_FL_Senros)           nAnim   =   100;
+        else if(sTag == GEN_FL_Anaise)           nAnim   =   100;
+        else if(sTag == GEN_FL_Dominique)        nAnim   =   85;
+        else if(sTag == GEN_FL_Merrilyla)        nAnim   =   37;
+
+        //Party Recruiting Mod
+        else if(sTag == GEN_FL_Duncan)           nAnim   =   100;
+        else if(sTag == GEN_FL_Cailan)           nAnim   =   85;
+        else if(sTag == GEN_FL_Andrastalla)      nAnim   =   37;
+        else if(sTag == GEN_FL_Anora)            nAnim   =   37;
+        else if(sTag == GEN_FL_Flemeth)          nAnim   =   4;
+        else if(sTag == GEN_FL_Arl_Eamon)        nAnim   =   71;
+        else if(sTag == GEN_FL_Troga)            nAnim   =   70;
+        else if(sTag == GEN_FL_Rikku_Templar)    nAnim   =   100;
+        else if(sTag == GEN_FL_LadyOfTheForest)  nAnim   =   37;
+
+        //Dark Time Act 1
+        else if(sTag == GEN_FL_Isaac)            nAnim   =   100;
+        else if(sTag == GEN_FL_Miriam)           nAnim   =   37;
+        else if(sTag == GEN_FL_Marukhan)         nAnim   =   85;
+
+        //Tevinter Warden
+        else if(sTag == GEN_FL_Lanna)            nAnim   =   100;
+        else if(sTag == GEN_FL_Marric)           nAnim   =   71;
+        else if(sTag == GEN_FL_Martin)           nAnim   =   70;
+        else if(sTag == GEN_FL_Willam)           nAnim   =   48;
+
+        //Lealion
+        else if(sTag == GEN_FL_Lealion)          nAnim   =   37;
+        else if(sTag == GEN_FL_Legion)           nAnim   =   4;
+
+        //Enigma
+        else if(sTag == GEN_FL_Vekuul)           nAnim   =   100;
+        else if(sTag == GEN_FL_Vishala)          nAnim   =   70;
+        else if(sTag == GEN_FL_helperlady)       nAnim   =   37;
+
+        //Warden's women
+        else if(sTag == GEN_FL_Mithra)           nAnim   =   48;
+        else if(sTag == GEN_FL_Elora)            nAnim   =   71;
+
+        //In search of Raina
+        else if(sTag == GEN_FL_Terra)            nAnim   =   24;
+
+        //Return to Korcari Wild
+        else if(sTag == GEN_FL_Ariane)           nAnim   =   37;
+        else if(sTag == GEN_FL_Douglas)          nAnim   =   85;
+        else if(sTag == GEN_FL_Kenneth)          nAnim   =   71;
+
+        //Other Mod Companions...
+
+
+        Ambient_Start(oFollower, AMBIENT_SYSTEM_ENABLED, AMBIENT_MOVE_NONE, AMBIENT_MOVE_PREFIX_NONE, nAnim, AMBIENT_ANIM_FREQ_ORDERED);
+
+        Log_Trace(LOG_CHANNEL_PLOT, "Starting Ambient Animations for: " + sTag, "Playing Animation: " + IntToString(nAnim));
+
+    }
+}
+
+/**********************************************************************
+Temporary dismiss warden's party and record member name in the global
+variable.
+***********************************************************************/
+void RemovePartyMember(){
+
+}
+
+/**********************************************************************
+Resummon companion as party member. There might be a situation which
+player uninstall other mod while companion is still in the warden's party,
+This method will check if mod is install first.
+***********************************************************************/
+void ReSummonPartyMember(string strName){
+
+     object oFollower;
+
+     if(strName != "" ){
+        if(IsModInstall(GetModNameByCompanion(strName))){
+            oFollower = Party_GetFollowerByTag(strName);
+            Event_PartyMemberAddProcess(oFollower);
+        }
+     }
+}
