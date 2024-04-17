@@ -1,9 +1,9 @@
 /*
-     Remove Terra from party
+     Remove Raina from party
 
      usage:
 
-        runscript terra_fire
+        runscript raina_fire
 
      Note:
 
@@ -22,7 +22,7 @@
 void main()
 {
 
-   object oFollower = GetObjectByTag(GEN_FL_Terra);
+   object oFollower = GetObjectByTag(GEN_FL_Raina);
 
    //Get current area tag
    string MapTag    = GetTag(GetAreaFromLocation(GetLocation(GetHero())));
@@ -31,13 +31,13 @@ void main()
    UT_FireFollower(oFollower, TRUE, TRUE);
 
    //Adjust flag stats
-   WR_SetPlotFlag(PLT_SDT_MOD_RAINA, GEN_TERRA_RECRUITED, FALSE);
+   WR_SetPlotFlag(PLT_SDT_MOD_RAINA, GEN_RAINA_RECRUITED, FALSE);
 
    DestroyObject(oFollower);
 
    //Respawn the npc if warden sit on the map where npc show up in the first place.
    if(MapTag == CORE_RecruitCenter){
-      SpawnCompanion_location(Raina, MapTag, GEN_FL_Terra, R_Terra );
+      SpawnCompanion_location(Raina, MapTag, GEN_FL_Raina, R_Raina );
    }
 
 }
