@@ -13,17 +13,18 @@
 //---------------------------------------------------------------------
 
 #include "utility_h"
-#include "wrappers_h"
-#include "events_h"
 #include "global_objects_2"
+#include "companion_position"
 
 //Import plot module
 #include "plt_gen00pt_party_lealion"
 
 void main()
 {
-   object oWarden   = GetHero();
    object oFollower = GetObjectByTag(GEN_FL_Lealion);
+
+   //Get current area tag
+   string MapTag    = GetTag(GetAreaFromLocation(GetLocation(GetHero())));
 
    //Fire Companion
    UT_FireFollower(oFollower, TRUE, TRUE);
@@ -38,5 +39,10 @@ void main()
    WR_SetPlotFlag(PLT_GEN00PT_PARTY_LEALION, GEN_LEALION_FIRED, TRUE);
 
    DestroyObject(oFollower);
+
+   //Respawn the npc if warden sit on the map where npc show up in the first place.
+   if(MapTag == CORE_RecruitCenter){
+      SpawnCompanion_location(Lealion, MapTag, GEN_FL_Lealion, R_Lealion );
+   }
 
 }
