@@ -1,10 +1,10 @@
 //---------------------------------------------------------------------
 /*
-     Adds Terra to the party by tag, without location restriction
+     Adds Serenity to the party by tag, without location restriction
 
      usage:
 
-        runscript terra_addparty
+        runscript serenity_addparty
 
      Note:
 
@@ -20,28 +20,27 @@
 #include "global_objects_2"
 
 //Import plot module
-#include "plt_sdt_mod_raina"
+#include "plt_gen00pt_orand_serenity"
 
 int SpawnFollower(){
 
-    object oCreature= GetObjectByTag(GEN_FL_Terra);
+    object oCreature= GetObjectByTag(GEN_FL_Serenity);
     int FollowerState = 0;
     int result = TRUE;
 
     //Check if player install the mod
-    if(!IsModInstall(Raina)){return FALSE;}
+    if(!IsModInstall(Lady_Orand)){return FALSE;}
 
     //Create follower next to Warden if follower does not exist
     if(!IsObjectValid(oCreature)){
-       oCreature = CreateObject(OBJECT_TYPE_CREATURE, R_Terra, GetLocation(OBJECT_SELF));
+       oCreature = CreateObject(OBJECT_TYPE_CREATURE, R_Serenity, GetLocation(OBJECT_SELF));
     }
 
     //Enable the target creature(Enabled object will be visible to player)
     WR_SetObjectActive(oCreature, TRUE);
 
     //Set plot flag "Recruited" to true for other feature
-    WR_SetPlotFlag(PLT_SDT_MOD_RAINA, GEN_TERRA_RECRUITED, TRUE);
-    WR_SetPlotFlag(PLT_SDT_MOD_RAINA, GEN_TERRA_IS_NOT_VIRGIN, TRUE);
+    WR_SetPlotFlag(PLT_GEN00PT_ORAND_SERENITY, GEN_SERENITY_RECRUITED, TRUE);
 
     //Only setup follower and hire it when player does not recruit it yet
     //(Active -> follower is in the party pool and in warden's 4 man party)
@@ -51,7 +50,7 @@ int SpawnFollower(){
        FollowerState != FOLLOWER_STATE_AVAILABLE){
 
        //Set companion attribute
-       SetCompanionAttribute(oCreature, RACE_HUMAN, Custom_Class);
+       SetCompanionAttribute(oCreature, RACE_SPIRIT, Custom_Class);
 
        //Hire NPC
        UT_HireFollower(oCreature);

@@ -20,12 +20,14 @@
 #include "sys_ambient_h"
 #include "utility_h"
 #include "sys_chargen_h"
+#include "party_h"
 #include "global_objects_2"
 
 //---------Plot for class-------------
 #include "plt_gen00pt_list_class"
 
 //---------Plot for each mod----------
+#include "plt_gen00pt_party"
 #include "plt_gen00pt_main_story"
 #include "plt_gen00pt_adopted_dalish"
 #include "plt_gen00pt_party_recruit"
@@ -37,7 +39,8 @@
 #include "plt_gen00pt_party_lealion"
 #include "plt_enigma_plot1"
 #include "plt_gen00pt_ndq_mithra"
-#include "plt_sdt_terra"
+#include "plt_gen00pt_ndq_elora"
+#include "plt_sdt_mod_raina"
 #include "plt_gen00pt_return_to_kw"
 #include "plt_pt_douglas"
 
@@ -149,7 +152,13 @@ int IsModInstall(int ModName){
 
        case Sapphos_Daughter:
        {
-          oTestCreature = CreateObject(OBJECT_TYPE_CREATURE, R"", Location(oMap, vTent, 0.0f));
+          oTestCreature = CreateObject(OBJECT_TYPE_CREATURE, R"gina_ma.utc", Location(oMap, vTent, 0.0f));
+          break;
+       }
+
+       case Lady_Orand:
+       {
+          oTestCreature = CreateObject(OBJECT_TYPE_CREATURE, R"orand_wizserenity.utc", Location(oMap, vTent, 0.0f));
           break;
        }
 
@@ -181,8 +190,12 @@ int GetModNameByCompanion(string strTag){
     //Small Restoration
          if(strTag == GEN_FL_Moira) ModName = Small_Restoration;
 
+    //Orand Serenity
+    else if(strTag == GEN_FL_Serenity) ModName = Lady_Orand;
+
     //In search of Raina
     else if(strTag == GEN_FL_Terra) ModName = Raina;
+    else if(strTag == GEN_FL_Raina) ModName = Raina;
 
     //Sapphos Daughter
     else if(strTag == GEN_FL_Gina ) ModName = Sapphos_Daughter;
@@ -228,6 +241,7 @@ int GetModNameByCompanion(string strTag){
             strTag == GEN_FL_Kenneth){
          ModName = Return_to_KW;}
 
+    return ModName;
 }
 
 /*******************************************************************************
@@ -374,20 +388,164 @@ void SetCompanionAttribute(object oCompanion,int Race, int intClass=999){
 /*******************************************************************************
 * Package function for adjust plot flag value
 *******************************************************************************/
-void AdjustPlotFlag(string strFollowerTag, string strFlagType, int nValue, int nCallScript = FALSE){
+void AdjustPlotFlag(string strFlagType, int nValue, string strFollowerTag = "", int nCallScript = FALSE, int AllAtOnce = FALSE){
 
    if(strFlagType == PlotType_Party){
 
+      //Main Story Follower
+      if(strFollowerTag == GEN_FL_Alistair || AllAtOnce) WR_SetPlotFlag(PLT_GEN00PT_PARTY, GEN_ALISTAIR_IN_PARTY, nValue, nCallScript);
+      if(strFollowerTag == GEN_FL_Dog      || AllAtOnce) WR_SetPlotFlag(PLT_GEN00PT_PARTY, GEN_DOG_IN_PARTY, nValue, nCallScript);
+      if(strFollowerTag == GEN_FL_Leliana  || AllAtOnce) WR_SetPlotFlag(PLT_GEN00PT_PARTY, GEN_LELIANA_IN_PARTY, nValue, nCallScript);
+      if(strFollowerTag == GEN_FL_Loghain  || AllAtOnce) WR_SetPlotFlag(PLT_GEN00PT_PARTY, GEN_LOGHAIN_IN_PARTY, nValue, nCallScript);
+      if(strFollowerTag == GEN_FL_Morrigan || AllAtOnce) WR_SetPlotFlag(PLT_GEN00PT_PARTY, GEN_MORRIGAN_IN_PARTY, nValue, nCallScript);
+      if(strFollowerTag == GEN_FL_Oghren   || AllAtOnce) WR_SetPlotFlag(PLT_GEN00PT_PARTY, GEN_OGHREN_IN_PARTY, nValue, nCallScript);
+      if(strFollowerTag == GEN_FL_Shale    || AllAtOnce) WR_SetPlotFlag(PLT_GEN00PT_PARTY, GEN_SHALE_IN_PARTY, nValue, nCallScript);
+      if(strFollowerTag == GEN_FL_Sten     || AllAtOnce) WR_SetPlotFlag(PLT_GEN00PT_PARTY, GEN_STEN_IN_PARTY, nValue, nCallScript);
+      if(strFollowerTag == GEN_FL_Wynne    || AllAtOnce) WR_SetPlotFlag(PLT_GEN00PT_PARTY, GEN_WYNNE_IN_PARTY, nValue, nCallScript);
+      if(strFollowerTag == GEN_FL_Zervan   || AllAtOnce) WR_SetPlotFlag(PLT_GEN00PT_PARTY, GEN_ZEVRAN_IN_PARTY, nValue, nCallScript);
+
       //Raina
-      if(strFollowerTag == GEN_FL_Terra) WR_SetPlotFlag(PLT_SDT_TERRA, SDT_TERRA_IN_PARTY, nValue, nCallScript);
+      if(strFollowerTag == GEN_FL_Terra   || AllAtOnce) WR_SetPlotFlag(PLT_SDT_MOD_RAINA, GEN_TERRA_IN_PARTY, nValue, nCallScript);
 
       //Return to Korcari Wilds
-      else if(strFollowerTag == GEN_FL_Ariane)  WR_SetPlotFlag(PLT_GEN00PT_RETURN_TO_KW, GEN_ARIANE_IN_PARTY, nValue, nCallScript);
-      else if(strFollowerTag == GEN_FL_Douglas) WR_SetPlotFlag(PLT_PT_DOUGLAS, PARTY_DOUGLAS_IN_PARTY, nValue, nCallScript);
-      else if(strFollowerTag == GEN_FL_Kenneth) WR_SetPlotFlag(PLT_GEN00PT_RETURN_TO_KW, GEN_KENNETH_IN_PARTY, nValue, nCallScript);
+      if(strFollowerTag == GEN_FL_Ariane  || AllAtOnce) WR_SetPlotFlag(PLT_GEN00PT_RETURN_TO_KW, GEN_ARIANE_IN_PARTY, nValue, nCallScript);
+      if(strFollowerTag == GEN_FL_Douglas || AllAtOnce) WR_SetPlotFlag(PLT_PT_DOUGLAS, PARTY_DOUGLAS_IN_PARTY, nValue, nCallScript);
+      if(strFollowerTag == GEN_FL_Kenneth || AllAtOnce) WR_SetPlotFlag(PLT_GEN00PT_RETURN_TO_KW, GEN_KENNETH_IN_PARTY, nValue, nCallScript);
+
+      //Core Story
+      if(strFollowerTag == GEN_FL_Daveth  || AllAtOnce) WR_SetPlotFlag(PLT_GEN00PT_MAIN_STORY, GEN_DAVETH_IN_PARTY  , nValue, nCallScript);
+      if(strFollowerTag == GEN_FL_Jory    || AllAtOnce) WR_SetPlotFlag(PLT_GEN00PT_MAIN_STORY, GEN_JORY_IN_PARTY    , nValue, nCallScript);
+      if(strFollowerTag == GEN_FL_Fenarel || AllAtOnce) WR_SetPlotFlag(PLT_GEN00PT_MAIN_STORY, GEN_FENAREL_IN_PARTY , nValue, nCallScript);
+      if(strFollowerTag == GEN_FL_Merrill || AllAtOnce) WR_SetPlotFlag(PLT_GEN00PT_MAIN_STORY, GEN_MERRILL_IN_PARTY , nValue, nCallScript);
+
+      //Small Restoration
+      if(strFollowerTag == GEN_FL_Moira   || AllAtOnce) WR_SetPlotFlag(PLT_GEN00PT_MAIN_STORY, GEN_MOIRA_IN_PARTY   , nValue, nCallScript);
+
+      //Adopted Dalish
+      if(strFollowerTag == GEN_FL_Ilyana    || AllAtOnce) WR_SetPlotFlag(PLT_GEN00PT_ADOPTED_DALISH, GEN_ILYANA_IN_PARTY, nValue, nCallScript);
+      if(strFollowerTag == GEN_FL_Senros    || AllAtOnce) WR_SetPlotFlag(PLT_GEN00PT_ADOPTED_DALISH, GEN_SENROS_IN_PARTY, nValue, nCallScript);
+      if(strFollowerTag == GEN_FL_Anaise    || AllAtOnce) WR_SetPlotFlag(PLT_GEN00PT_ADOPTED_DALISH, GEN_ANAISE_IN_PARTY, nValue, nCallScript);
+      if(strFollowerTag == GEN_FL_Dominique || AllAtOnce) WR_SetPlotFlag(PLT_GEN00PT_ADOPTED_DALISH, GEN_DOMINIQUE_IN_PARTY, nValue, nCallScript);
+      if(strFollowerTag == GEN_FL_Merrilyla || AllAtOnce) WR_SetPlotFlag(PLT_GEN00PT_ADOPTED_DALISH, GEN_MERRILYLA_IN_PARTY, nValue, nCallScript);
+
+      //Dark Time
+      if(strFollowerTag == GEN_FL_Isaac     || AllAtOnce) WR_SetPlotFlag(PLT_DT_ACT1, GEN_ISAAC_IN_PARTY , nValue, nCallScript);
+      if(strFollowerTag == GEN_FL_Miriam    || AllAtOnce) WR_SetPlotFlag(PLT_DT_ACT1, GEN_MIRIAM_IN_PARTY, nValue, nCallScript);
+
+      //Enigma
+      if(strFollowerTag == GEN_FL_Vekuul     || AllAtOnce) WR_SetPlotFlag(PLT_ENIGMA_PLOT1, GEN_VEKUUL_IN_PARTY,     nValue, nCallScript);
+      if(strFollowerTag == GEN_FL_Vishala    || AllAtOnce) WR_SetPlotFlag(PLT_ENIGMA_PLOT1, GEN_VISHALA_IN_PARTY,    nValue, nCallScript);
+      if(strFollowerTag == GEN_FL_helperlady || AllAtOnce) WR_SetPlotFlag(PLT_ENIGMA_PLOT1, GEN_HELPERLADY_IN_PARTY, nValue, nCallScript);
+
+      //Lealion
+      if(strFollowerTag == GEN_FL_Lealion || AllAtOnce) WR_SetPlotFlag(PLT_GEN00PT_PARTY_LEALION, GEN_LEALION_IN_PARTY, nValue, nCallScript);
+      if(strFollowerTag == GEN_FL_Legion  || AllAtOnce) WR_SetPlotFlag(PLT_GEN00PT_PARTY_LEALION, GEN_LEGION_IN_PARTY , nValue, nCallScript);
+
+      //Tevinter Warden
+      if(strFollowerTag == GEN_FL_Lanna  || AllAtOnce) WR_SetPlotFlag(PLT_GEN00PT_PARTY_LANNA,  GEN_LANNA_IN_PARTY , nValue, nCallScript);
+      if(strFollowerTag == GEN_FL_Marric || AllAtOnce) WR_SetPlotFlag(PLT_GEN00PT_PARTY_MARRIC, GEN_MARRIC_IN_PARTY, nValue, nCallScript);
+      if(strFollowerTag == GEN_FL_Martin || AllAtOnce) WR_SetPlotFlag(PLT_GEN00PT_PARTY_MARTIN, GEN_MARTIN_IN_PARTY, nValue, nCallScript);
+      if(strFollowerTag == GEN_FL_Willam || AllAtOnce) WR_SetPlotFlag(PLT_GEN00PT_PARTY_WILLAM, GEN_WILLAM_IN_PARTY, nValue, nCallScript);
+
+      //Warden's women
+      if(strFollowerTag == GEN_FL_Mithra || AllAtOnce) WR_SetPlotFlag(PLT_GEN00PT_NDQ_MITHRA, GEN_MITHRA_IN_PARTY, nValue, nCallScript);
+      if(strFollowerTag == GEN_FL_Elora  || AllAtOnce) WR_SetPlotFlag(PLT_GEN00PT_NDQ_ELORA,  GEN_ELORA_IN_PARTY,  nValue, nCallScript);
+
+      //Party Recruiting
+      if(strFollowerTag == GEN_FL_Andrastalla     || AllAtOnce) WR_SetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_ANDRASTALLA_IN_PARTY, nValue, nCallScript);
+      if(strFollowerTag == GEN_FL_Troga           || AllAtOnce) WR_SetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_TROGA_IN_PARTY, nValue, nCallScript);
+      if(strFollowerTag == GEN_FL_Rikku_Templar   || AllAtOnce) WR_SetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_RIKKU_IN_PARTY, nValue, nCallScript);
+      if(strFollowerTag == GEN_FL_Duncan          || AllAtOnce) WR_SetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_DUNCAN_IN_PARTY, nValue, nCallScript);
+      if(strFollowerTag == GEN_FL_Cailan          || AllAtOnce) WR_SetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_CAILAN_IN_PARTY, nValue, nCallScript);
+      if(strFollowerTag == GEN_FL_Anora           || AllAtOnce) WR_SetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_ANORA_IN_PARTY, nValue, nCallScript);
+      if(strFollowerTag == GEN_FL_Flemeth         || AllAtOnce) WR_SetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_FLEMETH_IN_PARTY, nValue, nCallScript);
+      if(strFollowerTag == GEN_FL_Arl_Eamon       || AllAtOnce) WR_SetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_ARL_EAMON_IN_PARTY, nValue, nCallScript);
+      if(strFollowerTag == GEN_FL_LadyOfTheForest || AllAtOnce) WR_SetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_LADYOFTHEFOREST_IN_PARTY, nValue, nCallScript);
 
    }
 }
+
+int GetPlotFlag(string strFlagType, string strFollowerTag){
+
+   int Result = FALSE;
+
+   if(strFlagType == PlotType_Party){
+
+      //Main Story Follower
+      if(strFollowerTag == GEN_FL_Alistair && WR_GetPlotFlag(PLT_GEN00PT_PARTY, GEN_ALISTAIR_IN_PARTY)) Result = TRUE;
+      if(strFollowerTag == GEN_FL_Dog      && WR_GetPlotFlag(PLT_GEN00PT_PARTY, GEN_DOG_IN_PARTY)) Result = TRUE;
+      if(strFollowerTag == GEN_FL_Leliana  && WR_GetPlotFlag(PLT_GEN00PT_PARTY, GEN_LELIANA_IN_PARTY)) Result = TRUE;
+      if(strFollowerTag == GEN_FL_Loghain  && WR_GetPlotFlag(PLT_GEN00PT_PARTY, GEN_LOGHAIN_IN_PARTY)) Result = TRUE;
+      if(strFollowerTag == GEN_FL_Morrigan && WR_GetPlotFlag(PLT_GEN00PT_PARTY, GEN_MORRIGAN_IN_PARTY)) Result = TRUE;
+      if(strFollowerTag == GEN_FL_Oghren   && WR_GetPlotFlag(PLT_GEN00PT_PARTY, GEN_OGHREN_IN_PARTY)) Result = TRUE;
+      if(strFollowerTag == GEN_FL_Shale    && WR_GetPlotFlag(PLT_GEN00PT_PARTY, GEN_SHALE_IN_PARTY)) Result = TRUE;
+      if(strFollowerTag == GEN_FL_Sten     && WR_GetPlotFlag(PLT_GEN00PT_PARTY, GEN_STEN_IN_PARTY)) Result = TRUE;
+      if(strFollowerTag == GEN_FL_Wynne    && WR_GetPlotFlag(PLT_GEN00PT_PARTY, GEN_WYNNE_IN_PARTY)) Result = TRUE;
+      if(strFollowerTag == GEN_FL_Zervan   && WR_GetPlotFlag(PLT_GEN00PT_PARTY, GEN_ZEVRAN_IN_PARTY)) Result = TRUE;
+
+      //Raina
+      if(strFollowerTag == GEN_FL_Terra    && WR_GetPlotFlag(PLT_SDT_MOD_RAINA, GEN_TERRA_IN_PARTY)) Result = TRUE;
+
+      //Return to Korcari Wilds
+      if(strFollowerTag == GEN_FL_Ariane   && WR_GetPlotFlag(PLT_GEN00PT_RETURN_TO_KW, GEN_ARIANE_IN_PARTY)) Result = TRUE;
+      if(strFollowerTag == GEN_FL_Douglas  && WR_GetPlotFlag(PLT_PT_DOUGLAS, PARTY_DOUGLAS_IN_PARTY)) Result = TRUE;
+      if(strFollowerTag == GEN_FL_Kenneth  && WR_GetPlotFlag(PLT_GEN00PT_RETURN_TO_KW, GEN_KENNETH_IN_PARTY)) Result = TRUE;
+
+      //Core Story
+      if(strFollowerTag == GEN_FL_Daveth   && WR_GetPlotFlag(PLT_GEN00PT_MAIN_STORY, GEN_DAVETH_IN_PARTY)) Result = TRUE;
+      if(strFollowerTag == GEN_FL_Jory     && WR_GetPlotFlag(PLT_GEN00PT_MAIN_STORY, GEN_JORY_IN_PARTY)) Result = TRUE;
+      if(strFollowerTag == GEN_FL_Fenarel  && WR_GetPlotFlag(PLT_GEN00PT_MAIN_STORY, GEN_FENAREL_IN_PARTY)) Result = TRUE;
+      if(strFollowerTag == GEN_FL_Merrill  && WR_GetPlotFlag(PLT_GEN00PT_MAIN_STORY, GEN_MERRILL_IN_PARTY)) Result = TRUE;
+
+      //Small Restoration
+      if(strFollowerTag == GEN_FL_Moira    && WR_GetPlotFlag(PLT_GEN00PT_MAIN_STORY, GEN_MOIRA_IN_PARTY)) Result = TRUE;
+
+      //Adopted Dalish
+      if(strFollowerTag == GEN_FL_Ilyana    && WR_GetPlotFlag(PLT_GEN00PT_ADOPTED_DALISH, GEN_ILYANA_IN_PARTY)) Result = TRUE;
+      if(strFollowerTag == GEN_FL_Senros    && WR_GetPlotFlag(PLT_GEN00PT_ADOPTED_DALISH, GEN_SENROS_IN_PARTY)) Result = TRUE;
+      if(strFollowerTag == GEN_FL_Anaise    && WR_GetPlotFlag(PLT_GEN00PT_ADOPTED_DALISH, GEN_ANAISE_IN_PARTY)) Result = TRUE;
+      if(strFollowerTag == GEN_FL_Dominique && WR_GetPlotFlag(PLT_GEN00PT_ADOPTED_DALISH, GEN_DOMINIQUE_IN_PARTY)) Result = TRUE;
+      if(strFollowerTag == GEN_FL_Merrilyla && WR_GetPlotFlag(PLT_GEN00PT_ADOPTED_DALISH, GEN_MERRILYLA_IN_PARTY)) Result = TRUE;
+
+      //Dark Time
+      if(strFollowerTag == GEN_FL_Isaac     && WR_GetPlotFlag(PLT_DT_ACT1, GEN_ISAAC_IN_PARTY))  Result = TRUE;
+      if(strFollowerTag == GEN_FL_Miriam    && WR_GetPlotFlag(PLT_DT_ACT1, GEN_MIRIAM_IN_PARTY)) Result = TRUE;
+
+      //Enigma
+      if(strFollowerTag == GEN_FL_Vekuul     && WR_GetPlotFlag(PLT_ENIGMA_PLOT1, GEN_VEKUUL_IN_PARTY)) Result = TRUE;
+      if(strFollowerTag == GEN_FL_Vishala    && WR_GetPlotFlag(PLT_ENIGMA_PLOT1, GEN_VISHALA_IN_PARTY)) Result = TRUE;
+      if(strFollowerTag == GEN_FL_helperlady && WR_GetPlotFlag(PLT_ENIGMA_PLOT1, GEN_HELPERLADY_IN_PARTY)) Result = TRUE;
+
+      //Lealion
+      if(strFollowerTag == GEN_FL_Lealion && WR_GetPlotFlag(PLT_GEN00PT_PARTY_LEALION, GEN_LEALION_IN_PARTY)) Result = TRUE;
+      if(strFollowerTag == GEN_FL_Legion  && WR_GetPlotFlag(PLT_GEN00PT_PARTY_LEALION, GEN_LEGION_IN_PARTY)) Result = TRUE;
+
+      //Tevinter Warden
+      if(strFollowerTag == GEN_FL_Lanna  && WR_GetPlotFlag(PLT_GEN00PT_PARTY_LANNA, GEN_LANNA_IN_PARTY)) Result = TRUE;
+      if(strFollowerTag == GEN_FL_Marric && WR_GetPlotFlag(PLT_GEN00PT_PARTY_MARRIC, GEN_MARRIC_IN_PARTY)) Result = TRUE;
+      if(strFollowerTag == GEN_FL_Martin && WR_GetPlotFlag(PLT_GEN00PT_PARTY_MARTIN, GEN_MARTIN_IN_PARTY)) Result = TRUE;
+      if(strFollowerTag == GEN_FL_Willam && WR_GetPlotFlag(PLT_GEN00PT_PARTY_WILLAM, GEN_WILLAM_IN_PARTY)) Result = TRUE;
+
+      //Warden's women
+      if(strFollowerTag == GEN_FL_Mithra && WR_GetPlotFlag(PLT_GEN00PT_NDQ_MITHRA, GEN_MITHRA_IN_PARTY)) Result = TRUE;
+      if(strFollowerTag == GEN_FL_Elora  && WR_GetPlotFlag(PLT_GEN00PT_NDQ_ELORA, GEN_ELORA_IN_PARTY)) Result = TRUE;
+
+      //Party Recruiting
+      if(strFollowerTag == GEN_FL_Andrastalla     && WR_GetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_ANDRASTALLA_IN_PARTY)) Result = TRUE;
+      if(strFollowerTag == GEN_FL_Troga           && WR_GetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_TROGA_IN_PARTY)) Result = TRUE;
+      if(strFollowerTag == GEN_FL_Rikku_Templar   && WR_GetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_RIKKU_IN_PARTY)) Result = TRUE;
+      if(strFollowerTag == GEN_FL_Duncan          && WR_GetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_DUNCAN_IN_PARTY)) Result = TRUE;
+      if(strFollowerTag == GEN_FL_Cailan          && WR_GetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_CAILAN_IN_PARTY)) Result = TRUE;
+      if(strFollowerTag == GEN_FL_Anora           && WR_GetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_ANORA_IN_PARTY)) Result = TRUE;
+      if(strFollowerTag == GEN_FL_Flemeth         && WR_GetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_FLEMETH_IN_PARTY)) Result = TRUE;
+      if(strFollowerTag == GEN_FL_Arl_Eamon       && WR_GetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_ARL_EAMON_IN_PARTY)) Result = TRUE;
+      if(strFollowerTag == GEN_FL_LadyOfTheForest && WR_GetPlotFlag(PLT_GEN00PT_PARTY_RECRUIT, GEN_LADYOFTHEFOREST_IN_PARTY)) Result = TRUE;
+
+   }
+
+   return Result;
+}
+
 
 /*******************************************************************************
 * Check "Recruited" flag and modify it if necessary. Also activate the follower
@@ -502,11 +660,15 @@ void Camp_FollowerAmbient(object oFollower, int bStart)
 
         //In search of Raina
         else if(sTag == GEN_FL_Terra)            nAnim   =   24;
+        else if(sTag == GEN_FL_Raina)            nAnim   =   9;
 
         //Return to Korcari Wild
         else if(sTag == GEN_FL_Ariane)           nAnim   =   37;
         else if(sTag == GEN_FL_Douglas)          nAnim   =   85;
         else if(sTag == GEN_FL_Kenneth)          nAnim   =   71;
+
+        //Orand Serenity
+        else if(sTag == GEN_FL_Serenity)         nAnim   =   37;
 
         //Other Mod Companions...
 
@@ -516,14 +678,6 @@ void Camp_FollowerAmbient(object oFollower, int bStart)
         Log_Trace(LOG_CHANNEL_PLOT, "Starting Ambient Animations for: " + sTag, "Playing Animation: " + IntToString(nAnim));
 
     }
-}
-
-/**********************************************************************
-Temporary dismiss warden's party and record member name in the global
-variable.
-***********************************************************************/
-void RemovePartyMember(){
-
 }
 
 /**********************************************************************

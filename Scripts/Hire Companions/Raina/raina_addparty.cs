@@ -24,7 +24,7 @@
 
 int SpawnFollower(){
 
-    object oCreature= GetObjectByTag(GEN_FL_Terra);
+    object oCreature= GetObjectByTag(GEN_FL_Raina);
     int FollowerState = 0;
     int result = TRUE;
 
@@ -33,15 +33,15 @@ int SpawnFollower(){
 
     //Create follower next to Warden if follower does not exist
     if(!IsObjectValid(oCreature)){
-       oCreature = CreateObject(OBJECT_TYPE_CREATURE, R_Terra, GetLocation(OBJECT_SELF));
+       oCreature = CreateObject(OBJECT_TYPE_CREATURE, R_Raina, GetLocation(OBJECT_SELF));
     }
 
     //Enable the target creature(Enabled object will be visible to player)
     WR_SetObjectActive(oCreature, TRUE);
 
     //Set plot flag "Recruited" to true for other feature
-    WR_SetPlotFlag(PLT_SDT_MOD_RAINA, GEN_TERRA_RECRUITED, TRUE);
-    WR_SetPlotFlag(PLT_SDT_MOD_RAINA, GEN_TERRA_IS_NOT_VIRGIN, TRUE);
+    WR_SetPlotFlag(PLT_SDT_MOD_RAINA, GEN_RAINA_RECRUITED, TRUE);
+    WR_SetPlotFlag(PLT_SDT_MOD_RAINA, GEN_RAINA_IS_NOT_VIRGIN, TRUE);
 
     //Only setup follower and hire it when player does not recruit it yet
     //(Active -> follower is in the party pool and in warden's 4 man party)

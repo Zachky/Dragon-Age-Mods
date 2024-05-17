@@ -1,11 +1,4 @@
 /*******************************************************************************
-* Party Member Temporarilly store variable
-*******************************************************************************/
-const string Party_Member1 = "";   
-const string Party_Member2 = "";
-const string Party_Member3 = "";
-
-/*******************************************************************************
 * Mod Name
 *******************************************************************************/
 const int Adopted_Dalish = 0;
@@ -18,8 +11,9 @@ const int Raina = 6;
 const int Return_to_KW = 7;
 const int Tevinter_Warden = 8;
 const int Warden_Women = 9;
-const int Main_Story = 10;  
+const int Main_Story = 10;
 const int Sapphos_Daughter = 11;
+const int Lady_Orand = 12;
 
 /*******************************************************************************
 * Map Tag name
@@ -56,6 +50,22 @@ const string PlotType_Camp  = "Camp";
 /*******************************************************************************
 * FOLLOWERS -- "Core Story"
 *******************************************************************************/
+const string GEN_FL_Alistair = "gen00fl_alistair";
+const string GEN_FL_Dog = "gen00fl_dog";
+const string GEN_FL_Leliana = "gen00fl_leliana";
+const string GEN_FL_Loghain = "gen00fl_loghain";
+const string GEN_FL_Morrigan = "gen00fl_morrigan";
+
+const string GEN_FL_Oghren = "gen00fl_oghren";
+const string GEN_FL_Shale = "gen00fl_shale";
+const string GEN_FL_Sten = "gen00fl_sten";
+const string GEN_FL_Wynne = "gen00fl_wynne";
+const string GEN_FL_Zervan = "gen00fl_zevran";
+
+
+/*******************************************************************************
+* FOLLOWERS -- "Core Story"
+*******************************************************************************/
 const string GEN_FL_Daveth = "pre100cr_daveth";
 const string GEN_FL_Jory = "pre100cr_jory";
 const string GEN_FL_Fenarel = "bed200cr_fenarel";
@@ -81,6 +91,17 @@ const resource R_Moira    = R"camp_bloodmage.utc";
 const string Agent_Moira  = "agent_moira";
 
 /*******************************************************************************
+* FOLLOWERS -- "Lady Serenity"
+*******************************************************************************/
+const string GEN_FL_Serenity = "orand_saleserenitydao";
+const string GEN_FL_Sylvan   = "se_boss_sylvan";
+
+const resource R_Serenity    = R"orand_saleserenitydao.utc";
+const resource R_Sylvan      = R"boss_sylvan.utc";
+
+const string Agent_Serenity  = "agent_serenity";
+
+/*******************************************************************************
 * FOLLOWERS -- Mod "Adopted Dalish"
 *******************************************************************************/
 const string GEN_FL_Ilyana    = "ado_companion_ilyana";
@@ -104,7 +125,7 @@ const string Agent_Senros    = "agent_senros";
 /*******************************************************************************
 * FOLLOWERS -- Mod "Sapphos Daughter"
 *******************************************************************************/
-                                     
+
 const string GEN_FL_Gina  = "gin_hf_gina";
 
 const resource R_Gina = R"gin_hf_gina.utc";
@@ -197,6 +218,15 @@ const string Agent_Elora        = "agent_elora";
 * FOLLOWERS -- Mod "In search of Raina"
 *******************************************************************************/
 const string GEN_FL_Terra      = "terra";
+const string GEN_FL_Raina      = "raina";
+const string GEN_FL_Pride      = "sdt_pridedemon";
+
+const resource R_Terra         = R"terra.utc";
+const resource R_Raina         = R"raina_3.utc";
+const resource R_PrideDemon    = R"enemy_pride.utc";
+
+const string Agent_Terra       = "agent_terra";
+const string Agent_Raina       = "agent_raina";
 
 /*******************************************************************************
 * FOLLOWERS -- Mod "Return to Korcari Wild"
